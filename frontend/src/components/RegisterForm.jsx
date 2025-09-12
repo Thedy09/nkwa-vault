@@ -1,0 +1,417 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
+import { 
+  Mail, 
+  Lock, 
+  User, 
+  Eye, 
+  EyeOff, 
+  UserPlus, 
+  AlertCircle,
+  CheckCircle,
+  Loader2
+} from 'lucide-react';
+
+const RegisterForm = ({ onSwitchToLogin, onClose }) => {
+  const { register } = useAuth();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+    setError(''); // Effacer l'erreur quand l'utilisateur tape
+  };
+
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      setError('Le nom est requis');
+      return false;
+    }
+    if (!formData.email.trim()) {
+      setError('L\'email est requis');
+      return false;
+    }
+    if (formData.password.length < 6) {
+      setError('Le mot de passe doit contenir au moins 6 caractères');
+      return false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError('Les mots de passe ne correspondent pas');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
+
+    const result = await register(formData.email, formData.password, formData.name);
+    
+    if (result.success) {
+      setSuccess('Compte créé avec succès !');
+      setTimeout(() => {
+        onClose?.(); // Fermer le modal si fourni
+      }, 1500);
+    } else {
+      setError(result.message);
+    }
+    
+    setLoading(false);
+  };
+
+  return (
+    <motion.div 
+      className="auth-form"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="auth-header">
+        <h2 className="auth-title">
+          <UserPlus size={32} />
+          Inscription
+        </h2>
+        <p className="auth-subtitle">
+          Rejoignez la communauté African Culture Vault
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="auth-form-content">
+        {error && (
+          <motion.div 
+            className="auth-error"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <AlertCircle size={20} />
+            <span>{error}</span>
+          </motion.div>
+        )}
+
+        {success && (
+          <motion.div 
+            className="auth-success"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <CheckCircle size={20} />
+            <span>{success}</span>
+          </motion.div>
+        )}
+
+        <div className="input-group">
+          <label htmlFor="name">Nom complet</label>
+          <div className="input-with-icon">
+            <User size={20} />
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Votre nom complet"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="email">Email</label>
+          <div className="input-with-icon">
+            <Mail size={20} />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="votre@email.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="password">Mot de passe</label>
+          <div className="input-with-icon">
+            <Lock size={20} />
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Minimum 6 caractères"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+              disabled={loading}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+          <div className="input-with-icon">
+            <Lock size={20} />
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type={showConfirmPassword ? 'text' : 'password'}
+              placeholder="Répétez votre mot de passe"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              disabled={loading}
+            >
+              {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+        </div>
+
+        <motion.button
+          type="submit"
+          className="btn btn-primary btn-large auth-submit"
+          disabled={loading}
+          whileHover={{ scale: loading ? 1 : 1.02 }}
+          whileTap={{ scale: loading ? 1 : 0.98 }}
+        >
+          {loading ? (
+            <>
+              <Loader2 size={20} className="spinner" />
+              Création du compte...
+            </>
+          ) : (
+            <>
+              <UserPlus size={20} />
+              Créer mon compte
+            </>
+          )}
+        </motion.button>
+
+        <div className="auth-switch">
+          <p>Déjà un compte ?</p>
+          <button
+            type="button"
+            className="auth-link"
+            onClick={onSwitchToLogin}
+            disabled={loading}
+          >
+            Se connecter
+          </button>
+        </div>
+      </form>
+
+      <style jsx>{`
+        .auth-form {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-lg);
+          padding: var(--spacing-xl);
+          max-width: 400px;
+          width: 100%;
+          box-shadow: var(--shadow-xl);
+        }
+
+        .auth-header {
+          text-align: center;
+          margin-bottom: var(--spacing-xl);
+        }
+
+        .auth-title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: var(--spacing-sm);
+          font-size: 2rem;
+          font-weight: 700;
+          margin-bottom: var(--spacing-sm);
+          color: var(--african-yellow);
+        }
+
+        .auth-subtitle {
+          opacity: 0.8;
+          font-size: 1rem;
+        }
+
+        .auth-form-content {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-md);
+        }
+
+        .auth-error {
+          display: flex;
+          align-items: center;
+          gap: var(--spacing-sm);
+          padding: var(--spacing-sm);
+          background: rgba(220, 20, 60, 0.1);
+          border: 1px solid var(--african-red);
+          border-radius: var(--radius-sm);
+          color: var(--african-red);
+          font-size: 0.9rem;
+        }
+
+        .auth-success {
+          display: flex;
+          align-items: center;
+          gap: var(--spacing-sm);
+          padding: var(--spacing-sm);
+          background: rgba(34, 139, 34, 0.1);
+          border: 1px solid var(--african-green);
+          border-radius: var(--radius-sm);
+          color: var(--african-green);
+          font-size: 0.9rem;
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-xs);
+        }
+
+        .input-group label {
+          font-weight: 500;
+          color: var(--african-yellow);
+          font-size: 0.9rem;
+        }
+
+        .input-with-icon {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+
+        .input-with-icon svg:first-child {
+          position: absolute;
+          left: var(--spacing-sm);
+          color: var(--african-yellow);
+          z-index: 1;
+        }
+
+        .input-with-icon input {
+          width: 100%;
+          padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) calc(var(--spacing-sm) + 24px);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--radius-sm);
+          background: rgba(255, 255, 255, 0.05);
+          color: white;
+          font-family: inherit;
+          transition: all 0.3s ease;
+        }
+
+        .input-with-icon input:focus {
+          outline: none;
+          border-color: var(--african-yellow);
+          box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+
+        .input-with-icon input:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .password-toggle {
+          position: absolute;
+          right: var(--spacing-sm);
+          background: none;
+          border: none;
+          color: var(--african-yellow);
+          cursor: pointer;
+          padding: var(--spacing-xs);
+          border-radius: var(--radius-sm);
+          transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+          background: rgba(255, 215, 0, 0.1);
+        }
+
+        .password-toggle:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .auth-submit {
+          width: 100%;
+          margin-top: var(--spacing-md);
+        }
+
+        .auth-switch {
+          text-align: center;
+          margin-top: var(--spacing-md);
+          padding-top: var(--spacing-md);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-switch p {
+          margin-bottom: var(--spacing-sm);
+          opacity: 0.8;
+        }
+
+        .auth-link {
+          background: none;
+          border: none;
+          color: var(--african-yellow);
+          cursor: pointer;
+          font-family: inherit;
+          font-size: 1rem;
+          font-weight: 500;
+          text-decoration: underline;
+          transition: all 0.3s ease;
+        }
+
+        .auth-link:hover {
+          color: var(--african-gold);
+        }
+
+        .auth-link:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      `}</style>
+    </motion.div>
+  );
+};
+
+export default RegisterForm;
+
+
