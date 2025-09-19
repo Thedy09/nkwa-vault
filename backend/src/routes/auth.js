@@ -3,23 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
 const { authenticateToken } = require('../middleware/auth');
-
-// Import conditionnel des modèles
-let User;
-try {
-  const mongoose = require('mongoose');
-  if (mongoose.connection.readyState === 1) {
-    User = require('../models/User');
-  } else {
-    console.log('Mode démo: MongoDB non connecté, utilisation du stockage en mémoire');
-  }
-} catch (error) {
-  console.log('Mode démo: Modèles non disponibles');
-}
-
-// Stockage en mémoire pour le mode démo
-const demoUsers = new Map();
-let nextUserId = 1;
+const { prisma } = require('../config/database');
 
 // Configuration JWT
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-here';
@@ -40,71 +24,51 @@ const authLimiter = rateLimit({
 // Créer un utilisateur admin par défaut
 const createDefaultAdmin = async () => {
   try {
-    if (User) {
-      // Mode normal avec MongoDB
-      const existingAdmin = await User.findOne({ email: 'admin@acv.africa' });
-      if (existingAdmin) {
-        console.log('👤 Utilisateur admin déjà existant');
-        return;
-      }
+    const existingAdmin = await prisma.user.findUnique({
+      where: { email: 'admin@acv.africa' }
+    });
+    
+    if (existingAdmin) {
+      // Utilisateur admin déjà existant
+      return;
+    }
 
-      const hashedPassword = await bcrypt.hash('admin123', 12);
-      const admin = new User({
+    const hashedPassword = await bcrypt.hash('admin123', 12);
+    const admin = await prisma.user.create({
+      data: {
         name: 'Administrateur ACV',
         email: 'admin@acv.africa',
         password: hashedPassword,
-        role: 'admin',
+        role: 'ADMIN',
         isActive: true,
-        isVerified: true,
-        profile: {
-          bio: 'Administrateur principal de Nkwa Vault',
-          country: 'Afrique',
-          languages: ['français', 'anglais'],
-          interests: ['culture africaine', 'patrimoine', 'technologie']
-        },
-        stats: {
-          contributions: 0,
-          views: 0,
-          likes: 0,
-          followers: 0,
-          following: 0
-        }
-      });
-
-      await admin.save();
-      console.log('👤 Utilisateur admin créé: admin@acv.africa / admin123');
-    } else {
-      // Mode démo
-      if (!demoUsers.has('admin@acv.africa')) {
-        const hashedPassword = await bcrypt.hash('admin123', 12);
-        const adminData = {
-          id: 0,
-          name: 'Administrateur ACV',
-          email: 'admin@acv.africa',
-          password: hashedPassword,
-          role: 'admin',
-          isActive: true,
-          isVerified: true,
-          profile: {
-            bio: 'Administrateur principal de Nkwa Vault',
-            country: 'Afrique',
-            languages: ['français', 'anglais'],
-            interests: ['culture africaine', 'patrimoine', 'technologie']
-          },
-          stats: {
-            contributions: 0,
-            views: 0,
-            likes: 0,
-            followers: 0,
-            following: 0
-          },
-          createdAt: new Date()
-        };
-        
-        demoUsers.set('admin@acv.africa', adminData);
-        console.log('👤 Utilisateur admin créé en mode démo: admin@acv.africa / admin123');
+        isVerified: true
       }
-    }
+    });
+
+    // Créer le profil séparément
+    await prisma.userProfile.create({
+      data: {
+        userId: admin.id,
+        bio: 'Administrateur principal de Nkwa V',
+        country: 'Afrique',
+        languages: ['français', 'anglais'],
+        interests: ['culture africaine', 'patrimoine', 'technologie']
+      }
+    });
+
+    // Créer les stats séparément
+    await prisma.userStats.create({
+      data: {
+        userId: admin.id,
+        contributions: 0,
+        views: 0,
+        likes: 0,
+        followers: 0,
+        following: 0
+      }
+    });
+
+    // Utilisateur admin créé avec succès
   } catch (error) {
     console.error('Erreur création admin:', error);
   }
@@ -133,109 +97,77 @@ router.post('/register', authLimiter, async (req, res) => {
       });
     }
 
-    if (User) {
-      // Mode normal avec MongoDB
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(409).json({
-          success: false,
-          message: 'Un compte avec cet email existe déjà'
-        });
-      }
+    // Vérifier si l'utilisateur existe déjà
+    const existingUser = await prisma.user.findUnique({
+      where: { email }
+    });
 
-      const hashedPassword = await bcrypt.hash(password, 12);
-      const user = new User({
-        name,
-        email,
-        password: hashedPassword,
-        role: 'user',
-        isActive: true,
-        isVerified: false,
-        stats: {
-          contributions: 0,
-          views: 0,
-          likes: 0,
-          followers: 0,
-          following: 0
-        }
+    if (existingUser) {
+      return res.status(409).json({
+        success: false,
+        message: 'Un compte avec cet email existe déjà'
       });
+    }
 
-      await user.save();
-    } else {
-      // Mode démo
-      if (demoUsers.has(email)) {
-        return res.status(409).json({
-          success: false,
-          message: 'Un compte avec cet email existe déjà'
-        });
-      }
-
-      const hashedPassword = await bcrypt.hash(password, 12);
-      const userId = nextUserId++;
-      
-      const userData = {
-        id: userId,
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const user = await prisma.user.create({
+      data: {
         name,
         email,
         password: hashedPassword,
-        role: 'user',
+        role: 'USER',
         isActive: true,
-        isVerified: true,
-        stats: {
-          contributions: 0,
-          views: 0,
-          likes: 0,
-          followers: 0,
-          following: 0
-        },
-        createdAt: new Date()
-      };
+        isVerified: false
+      }
+    });
 
-      demoUsers.set(email, userData);
-    }
+    // Créer les stats séparément
+    await prisma.userStats.create({
+      data: {
+        userId: user.id,
+        contributions: 0,
+        views: 0,
+        likes: 0,
+        followers: 0,
+        following: 0
+      }
+    });
 
-    // Générer le token et préparer la réponse
-    let userData, userId;
-    
-    if (User) {
-      // Mode normal avec MongoDB
-      userId = user._id;
-      userData = {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        isActive: user.isActive,
-        isVerified: user.isVerified,
-        stats: user.stats,
-        createdAt: user.createdAt
-      };
-    } else {
-      // Mode démo
-      const user = demoUsers.get(email);
-      userId = user.id;
-      userData = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        isActive: user.isActive,
-        isVerified: user.isVerified,
-        stats: user.stats,
-        createdAt: user.createdAt
-      };
-    }
-
+    // Générer le token
     const token = jwt.sign(
       { 
-        id: userId, 
-        email: email, 
-        role: 'user',
-        name: name
+        id: user.id, 
+        email: user.email, 
+        role: user.role,
+        name: user.name
       },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
+
+    // Récupérer les données complètes de l'utilisateur
+    const userWithRelations = await prisma.user.findUnique({
+      where: { id: user.id },
+      include: {
+        profile: true,
+        stats: true,
+        preferences: true
+      }
+    });
+
+    // Préparer les données utilisateur (sans le mot de passe)
+    const userData = {
+      id: userWithRelations.id,
+      name: userWithRelations.name,
+      email: userWithRelations.email,
+      role: userWithRelations.role,
+      isActive: userWithRelations.isActive,
+      isVerified: userWithRelations.isVerified,
+      profile: userWithRelations.profile,
+      stats: userWithRelations.stats,
+      preferences: userWithRelations.preferences,
+      createdAt: userWithRelations.createdAt
+    };
 
     res.status(201).json({
       success: true,
@@ -267,95 +199,70 @@ router.post('/login', authLimiter, async (req, res) => {
       });
     }
 
-    let user, userData;
-    
-    if (User) {
-      // Mode normal avec MongoDB
-      user = await User.findOne({ email });
-      if (!user) {
-        return res.status(401).json({
-          success: false,
-          message: 'Email ou mot de passe incorrect'
-        });
-      }
+    // Trouver l'utilisateur
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
 
-      // Vérifier le mot de passe
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).json({
-          success: false,
-          message: 'Email ou mot de passe incorrect'
-        });
-      }
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Email ou mot de passe incorrect'
+      });
+    }
 
-      // Vérifier si le compte est actif
-      if (!user.isActive) {
-        return res.status(403).json({
-          success: false,
-          message: 'Compte désactivé. Contactez l\'administrateur.'
-        });
-      }
+    // Vérifier le mot de passe
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: 'Email ou mot de passe incorrect'
+      });
+    }
 
-      userData = {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        isActive: user.isActive,
-        isVerified: user.isVerified,
-        stats: user.stats,
-        createdAt: user.createdAt
-      };
-    } else {
-      // Mode démo
-      user = demoUsers.get(email);
-      if (!user) {
-        return res.status(401).json({
-          success: false,
-          message: 'Email ou mot de passe incorrect'
-        });
-      }
-
-      // Vérifier le mot de passe
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).json({
-          success: false,
-          message: 'Email ou mot de passe incorrect'
-        });
-      }
-
-      // Vérifier si le compte est actif
-      if (!user.isActive) {
-        return res.status(403).json({
-          success: false,
-          message: 'Compte désactivé. Contactez l\'administrateur.'
-        });
-      }
-
-      userData = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        isActive: user.isActive,
-        isVerified: user.isVerified,
-        stats: user.stats,
-        createdAt: user.createdAt
-      };
+    // Vérifier si le compte est actif
+    if (!user.isActive) {
+      return res.status(403).json({
+        success: false,
+        message: 'Compte désactivé. Contactez l\'administrateur.'
+      });
     }
 
     // Générer le token
     const token = jwt.sign(
       { 
-        id: userData.id, 
-        email: userData.email, 
-        role: userData.role,
-        name: userData.name
+        id: user.id, 
+        email: user.email, 
+        role: user.role,
+        name: user.name
       },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
+
+    // Récupérer les données complètes de l'utilisateur
+    const userWithRelations = await prisma.user.findUnique({
+      where: { id: user.id },
+      include: {
+        profile: true,
+        stats: true,
+        preferences: true
+      }
+    });
+
+    // Préparer les données utilisateur (sans le mot de passe)
+    const userData = {
+      id: userWithRelations.id,
+      name: userWithRelations.name,
+      email: userWithRelations.email,
+      role: userWithRelations.role,
+      isActive: userWithRelations.isActive,
+      isVerified: userWithRelations.isVerified,
+      profile: userWithRelations.profile,
+      stats: userWithRelations.stats,
+      preferences: userWithRelations.preferences,
+      createdAt: userWithRelations.createdAt
+    };
 
     res.json({
       success: true,
@@ -377,7 +284,14 @@ router.post('/login', authLimiter, async (req, res) => {
 // GET /auth/me - Profil utilisateur
 router.get('/me', authenticateToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      include: {
+        profile: true,
+        preferences: true,
+        stats: true
+      }
+    });
     
     if (!user) {
       return res.status(404).json({
@@ -412,14 +326,26 @@ router.post('/logout', authenticateToken, (req, res) => {
 router.get('/users', authenticateToken, async (req, res) => {
   try {
     // Vérifier les droits admin
-    if (req.user.role !== 'admin') {
+    if (req.user.role !== 'ADMIN') {
       return res.status(403).json({
         success: false,
         message: 'Accès refusé. Droits administrateur requis.'
       });
     }
 
-    const users = await User.find({}, '-password').sort({ createdAt: -1 });
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        isActive: true,
+        isVerified: true,
+        createdAt: true,
+        updatedAt: true
+      },
+      orderBy: { createdAt: 'desc' }
+    });
     
     res.json({
       success: true,

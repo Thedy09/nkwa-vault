@@ -1,27 +1,47 @@
 {
-  "name": "nkwa-vault-backend",
+  "name": "nkwa-v-backend",
   "version": "0.1.0",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "setup:logs": "node scripts/setup-logs.js"
   },
   "dependencies": {
-    "@hashgraph/sdk": "^2.72.0",
+    "@hashgraph/sdk": "^2.73.1",
+    "@prisma/client": "^6.16.1",
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
+    "cheerio": "^1.1.2",
     "cloudinary": "^2.7.0",
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
+    "ioredis": "^5.7.0",
+    "ipfs-http-client": "^56.0.3",
+    "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.1",
     "multer": "^2.0.2",
-    "multer-storage-cloudinary": "^3.0.0",
+    "multer-storage-cloudinary": "^2.0.0",
+    "prisma": "^6.16.1",
+    "redis": "^5.8.2",
     "sharp": "^0.34.3",
-    "web3.storage": "^4.5.5"
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "web3.storage": "^4.5.5",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "supertest": "^6.3.3"
   }
 }

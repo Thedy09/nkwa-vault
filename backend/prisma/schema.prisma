@@ -1,0 +1,574 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modèle Utilisateur
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      UserRole @default(USER)
+  
+  // Profil utilisateur
+  profile   UserProfile?
+  
+  // Préférences
+  preferences UserPreferences?
+  
+  // Statistiques
+  stats     UserStats?
+  
+  // Statut
+  isActive    Boolean   @default(true)
+  isVerified  Boolean   @default(false)
+  lastLogin   DateTime?
+  loginCount  Int       @default(0)
+  
+  // Relations
+  riddles     Riddle[]
+  reviews     Review[]
+  likes       Like[]
+  follows     Follow[] @relation("UserFollows")
+  followers   Follow[] @relation("UserFollowers")
+  culturalContent CulturalContent[]
+  rewards     Reward[]
+  challenges  Challenge[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model UserProfile {
+  id       String @id @default(cuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  avatar   String?
+  bio      String? @db.VarChar(500)
+  country  String?
+  region   String?
+  languages String[]
+  interests String[]
+  website  String?
+  
+  // Réseaux sociaux
+  socialMedia Json?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_profiles")
+}
+
+model UserPreferences {
+  id       String @id @default(cuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  language String @default("fr")
+  
+  // Notifications
+  notifications Json?
+  
+  // Confidentialité
+  privacy Json?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_preferences")
+}
+
+model UserStats {
+  id       String @id @default(cuid())
+  userId   String @unique
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  contributions Int @default(0)
+  views         Int @default(0)
+  likes         Int @default(0)
+  followers     Int @default(0)
+  following     Int @default(0)
+  totalRewards  Int @default(0)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_stats")
+}
+
+// Modèle Devinette
+model Riddle {
+  id       String @id @default(cuid())
+  
+  // Contenu principal
+  question String @db.VarChar(500)
+  answer   String @db.VarChar(200)
+  hint     String? @db.VarChar(300)
+  explanation String? @db.VarChar(1000)
+  culturalContext String? @db.VarChar(1000)
+  
+  // Classification
+  category RiddleCategory
+  difficulty RiddleDifficulty
+  language String @default("fr") @db.VarChar(10)
+  region   String? @db.VarChar(100)
+  country  String? @db.VarChar(100)
+  
+  // Auteur
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorName String
+  
+  // Statut de modération
+  status RiddleStatus @default(PENDING)
+  reviewedBy String?
+  reviewedAt DateTime?
+  rejectionReason String? @db.VarChar(500)
+  
+  // Statistiques
+  stats RiddleStats?
+  
+  // Tags et mots-clés
+  tags     String[]
+  keywords String[]
+  
+  // Médias
+  media Json?
+  
+  // Blockchain
+  blockchain Json?
+  
+  // Modération
+  moderation Json?
+  
+  // Statut de publication
+  isActive   Boolean @default(true)
+  isPublic   Boolean @default(true)
+  isFeatured Boolean @default(false)
+  featuredAt DateTime?
+  publishedAt DateTime?
+  
+  // Relations
+  reviews Review[]
+  likes   Like[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("riddles")
+}
+
+model RiddleStats {
+  id       String @id @default(cuid())
+  riddleId String @unique
+  riddle   Riddle @relation(fields: [riddleId], references: [id], onDelete: Cascade)
+  
+  plays           Int @default(0)
+  correctAnswers  Int @default(0)
+  incorrectAnswers Int @default(0)
+  averageTime     Int @default(0) // en secondes
+  likes           Int @default(0)
+  dislikes        Int @default(0)
+  rating          Float @default(0) // 0-5
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("riddle_stats")
+}
+
+// Modèle Conte
+model Tale {
+  id       String @id @default(cuid())
+  
+  title    String
+  content  String @db.Text
+  author   String? @default("Anonyme")
+  origin   String? @default("Afrique")
+  language String @default("Multilingue")
+  category String @default("conte")
+  source   String?
+  
+  // Métadonnées
+  tags     String[]
+  verified Boolean @default(true)
+  
+  // Timestamps
+  dateAdded DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tales")
+}
+
+// Modèle Proverbe
+model Proverb {
+  id       String @id @default(cuid())
+  
+  text        String
+  translation String
+  origin      String @default("Afrique")
+  language    String @default("Multilingue")
+  category    String
+  source      String?
+  
+  // Métadonnées
+  verified Boolean @default(true)
+  
+  // Timestamps
+  dateAdded DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("proverbs")
+}
+
+// Modèle Musique
+model Music {
+  id       String @id @default(cuid())
+  
+  title       String
+  description String @db.Text
+  type        String
+  origin      String
+  category    String @default("musique")
+  source      String?
+  
+  // Métadonnées
+  verified Boolean @default(true)
+  
+  // Timestamps
+  dateAdded DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("music")
+}
+
+// Modèle Art
+model Art {
+  id       String @id @default(cuid())
+  
+  title       String
+  description String @db.Text
+  artist      String?
+  origin      String
+  category    String @default("art")
+  source      String?
+  
+  // Médias
+  imageUrl    String?
+  audioUrl    String?
+  videoUrl    String?
+  
+  // Métadonnées
+  verified Boolean @default(true)
+  
+  // Timestamps
+  dateAdded DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("art")
+}
+
+// Modèle Review
+model Review {
+  id       String @id @default(cuid())
+  
+  riddleId String?
+  riddle   Riddle? @relation(fields: [riddleId], references: [id], onDelete: Cascade)
+  
+  contentId String?
+  content   CulturalContent? @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  
+  rating   Int // 1-5
+  comment  String? @db.Text
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([riddleId, userId])
+  @@map("reviews")
+}
+
+// Modèle Like
+model Like {
+  id       String @id @default(cuid())
+  
+  riddleId String?
+  riddle   Riddle? @relation(fields: [riddleId], references: [id], onDelete: Cascade)
+  
+  contentId String?
+  content   CulturalContent? @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  @@unique([riddleId, userId])
+  @@map("likes")
+}
+
+// Modèle Follow
+model Follow {
+  id       String @id @default(cuid())
+  
+  followerId String
+  follower   User   @relation("UserFollows", fields: [followerId], references: [id], onDelete: Cascade)
+  
+  followingId String
+  following   User   @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  @@unique([followerId, followingId])
+  @@map("follows")
+}
+
+// Modèles Web3 et Blockchain
+
+// Modèle Contenu Culturel (pour la certification blockchain)
+model CulturalContent {
+  id       String @id @default(cuid())
+  
+  // Contenu principal
+  title    String @db.VarChar(200)
+  content  String @db.Text
+  type     ContentType
+  language String @default("fr") @db.VarChar(10)
+  origin   String? @db.VarChar(100)
+  region   String? @db.VarChar(100)
+  country  String? @db.VarChar(100)
+  
+  // Auteur
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  authorName String
+  
+  // Médias
+  mediaFiles Json? // Array of media file objects
+  
+  // Certification blockchain
+  ipfsCid   String? @db.VarChar(100)
+  ipfsUrl   String? @db.VarChar(500)
+  certificationHash String? @db.VarChar(64)
+  hederaTransactionId String? @db.VarChar(100)
+  hederaSequenceNumber String? @db.VarChar(50)
+  nftMetadata Json?
+  
+  // Statut
+  status   ContentStatus @default(PENDING)
+  verified Boolean @default(false)
+  verifiedAt DateTime?
+  
+  // Métadonnées
+  metadata Json?
+  
+  // Relations
+  reviews  Review[]
+  likes    Like[]
+  rewards  Reward[]
+  ipCertificate IntellectualPropertyCertificate?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cultural_content")
+}
+
+// Modèle Récompenses
+model Reward {
+  id       String @id @default(cuid())
+  
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  contentId String?
+  content  CulturalContent? @relation(fields: [contentId], references: [id])
+  
+  type     RewardType
+  amount   Int
+  status   RewardStatus @default(PENDING)
+  
+  // Blockchain
+  hederaTransactionId String? @db.VarChar(100)
+  
+  // Métadonnées
+  metadata Json?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("rewards")
+}
+
+// Modèle Défis
+model Challenge {
+  id       String @id @default(cuid())
+  
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  
+  type     ChallengeType
+  target   Int
+  reward   Int
+  status   ChallengeStatus @default(ACTIVE)
+  
+  startDate DateTime @default(now())
+  completedAt DateTime?
+  
+  metadata Json?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("challenges")
+}
+
+// Modèle Certificats de Propriété Intellectuelle
+model IntellectualPropertyCertificate {
+  id       String @id @default(cuid())
+  
+  contentId String @unique
+  content  CulturalContent @relation(fields: [contentId], references: [id])
+  
+  certificateId String @unique @db.VarChar(100)
+  title    String @db.VarChar(200)
+  author   String @db.VarChar(100)
+  origin   String? @db.VarChar(100)
+  type     ContentType
+  
+  contentHash String @db.VarChar(64)
+  issueDate DateTime @default(now())
+  issuer  String @default("Nkwa Vault") @db.VarChar(100)
+  status  CertificateStatus @default(ACTIVE)
+  
+  // Droits
+  rights Json // Attribution, nonCommercial, shareAlike, noDerivatives
+  
+  // Blockchain
+  ipfsCid String? @db.VarChar(100)
+  hederaTransactionId String? @db.VarChar(100)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ip_certificates")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  MODERATOR
+  CONTRIBUTOR
+  USER
+}
+
+enum RiddleCategory {
+  NATURE
+  ANIMALS
+  FAMILY
+  WISDOM
+  COMMUNITY
+  HISTORY
+  TRADITIONS
+  OTHER
+}
+
+enum RiddleDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum RiddleStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DRAFT
+}
+
+// Enums pour les services Web3
+enum ContentType {
+  PROVERB
+  TALE
+  RIDDLE
+  MUSIC
+  ART
+  DANCE
+  RECIPE
+  CUSTOM
+}
+
+enum ContentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DRAFT
+  VERIFIED
+}
+
+enum RewardType {
+  CONTENT_UPLOAD
+  CONTENT_VERIFICATION
+  TRANSLATION
+  REVIEW
+  SHARE
+  LIKE
+  COMMENT
+  QUALITY_CONTRIBUTION
+  COMMUNITY_MODERATION
+  CULTURAL_EXPERT
+  CHALLENGE_COMPLETION
+}
+
+enum RewardStatus {
+  PENDING
+  DISTRIBUTED
+  FAILED
+  CANCELLED
+}
+
+enum ChallengeType {
+  UPLOAD_CONTENT
+  VERIFY_CONTENT
+  TRANSLATE_CONTENT
+  SOCIAL_INTERACTION
+  QUALITY_CONTRIBUTION
+  COMMUNITY_ENGAGEMENT
+}
+
+enum ChallengeStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  CANCELLED
+}
+
+enum CertificateStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+  SUSPENDED
+}

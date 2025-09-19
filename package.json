@@ -1,7 +1,7 @@
 {
-  "name": "nkwa-vault",
+  "name": "nkwa-v",
   "version": "1.0.0",
-  "description": "Plateforme de préservation du patrimoine culturel africain",
+  "description": "Plateforme de préservation et de partage du patrimoine culturel africain",
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
@@ -15,33 +15,47 @@
     "test": "cd backend && npm test && cd ../frontend && npm test",
     "lint": "cd backend && npm run lint && cd ../frontend && npm run lint",
     "clean": "rm -rf node_modules backend/node_modules frontend/node_modules",
-    "setup": "npm run install:all && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/your-username/nkwa-vault.git"
+    "setup": "npm run install:all && npm run build",
+    "db:migrate": "cd backend && npx prisma migrate dev",
+    "db:generate": "cd backend && npx prisma generate",
+    "db:reset": "cd backend && npx prisma migrate reset",
+    "db:studio": "cd backend && npx prisma studio",
+    "postinstall": "cd backend && npx prisma generate"
   },
   "keywords": [
-    "african-culture",
+    "culture",
+    "africa",
     "heritage",
-    "preservation",
-    "education",
+    "patrimoine",
+    "conte",
+    "proverbe",
+    "musique",
+    "art",
+    "blockchain",
+    "nft",
+    "pwa",
     "react",
-    "nodejs",
-    "mongodb",
-    "pwa"
+    "nodejs"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Nkwa V Team",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/your-username/nkwa-vault/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkwa-v/nkwa-v.git"
   },
-  "homepage": "https://github.com/your-username/nkwa-vault#readme",
+  "bugs": {
+    "url": "https://github.com/nkwa-v/nkwa-v/issues"
+  },
+  "homepage": "https://nkwa.africa",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-  "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=8.0.0"
-  }
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
 }

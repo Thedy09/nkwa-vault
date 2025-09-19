@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
+import ImageUpload from './ImageUpload';
 import { 
   Upload, 
   FileText, 
@@ -16,15 +17,14 @@ import {
   X,
   Eye,
   Shield,
-  Lock
 } from 'lucide-react';
-import MediaUpload from './MediaUpload';
-import MediaPreview from './MediaPreview';
 
 export default function UploadForm({ userId }) {
   const { user, isAuthenticated } = useAuth();
   const [file, setFile] = useState(null);
   const [media, setMedia] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [meta, setMeta] = useState({ 
     title: '', 
     description: '', 
@@ -47,8 +47,6 @@ export default function UploadForm({ userId }) {
   const [isUploading, setIsUploading] = useState(false);
   const [errors, setErrors] = useState({});
   const [dragActive, setDragActive] = useState(false);
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewIndex, setPreviewIndex] = useState(0);
   const [authStatus, setAuthStatus] = useState(null);
   const [canContribute, setCanContribute] = useState(false);
 
@@ -125,6 +123,17 @@ export default function UploadForm({ userId }) {
     }
   };
 
+  const handleImageSelect = (file, previewUrl) => {
+    setSelectedImage(file);
+    setImagePreview(previewUrl);
+    setErrors(prev => ({ ...prev, image: '' }));
+  };
+
+  const handleImageRemove = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+  };
+
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -172,6 +181,9 @@ export default function UploadForm({ userId }) {
 
     const fd = new FormData();
     fd.append('media', file);
+    if (selectedImage) {
+      fd.append('image', selectedImage);
+    }
     Object.keys(meta).forEach(k => fd.append(k, meta[k]));
     fd.append('collector_id', userId);
     
@@ -385,29 +397,42 @@ export default function UploadForm({ userId }) {
             {errors.content && <span className="error-message">{errors.content}</span>}
           </div>
 
+          {/* Upload d'image */}
+          <div className="input-group full-width">
+            <label>Image d'illustration</label>
+            <ImageUpload
+              onImageSelect={handleImageSelect}
+              onImageRemove={handleImageRemove}
+              currentImage={imagePreview}
+              maxSize={5}
+              className="image-upload-field"
+            />
+            {errors.image && <span className="error-message">{errors.image}</span>}
+          </div>
+
           {/* Médias */}
           <div className="input-group full-width">
             <label>Médias (optionnel)</label>
-            <MediaUpload
-              onMediaChange={setMedia}
-              initialMedia={media}
-              maxFiles={10}
-            />
+            <div className="file-upload">
+              <input
+                type="file"
+                id="media-upload"
+                multiple
+                accept="image/*,video/*,audio/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              <label htmlFor="media-upload" className="file-upload-label">
+                <Upload size={20} />
+                <span>Choisir des fichiers</span>
+              </label>
+            </div>
             {media.length > 0 && (
               <div className="media-actions">
-                <motion.button
-                  type="button"
-                  className="preview-btn"
-                  onClick={() => {
-                    setPreviewIndex(0);
-                    setPreviewOpen(true);
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <div className="media-count">
                   <Eye size={16} />
-                  Prévisualiser ({media.length})
-                </motion.button>
+                  {media.length} fichier(s) sélectionné(s)
+                </div>
               </div>
             )}
           </div>
@@ -675,14 +700,6 @@ export default function UploadForm({ userId }) {
     </form>
       )}
 
-      {/* Media Preview Modal */}
-      <MediaPreview
-        media={media}
-        isOpen={previewOpen}
-        onClose={() => setPreviewOpen(false)}
-        currentIndex={previewIndex}
-        onIndexChange={setPreviewIndex}
-      />
 
       <style jsx>{`
         .upload-form-container {
@@ -999,6 +1016,9 @@ export default function UploadForm({ userId }) {
           .upload-title {
             font-size: 1.5rem;
           }
+        }
+        .image-upload-field {
+          margin-top: var(--spacing-sm);
         }
       `}</style>
     </motion.div>

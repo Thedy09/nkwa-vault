@@ -30,15 +30,19 @@ export const AuthProvider = ({ children }) => {
 
   // Vérifier l'authentification au chargement
   useEffect(() => {
-    if (token && !user && !checkingAuth) {
-      checkAuth();
-    } else if (!token) {
-      setLoading(false);
-    }
-  }, [token, user, checkingAuth]);
+    const initializeAuth = async () => {
+      if (token && !user && !checkingAuth) {
+        await checkAuth();
+      } else if (!token) {
+        setLoading(false);
+      }
+    };
+    
+    initializeAuth();
+  }, [token]);
 
   const checkAuth = async () => {
-    if (checkingAuth) return; // Éviter les appels multiples
+    if (checkingAuth || !token) return; // Éviter les appels multiples et s'assurer qu'il y a un token
     
     setCheckingAuth(true);
     try {
@@ -46,11 +50,15 @@ export const AuthProvider = ({ children }) => {
       if (response.data.success) {
         setUser(response.data.data.user);
       } else {
+        // Token invalide, déconnecter
         logout();
       }
     } catch (error) {
       console.error('Erreur de vérification auth:', error);
-      logout();
+      // Si erreur 401 (non autorisé), déconnecter
+      if (error.response?.status === 401) {
+        logout();
+      }
     } finally {
       setLoading(false);
       setCheckingAuth(false);
@@ -62,14 +70,14 @@ export const AuthProvider = ({ children }) => {
     
     try {
       setLoading(true);
-      console.log('Tentative de connexion pour:', email);
+      // Tentative de connexion
       
       const response = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/auth/login`, {
         email,
         password
       });
 
-      console.log('Réponse de connexion:', response.data);
+      // Traitement de la réponse
 
       if (response.data.success) {
         const { user: userData, token: authToken } = response.data.data;
@@ -87,8 +95,8 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         setToken(authToken);
         
-        console.log('Connexion réussie pour:', userData.name);
-        return { success: true, user: userData };
+        // Connexion réussie
+        return { success: true, user: userData, redirectToAdmin: userData.role === 'ADMIN' };
       } else {
         console.error('Échec de connexion:', response.data.message);
         return { success: false, message: response.data.message };
@@ -112,7 +120,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (email, password, name) => {
     try {
       setLoading(true);
-      console.log('Tentative d\'inscription pour:', email);
+      // Tentative d'inscription
       
       const response = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/auth/register`, {
         email,
@@ -120,7 +128,7 @@ export const AuthProvider = ({ children }) => {
         name
       });
 
-      console.log('Réponse d\'inscription:', response.data);
+      // Traitement de la réponse
 
       if (response.data.success) {
         const { user: userData, token: authToken } = response.data.data;
@@ -138,8 +146,8 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         setToken(authToken);
         
-        console.log('Inscription réussie pour:', userData.name);
-        return { success: true, user: userData };
+        // Inscription réussie
+        return { success: true, user: userData, redirectToAdmin: userData.role === 'ADMIN' };
       } else {
         console.error('Échec d\'inscription:', response.data.message);
         return { success: false, message: response.data.message };
@@ -179,11 +187,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAdmin = () => {
-    return user?.role === 'admin';
+    return user?.role === 'ADMIN';
   };
 
   const isModerator = () => {
-    return user?.role === 'moderator' || user?.role === 'admin';
+    return user?.role === 'MODERATOR' || user?.role === 'ADMIN';
   };
 
   const value = {

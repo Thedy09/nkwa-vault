@@ -7,15 +7,20 @@
       "config": {
         "distDir": "build"
       }
+    },
+    {
+      "src": "backend/src/server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "/backend/src/server.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "/frontend/build/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }

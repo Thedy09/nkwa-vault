@@ -2,26 +2,31 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { TranslationProvider, useTranslation } from './contexts/TranslationContext';
+import { NotificationProvider } from './components/NotificationSystem';
 import Home from './pages/Home';
 import UploadForm from './components/UploadForm';
 import Museum from './pages/Museum';
+import VirtualMuseum from './pages/VirtualMuseum';
 import About from './pages/About';
 import Riddles from './pages/Riddles';
+import AdminDashboard from './pages/AdminDashboard';
+import Web3Dashboard from './components/Web3Dashboard';
 import AuthModal from './components/AuthModal';
-import UserProfile from './components/UserProfile';
-import PWAInstallButton from './components/PWAInstallButton';
-import FeedbackModal from './components/FeedbackModal';
-import LanguageSelector from './components/LanguageSelector';
+import Web3Auth from './components/Web3Auth';
+import AccessModeSelector from './components/AccessModeSelector';
+import Web3Status from './components/Web3Status';
 import { 
   Home as HomeIcon, 
   Upload, 
   Music, 
   Menu, 
-  X,
-  LogIn,
-  User,
-  Users,
-  Brain
+  X, 
+  LogIn, 
+  User, 
+  Users, 
+  Brain, 
+  Star,
+  Globe
 } from 'lucide-react';
 import Logo from './components/Logo';
 
@@ -32,14 +37,47 @@ const AppContent = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [accessModeSelectorOpen, setAccessModeSelectorOpen] = useState(false);
+  const [web3AuthOpen, setWeb3AuthOpen] = useState(false);
+  const [userAccessMode, setUserAccessMode] = useState(null);
 
-  const pages = [
+  // Fonction pour gérer la redirection après connexion
+  const handleLoginSuccess = (page) => {
+    setCurrentPage(page);
+    setSidebarOpen(false);
+  };
+
+  // Fonction pour gérer la sélection du mode d'accès
+  const handleAccessModeSelect = (mode) => {
+    setUserAccessMode(mode);
+    setAccessModeSelectorOpen(false);
+    
+    if (mode === 'email') {
+      setAuthModalOpen(true);
+    } else if (mode === 'web3') {
+      setWeb3AuthOpen(true);
+    }
+  };
+
+  // Fonction pour gérer la connexion Web3
+  const handleWeb3AuthSuccess = (userData) => {
+    setUserAccessMode('web3');
+    setWeb3AuthOpen(false);
+    // Ici vous pouvez intégrer avec votre système d'auth
+    console.log('Web3 Auth Success:', userData);
+  };
+
+  const menuItems = [
     { id: 'home', label: t('home'), icon: HomeIcon },
     { id: 'museum', label: t('museum'), icon: Music },
+    { id: 'virtual-museum', label: 'Musée Virtuel', icon: Star },
+    // Web3 dashboard - only visible for Web3 users
+    ...(userAccessMode === 'web3' ? [{ id: 'web3-dashboard', label: '🌐 Web3', icon: Globe }] : []),
     { id: 'riddles', label: t('riddles'), icon: Brain },
     { id: 'upload', label: t('share'), icon: Upload },
-    { id: 'about', label: t('about'), icon: Users }
+    { id: 'about', label: t('about'), icon: Users },
+    // Admin menu item - only visible for admin users
+    ...(isAuthenticated() && user?.role === 'ADMIN' ? [{ id: 'admin', label: 'Admin', icon: Users }] : [])
   ];
 
   const renderPage = () => {
@@ -48,12 +86,25 @@ const AppContent = () => {
         return <Home />;
       case 'museum':
         return <Museum />;
+      case 'virtual-museum':
+        return <VirtualMuseum />;
+      case 'web3-dashboard':
+        return <Web3Dashboard />;
       case 'riddles':
         return <Riddles />;
       case 'upload':
         return <UploadForm userId={1} />;
       case 'about':
         return <About />;
+      case 'admin':
+        // Vérifier que l'utilisateur est admin
+        if (isAuthenticated() && user?.role === 'ADMIN') {
+          return <AdminDashboard />;
+        } else {
+          // Rediriger vers la page d'accueil si pas admin
+          setCurrentPage('home');
+          return <Home />;
+        }
       default:
         return <Home />;
     }
@@ -71,12 +122,12 @@ const AppContent = () => {
         <div className="container">
           <div className="nav-brand">
             <Logo size={40} animated={true} />
-            <span>Nkwa Vault</span>
+            <span>Nkwa V</span>
           </div>
 
           {/* Desktop Navigation */}
           <div className="nav-links desktop">
-            {pages.map(page => (
+            {menuItems.map(page => (
               <button
                 key={page.id}
                 className={`nav-link ${currentPage === page.id ? 'active' : ''}`}
@@ -90,13 +141,15 @@ const AppContent = () => {
 
           {/* Auth Section */}
           <div className="nav-auth desktop">
-            <LanguageSelector />
             {isAuthenticated() ? (
-              <UserProfile />
+              <div className="user-info">
+                <User size={20} />
+                <span>{user?.firstName || 'Utilisateur'}</span>
+              </div>
             ) : (
               <motion.button
                 className="auth-button"
-                onClick={() => setAuthModalOpen(true)}
+                onClick={() => setAccessModeSelectorOpen(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -126,10 +179,10 @@ const AppContent = () => {
         <div className="sidebar-content">
           <div className="sidebar-header">
             <Logo size={32} animated={false} />
-            <span>Nkwa Vault</span>
+            <span>Nkwa V</span>
           </div>
           <div className="sidebar-links">
-            {pages.map(page => (
+            {menuItems.map(page => (
               <button
                 key={page.id}
                 className={`sidebar-link ${currentPage === page.id ? 'active' : ''}`}
@@ -146,9 +199,11 @@ const AppContent = () => {
 
           {/* Mobile Auth Section */}
           <div className="sidebar-auth">
-            <LanguageSelector />
             {isAuthenticated() ? (
-              <UserProfile />
+              <div className="user-info">
+                <User size={20} />
+                <span>{user?.firstName || 'Utilisateur'}</span>
+              </div>
             ) : (
               <button
                 className="sidebar-auth-button"
@@ -185,7 +240,10 @@ const AppContent = () => {
         transition={{ duration: 0.4 }}
       >
         {currentPage === 'home' ? (
-          <Home onNavigate={setCurrentPage} />
+          <div>
+            <Home onNavigate={setCurrentPage} />
+            <Web3Status />
+          </div>
         ) : (
           renderPage()
         )}
@@ -202,7 +260,7 @@ const AppContent = () => {
           <div className="footer-content">
             <div className="footer-brand">
               <Logo size={28} animated={false} />
-              <span>Nkwa Vault</span>
+              <span>Nkwa V</span>
             </div>
             <p className="footer-description">
               {t('footerDesc')}
@@ -214,35 +272,31 @@ const AppContent = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2024 Nkwa Vault. {t('allRightsReserved')}.</p>
+            <p>&copy; 2024 Nkwa V. {t('allRightsReserved')}.</p>
           </div>
         </div>
       </motion.footer>
 
-      {/* Auth Modal */}
-      <AuthModal 
-        isOpen={authModalOpen} 
-        onClose={() => setAuthModalOpen(false)} 
-      />
-      
-      <FeedbackModal 
-        isOpen={feedbackOpen} 
-        onClose={() => setFeedbackOpen(false)} 
-      />
+            {/* Access Mode Selector */}
+            <AccessModeSelector
+              isOpen={accessModeSelectorOpen}
+              onModeSelect={handleAccessModeSelect}
+              onClose={() => setAccessModeSelectorOpen(false)}
+            />
 
-        {/* PWA Install Button */}
-        <PWAInstallButton />
-        
-        {/* Feedback Button */}
-        <motion.button
-          className="feedback-btn"
-          onClick={() => setFeedbackOpen(true)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          title={t('giveFeedback')}
-        >
-          💬
-        </motion.button>
+            {/* Auth Modal */}
+            <AuthModal
+              isOpen={authModalOpen}
+              onClose={() => setAuthModalOpen(false)}
+              onLoginSuccess={handleLoginSuccess}
+            />
+
+            {/* Web3 Auth Modal */}
+            <Web3Auth
+              isOpen={web3AuthOpen}
+              onClose={() => setWeb3AuthOpen(false)}
+              onAuthSuccess={handleWeb3AuthSuccess}
+            />
 
       <style jsx>{`
         .app {
@@ -306,6 +360,15 @@ const AppContent = () => {
         .auth-button:hover {
           background: var(--african-yellow);
           color: var(--african-black);
+        }
+
+        .user-info {
+          display: flex;
+          align-items: center;
+          gap: var(--spacing-xs);
+          padding: var(--spacing-sm) var(--spacing-md);
+          color: var(--african-yellow);
+          font-weight: 500;
         }
 
         .nav-link {
@@ -546,7 +609,9 @@ function App() {
   return (
     <TranslationProvider>
       <AuthProvider>
-        <AppContent />
+        <NotificationProvider>
+          <AppContent />
+        </NotificationProvider>
       </AuthProvider>
     </TranslationProvider>
   );

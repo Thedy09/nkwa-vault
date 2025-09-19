@@ -1,1 +1,0 @@
-# ACV Backend Starter\nSee developer guide for full instructions.

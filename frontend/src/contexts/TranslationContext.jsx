@@ -61,7 +61,7 @@ const translations = {
     profile: 'Profile',
     
     // Home Page
-    heroTitle: 'Nkwa Vault',
+    heroTitle: 'Nkwa V',
     heroSubtitle: 'Preserve. Share. Celebrate.',
     heroDescription: 'A revolutionary platform to preserve and share the rich African cultural heritage. Tales, proverbs, music, dance and crafts - all of Africa\'s heritage in one place.',
     exploreCollection: 'Explore Collection',
@@ -88,7 +88,7 @@ const translations = {
     authenticityDesc: 'Verified and authentic content',
     
     // Why Choose
-    whyChoose: 'Why Choose Nkwa Vault?',
+    whyChoose: 'Why Choose Nkwa V?',
     whyChooseDesc: 'Cutting-edge technology at the service of culture',
     
     // CTA
@@ -146,7 +146,7 @@ const translations = {
     // Feedback
     giveFeedback: 'Give your feedback',
     feedbackTitle: 'Share Your Feedback',
-    feedbackDesc: 'Help us improve Nkwa Vault by sharing your thoughts',
+    feedbackDesc: 'Help us improve Nkwa V by sharing your thoughts',
     rating: 'Rating',
     category: 'Category',
     message: 'Message',
@@ -155,7 +155,7 @@ const translations = {
     thankYou: 'Thank you for your feedback!',
     
     // About Page
-    aboutTitle: 'About Nkwa Vault',
+    aboutTitle: 'About Nkwa V',
     aboutSubtitle: 'Preserving African Heritage Through Technology',
     aboutDescription: 'A revolutionary platform that combines blockchain technology, AI-powered translation, and community-driven verification to preserve and share the rich cultural heritage of Africa.',
     explorePlatform: 'Explore Platform',
@@ -179,7 +179,7 @@ const translations = {
     empowerCommunities: 'Empower communities to share their heritage',
     fosterUnderstanding: 'Foster cross-cultural understanding',
     keyFeatures: 'Key Features',
-    keyFeaturesDesc: 'Discover the innovative technologies powering Nkwa Vault',
+    keyFeaturesDesc: 'Discover the innovative technologies powering Nkwa V',
     ourTeam: 'Our Team',
     teamDescription: 'A diverse team of technologists, cultural experts, and community advocates working together to preserve African heritage.',
     development: 'Development',
@@ -305,7 +305,7 @@ const translations = {
     profile: 'Profil',
     
     // Home Page
-    heroTitle: 'Nkwa Vault',
+    heroTitle: 'Nkwa V',
     heroSubtitle: 'Préserver. Partager. Célébrer.',
     heroDescription: 'Une plateforme révolutionnaire pour préserver et partager le riche patrimoine culturel africain. Contes, proverbes, musiques, danses et artisanat - tout l\'héritage de l\'Afrique en un seul endroit.',
     exploreCollection: 'Explorer la Collection',
@@ -332,7 +332,7 @@ const translations = {
     authenticityDesc: 'Contenu vérifié et authentique',
     
     // Why Choose
-    whyChoose: 'Pourquoi Choisir Nkwa Vault ?',
+    whyChoose: 'Pourquoi Choisir Nkwa V ?',
     whyChooseDesc: 'Une technologie de pointe au service de la culture',
     
     // CTA
@@ -390,7 +390,7 @@ const translations = {
     // Feedback
     giveFeedback: 'Donner votre avis',
     feedbackTitle: 'Partagez Votre Avis',
-    feedbackDesc: 'Aidez-nous à améliorer Nkwa Vault en partageant vos pensées',
+    feedbackDesc: 'Aidez-nous à améliorer Nkwa V en partageant vos pensées',
     rating: 'Note',
     category: 'Catégorie',
     message: 'Message',
@@ -399,7 +399,7 @@ const translations = {
     thankYou: 'Merci pour votre avis !',
     
     // About Page
-    aboutTitle: 'À Propos de Nkwa Vault',
+    aboutTitle: 'À Propos de Nkwa V',
     aboutSubtitle: 'Préserver le Patrimoine Africain par la Technologie',
     aboutDescription: 'Une plateforme révolutionnaire qui combine la technologie blockchain, la traduction IA et la vérification communautaire pour préserver et partager le riche patrimoine culturel de l\'Afrique.',
     explorePlatform: 'Explorer la Plateforme',
@@ -423,7 +423,7 @@ const translations = {
     empowerCommunities: 'Autonomiser les communautés à partager leur patrimoine',
     fosterUnderstanding: 'Favoriser la compréhension interculturelle',
     keyFeatures: 'Fonctionnalités Clés',
-    keyFeaturesDesc: 'Découvrez les technologies innovantes qui alimentent Nkwa Vault',
+    keyFeaturesDesc: 'Découvrez les technologies innovantes qui alimentent Nkwa V',
     ourTeam: 'Notre Équipe',
     teamDescription: 'Une équipe diversifiée de technologues, d\'experts culturels et d\'avocats communautaires travaillant ensemble pour préserver le patrimoine africain.',
     development: 'Développement',

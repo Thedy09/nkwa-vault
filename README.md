@@ -1,228 +1,194 @@
-# 🏆 Nkwa Vault
+# 🌍 Nkwa V - Plateforme Web3 pour le Patrimoine Culturel Africain
 
-**Plateforme de préservation du patrimoine culturel africain**
+[![Deploy on Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/votre-username/nkwa-vault)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Web3](https://img.shields.io/badge/Web3-Enabled-blue)](https://web3.foundation/)
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/your-username/nkwa-vault)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-production--ready-brightgreen.svg)]()
+> **Préservez, partagez et certifiez le patrimoine culturel africain sur la blockchain**
 
-## 🌟 Aperçu
+Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour préserver, partager et certifier le patrimoine culturel africain. Accessible à tous, avec ou sans wallet crypto.
 
-Nkwa Vault est une plateforme web innovante dédiée à la préservation, la documentation et la transmission du patrimoine culturel africain. Elle combine technologies modernes et traditions ancestrales pour créer une expérience immersive et éducative.
+## ✨ **Fonctionnalités Principales**
 
-## ✨ Fonctionnalités
+### 🌐 **Web3 Central (Pilier Fondamental)**
+- **Certification Blockchain** : Tous les contenus sont certifiés sur Hedera Hashgraph
+- **Stockage Décentralisé** : IPFS pour un stockage immuable et résistant à la censure
+- **NFT Culturels** : Création de NFT pour les contenus premium
+- **Tokens NKWA** : Système de récompenses pour les contributeurs
+- **Accès Hybride** : 100% Web3 mais accessible sans wallet crypto
 
-### 🎯 Pour les Utilisateurs
-- **🏛️ Musée Virtuel** - Explorez une collection riche d'objets culturels africains
-- **🧩 Jeu de Devinettes** - Découvrez la culture à travers des énigmes interactives
-- **📝 Contribution** - Partagez vos connaissances culturelles
-- **🌍 Multilingue** - Support français et anglais avec détection automatique
-- **📱 PWA** - Application web progressive pour mobile et desktop
+### 📚 **Contenus Culturels**
+- **Contes & Littérature** : Collecte automatique depuis African Storybook, Wikisource
+- **Musique Traditionnelle** : Smithsonian Folkways, Internet Archive
+- **Arts Visuels** : Met Museum Open Access, Wikimedia Commons
+- **Patrimoine Immatériel** : UNESCO, collections éducatives
 
-### 👑 Pour les Administrateurs
-- **🔧 Modération** - Gestion complète du contenu
-- **👥 Gestion Utilisateurs** - Administration des comptes
-- **📊 Statistiques** - Tableaux de bord détaillés
-- **✅ Validation** - Système de validation du contenu
+### 🎯 **Fonctionnalités Avancées**
+- **Collecte Automatique** : Scraping intelligent de sources libres
+- **Multilingue** : Support de 20+ langues africaines
+- **Recherche Avancée** : IA pour la découverte de contenus
+- **Communauté** : Système de contributions et récompenses
+- **Modération** : Validation communautaire des contenus
 
-## 🚀 Démarrage Rapide
+## 🚀 **Technologies Utilisées**
 
-### Prérequis
-- Node.js 16+ 
-- MongoDB (local ou Atlas)
-- npm ou yarn
+### **Frontend**
+- **React 18** avec Hooks modernes
+- **Framer Motion** pour les animations
+- **Lucide React** pour les icônes
+- **Axios** pour les requêtes API
+- **CSS-in-JS** avec styled-jsx
 
-### Installation
+### **Backend**
+- **Node.js** avec Express.js
+- **Prisma ORM** avec PostgreSQL
+- **JWT** pour l'authentification
+- **Redis** pour le cache
+- **Winston** pour les logs
+- **Swagger** pour la documentation API
+
+### **Web3 & Blockchain**
+- **Hedera Hashgraph** pour la certification
+- **IPFS** pour le stockage décentralisé
+- **Web3.Storage** pour l'interface IPFS
+- **NFT** pour les contenus premium
+- **Smart Contracts** pour les récompenses
+
+## 📦 **Installation**
+
+### **Prérequis**
+- Node.js 18+
+- PostgreSQL 13+
+- Redis (optionnel)
+- Compte Hedera (pour Web3)
+- Token IPFS (pour le stockage)
+
+### **Installation Locale**
 
 ```bash
 # Cloner le repository
-git clone https://github.com/your-username/nkwa-vault.git
-cd nkwa-vault
+git clone https://github.com/votre-username/nkwa-v.git
+cd nkwa-v
 
 # Installer les dépendances
-cd backend && npm install
-cd ../frontend && npm install
+npm install
 
-# Configuration
-cp backend/.env.example backend/.env
-# Éditer backend/.env avec vos configurations
+# Configuration de la base de données
+cd backend
+npx prisma generate
+npx prisma migrate deploy
 
-# Démarrage
-cd backend && npm start
-cd frontend && npm start
+# Configuration des variables d'environnement
+cp .env.example .env
+# Éditer .env avec vos clés
+
+# Démarrer l'application
+npm run dev
 ```
 
-### Démarrage Rapide (Script)
+### **Déploiement Vercel**
 
 ```bash
-# Utiliser le script de démarrage
-./start-production.sh
-```
+# Déploiement automatique
+./deploy-vercel.sh
 
-## 🏗️ Architecture
-
-```
-nkwa-vault/
-├── frontend/          # Interface React
-│   ├── src/
-│   │   ├── components/    # Composants réutilisables
-│   │   ├── pages/         # Pages de l'application
-│   │   ├── contexts/      # Contextes React
-│   │   └── styles/        # Styles CSS
-│   └── public/            # Assets statiques
-├── backend/           # API Node.js/Express
-│   ├── src/
-│   │   ├── models/        # Modèles Mongoose
-│   │   ├── routes/        # Routes API
-│   │   ├── middleware/    # Middleware
-│   │   └── config/        # Configuration
-│   └── logs/              # Logs d'application
-└── scripts/           # Scripts de déploiement
-    ├── deploy.sh          # Déploiement
-    ├── monitor.sh         # Surveillance
-    └── stop.sh           # Arrêt
-```
-
-## 🛠️ Technologies
-
-### Frontend
-- **React 18** - Interface utilisateur
-- **Framer Motion** - Animations fluides
-- **Axios** - Requêtes HTTP
-- **React Context** - Gestion d'état
-- **PWA** - Application web progressive
-
-### Backend
-- **Node.js** - Runtime JavaScript
-- **Express.js** - Framework web
-- **MongoDB** - Base de données
-- **Mongoose** - ODM pour MongoDB
-- **JWT** - Authentification
-- **bcryptjs** - Hachage des mots de passe
-
-### Déploiement
-- **Vercel** - Frontend
-- **Heroku** - Backend
-- **MongoDB Atlas** - Base de données cloud
-- **Docker** - Containerisation
-
-## 📖 API Documentation
-
-### Authentification
-```http
-POST /auth/register    # Inscription
-POST /auth/login       # Connexion
-GET  /auth/me          # Profil utilisateur
-POST /auth/logout      # Déconnexion
-```
-
-### Devinettes
-```http
-GET  /riddles          # Liste des devinettes
-POST /riddles          # Créer une devinette
-GET  /riddles/featured # Devinettes en vedette
-GET  /riddles/popular  # Devinettes populaires
-```
-
-### Musée
-```http
-GET  /museum           # Objets culturels
-POST /upload           # Upload de contenu
-GET  /cultural-items   # API des objets
-```
-
-## 🔧 Configuration
-
-### Variables d'Environnement
-
-```env
-# Base de données
-MONGODB_URI=mongodb://localhost:27017/nkwa-vault
-
-# JWT
-JWT_SECRET=your-secret-key
-JWT_EXPIRES_IN=7d
-
-# API
-PORT=4000
-NODE_ENV=production
-FRONTEND_URL=http://localhost:3000
-```
-
-## 🧪 Tests
-
-```bash
-# Tests automatisés
-./test-simple.sh
-
-# Tests manuels
-npm run test
-```
-
-## 🚀 Déploiement
-
-### Vercel (Frontend)
-```bash
-cd frontend
+# Ou manuellement
 vercel --prod
 ```
 
-### Heroku (Backend)
+## ⚙️ **Configuration Web3**
+
+### **1. Hedera Hashgraph**
 ```bash
-git push heroku main
+# Dans backend/.env
+HEDERA_ACCOUNT_ID=0.0.123456
+HEDERA_PRIVATE_KEY=votre_cle_privee
+HEDERA_NETWORK=testnet
 ```
 
-### Docker
+### **2. IPFS (Web3.Storage)**
 ```bash
-docker build -t nkwa-vault .
-docker run -p 3000:3000 -p 4000:4000 nkwa-vault
+# Dans backend/.env
+IPFS_API_URL=https://api.web3.storage
+IPFS_API_TOKEN=votre_token_web3_storage
 ```
 
-## 👥 Comptes par Défaut
+### **3. Base de Données**
+```bash
+# Dans backend/.env
+DATABASE_URL="postgresql://user:password@localhost:5432/nkwa_vault"
+```
 
-- **Administrateur** : `admin@acv.africa` / `admin123`
-- **Utilisateurs** : Inscription libre
+## 🌐 **URLs de Déploiement**
 
-## 🤝 Contribution
+- **Production** : https://nkwa-v-4ghsao6sr-thedys-projects.vercel.app
+- **API Documentation** : https://nkwa-v-4ghsao6sr-thedys-projects.vercel.app/api-docs
+- **Dashboard Web3** : https://nkwa-v-4ghsao6sr-thedys-projects.vercel.app/web3-dashboard
 
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrir une Pull Request
+## 📖 **Guide d'Utilisation**
 
-## 📄 Licence
+### **Pour les Utilisateurs**
+1. **Accès Email** : Créez un compte avec votre email
+2. **Accès Web3** : Connectez votre wallet pour les fonctionnalités avancées
+3. **Navigation** : Explorez les contenus culturels
+4. **Contribution** : Partagez vos propres contenus
+
+### **Pour les Développeurs**
+1. **API REST** : Documentation complète disponible
+2. **Web3 Integration** : SDK pour l'intégration blockchain
+3. **Collecte de Contenus** : API pour le scraping automatique
+4. **Monitoring** : Logs et métriques en temps réel
+
+## 🤝 **Contribution**
+
+Nous accueillons les contributions ! Voici comment participer :
+
+1. **Fork** le projet
+2. **Créer** une branche feature (`git checkout -b feature/AmazingFeature`)
+3. **Commit** vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** vers la branche (`git push origin feature/AmazingFeature`)
+5. **Ouvrir** une Pull Request
+
+### **Types de Contributions**
+- 🐛 **Bug fixes**
+- ✨ **Nouvelles fonctionnalités**
+- 📚 **Documentation**
+- 🎨 **Améliorations UI/UX**
+- 🌐 **Traductions**
+- 🔧 **Optimisations**
+
+## 📄 **Licence**
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-## 👨‍💻 Auteur
+## 🙏 **Remerciements**
 
-**Votre Nom**
-- GitHub: [@your-username](https://github.com/your-username)
-- Email: your.email@example.com
+- **African Storybook** pour les contes
+- **Smithsonian Folkways** pour la musique
+- **Met Museum** pour les arts visuels
+- **UNESCO** pour le patrimoine immatériel
+- **Hedera Hashgraph** pour la blockchain
+- **IPFS** pour le stockage décentralisé
 
-## 🙏 Remerciements
+## 📞 **Support**
 
-- Communauté africaine pour le partage culturel
-- Développeurs open source
-- Contributeurs du projet
+- **Documentation** : [Wiki du projet](https://github.com/votre-username/nkwa-v/wiki)
+- **Issues** : [GitHub Issues](https://github.com/votre-username/nkwa-v/issues)
+- **Discussions** : [GitHub Discussions](https://github.com/votre-username/nkwa-v/discussions)
+- **Email** : support@nkwav.com
 
-## 📞 Support
+## 🌟 **Roadmap**
 
-- **Documentation** : [Wiki du projet](https://github.com/your-username/nkwa-vault/wiki)
-- **Issues** : [GitHub Issues](https://github.com/your-username/nkwa-vault/issues)
-- **Email** : support@nkwa-vault.africa
-
-## 🎯 Roadmap
-
-- [ ] **Mobile App** (React Native)
-- [ ] **Blockchain** intégration complète
-- [ ] **IA** pour la traduction automatique
-- [ ] **AR/VR** pour l'expérience immersive
-- [ ] **API** publique pour les développeurs
+- [ ] **Q1 2024** : Intégration de nouvelles sources de contenus
+- [ ] **Q2 2024** : Application mobile React Native
+- [ ] **Q3 2024** : Marketplace NFT pour les contenus premium
+- [ ] **Q4 2024** : IA pour la traduction automatique
+- [ ] **2025** : Expansion vers d'autres régions culturelles
 
 ---
 
-**🏆 Nkwa Vault - Préserver le patrimoine africain pour les générations futures**
+**🎯 Mission** : Préserver le patrimoine culturel africain pour les générations futures grâce à la technologie Web3.
 
-[![Made with ❤️ in Africa](https://img.shields.io/badge/Made%20with%20❤️%20in-Africa-orange.svg)]()
+**🌍 Vision** : Créer une bibliothèque numérique décentralisée accessible à tous, partout dans le monde.
+
+**💡 Innovation** : Web3 + Culture + Accessibilité = Avenir du patrimoine culturel
