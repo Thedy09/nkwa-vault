@@ -177,13 +177,6 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 - **Discussions** : [GitHub Discussions](https://github.com/votre-username/nkwa-v/discussions)
 - **Email** : support@nkwav.com
 
-## 🌟 **Roadmap**
-
-- [ ] **Q1 2024** : Intégration de nouvelles sources de contenus
-- [ ] **Q2 2024** : Application mobile React Native
-- [ ] **Q3 2024** : Marketplace NFT pour les contenus premium
-- [ ] **Q4 2024** : IA pour la traduction automatique
-- [ ] **2025** : Expansion vers d'autres régions culturelles
 
 ---
 
