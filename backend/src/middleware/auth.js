@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const DEFAULT_JWT_SECRET = 'your-super-secret-jwt-key-here';
 
 // Middleware pour vérifier l'authentification
 const authenticateToken = (req, res, next) => {
@@ -12,7 +13,7 @@ const authenticateToken = (req, res, next) => {
     });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET || 'african-culture-vault-secret-key', (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET || DEFAULT_JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ 
         success: false, 
@@ -52,7 +53,7 @@ const optionalAuth = (req, res, next) => {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET || 'african-culture-vault-secret-key', (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET || DEFAULT_JWT_SECRET, (err, user) => {
       if (!err) {
         req.user = user;
       }
@@ -67,6 +68,5 @@ module.exports = {
   authorize,
   optionalAuth
 };
-
 
 

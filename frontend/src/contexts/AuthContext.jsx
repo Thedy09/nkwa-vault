@@ -56,8 +56,8 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Erreur de vérification auth:', error);
-      // Si erreur 401 (non autorisé), déconnecter
-      if (error.response?.status === 401) {
+      // Si erreur 401/403, déconnecter et purger le token
+      if (error.response?.status === 401 || error.response?.status === 403) {
         logout();
       }
     } finally {
