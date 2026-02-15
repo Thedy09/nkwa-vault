@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { 
   Wallet, 
   Shield, 
@@ -12,7 +12,7 @@ import {
   EyeOff
 } from 'lucide-react';
 
-const Web3Auth = ({ onAuthSuccess, onClose }) => {
+const Web3Auth = ({ isOpen, onAuthSuccess, onClose }) => {
   const [step, setStep] = useState(1);
   const [walletAddress, setWalletAddress] = useState('');
   const [signature, setSignature] = useState('');
@@ -20,6 +20,18 @@ const Web3Auth = ({ onAuthSuccess, onClose }) => {
   const [error, setError] = useState('');
   const [showPrivateKey, setShowPrivateKey] = useState(false);
   const [privateKey, setPrivateKey] = useState('');
+
+  useEffect(() => {
+    if (!isOpen) {
+      setStep(1);
+      setWalletAddress('');
+      setSignature('');
+      setIsConnecting(false);
+      setError('');
+      setShowPrivateKey(false);
+      setPrivateKey('');
+    }
+  }, [isOpen]);
 
   // Simuler la connexion à un wallet (dans un vrai projet, utiliser Web3Modal ou WalletConnect)
   const connectWallet = async () => {
@@ -102,15 +114,17 @@ const Web3Auth = ({ onAuthSuccess, onClose }) => {
   };
 
   return (
-    <div className="web3-auth-modal">
-      <div className="modal-overlay" onClick={onClose}></div>
-      <motion.div 
-        className="modal-content"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.3 }}
-      >
+    <AnimatePresence>
+      {isOpen && (
+        <div className="web3-auth-modal">
+          <div className="modal-overlay" onClick={onClose}></div>
+          <motion.div 
+            className="modal-content"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+          >
         <div className="modal-header">
           <h2>🌐 Authentification Web3</h2>
           <p>Connectez votre wallet pour accéder à Nkwa V</p>
@@ -312,7 +326,7 @@ const Web3Auth = ({ onAuthSuccess, onClose }) => {
           </div>
         </div>
 
-        <style jsx>{`
+            <style jsx>{`
           .web3-auth-modal {
             position: fixed;
             top: 0;
@@ -664,9 +678,11 @@ const Web3Auth = ({ onAuthSuccess, onClose }) => {
               padding: 0.75rem 1.5rem;
             }
           }
-        `}</style>
-      </motion.div>
-    </div>
+            `}</style>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 };
 

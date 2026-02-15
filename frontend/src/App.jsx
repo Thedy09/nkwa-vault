@@ -10,10 +10,7 @@ import VirtualMuseum from './pages/VirtualMuseum';
 import About from './pages/About';
 import Riddles from './pages/Riddles';
 import AdminDashboard from './pages/AdminDashboard';
-import Web3Dashboard from './components/Web3Dashboard';
 import AuthModal from './components/AuthModal';
-import Web3Auth from './components/Web3Auth';
-import AccessModeSelector from './components/AccessModeSelector';
 import Web3Status from './components/Web3Status';
 import { 
   Home as HomeIcon, 
@@ -37,9 +34,6 @@ const AppContent = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [accessModeSelectorOpen, setAccessModeSelectorOpen] = useState(false);
-  const [web3AuthOpen, setWeb3AuthOpen] = useState(false);
-  const [userAccessMode, setUserAccessMode] = useState(null);
 
   const preferredLanguageOrder = ['fr', 'en', 'es', 'pt', 'ar', 'sw', 'yo', 'ig', 'ha', 'zu'];
   const allLanguages = getSupportedLanguages();
@@ -58,32 +52,10 @@ const AppContent = () => {
     setSidebarOpen(false);
   };
 
-  // Fonction pour gérer la sélection du mode d'accès
-  const handleAccessModeSelect = (mode) => {
-    setUserAccessMode(mode);
-    setAccessModeSelectorOpen(false);
-    
-    if (mode === 'email') {
-      setAuthModalOpen(true);
-    } else if (mode === 'web3') {
-      setWeb3AuthOpen(true);
-    }
-  };
-
-  // Fonction pour gérer la connexion Web3
-  const handleWeb3AuthSuccess = (userData) => {
-    setUserAccessMode('web3');
-    setWeb3AuthOpen(false);
-    // Ici vous pouvez intégrer avec votre système d'auth
-    console.log('Web3 Auth Success:', userData);
-  };
-
   const menuItems = [
     { id: 'home', label: t('home'), icon: HomeIcon },
     { id: 'museum', label: t('museum'), icon: Music },
     { id: 'virtual-museum', label: t('virtualMuseum'), icon: Star },
-    // Web3 dashboard - only visible for Web3 users
-    ...(userAccessMode === 'web3' ? [{ id: 'web3-dashboard', label: `🌐 ${t('web3Dashboard')}`, icon: Globe }] : []),
     { id: 'riddles', label: t('riddles'), icon: Brain },
     { id: 'upload', label: t('share'), icon: Upload },
     { id: 'about', label: t('about'), icon: Users },
@@ -99,8 +71,6 @@ const AppContent = () => {
         return <Museum />;
       case 'virtual-museum':
         return <VirtualMuseum />;
-      case 'web3-dashboard':
-        return <Web3Dashboard />;
       case 'riddles':
         return <Riddles />;
       case 'upload':
@@ -177,7 +147,7 @@ const AppContent = () => {
               ) : (
                 <motion.button
                   className="auth-button"
-                  onClick={() => setAccessModeSelectorOpen(true)}
+                  onClick={() => setAuthModalOpen(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -322,25 +292,11 @@ const AppContent = () => {
         </div>
       </motion.footer>
 
-            {/* Access Mode Selector */}
-            <AccessModeSelector
-              isOpen={accessModeSelectorOpen}
-              onModeSelect={handleAccessModeSelect}
-              onClose={() => setAccessModeSelectorOpen(false)}
-            />
-
             {/* Auth Modal */}
             <AuthModal
               isOpen={authModalOpen}
               onClose={() => setAuthModalOpen(false)}
               onLoginSuccess={handleLoginSuccess}
-            />
-
-            {/* Web3 Auth Modal */}
-            <Web3Auth
-              isOpen={web3AuthOpen}
-              onClose={() => setWeb3AuthOpen(false)}
-              onAuthSuccess={handleWeb3AuthSuccess}
             />
 
       <style jsx>{`

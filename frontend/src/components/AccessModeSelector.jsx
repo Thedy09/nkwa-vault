@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { 
   Mail, 
   Wallet, 
@@ -11,8 +11,14 @@ import {
   Users
 } from 'lucide-react';
 
-const AccessModeSelector = ({ onModeSelect, onClose }) => {
+const AccessModeSelector = ({ isOpen, onModeSelect, onClose }) => {
   const [selectedMode, setSelectedMode] = useState(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedMode(null);
+    }
+  }, [isOpen]);
 
   const accessModes = [
     {
@@ -57,15 +63,17 @@ const AccessModeSelector = ({ onModeSelect, onClose }) => {
   };
 
   return (
-    <div className="access-mode-modal">
-      <div className="modal-overlay" onClick={onClose}></div>
-      <motion.div 
-        className="modal-content"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.3 }}
-      >
+    <AnimatePresence>
+      {isOpen && (
+        <div className="access-mode-modal">
+          <div className="modal-overlay" onClick={onClose}></div>
+          <motion.div 
+            className="modal-content"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+          >
         <div className="modal-header">
           <h2>🌍 Bienvenue sur Nkwa V</h2>
           <p>Choisissez votre mode d'accès pour explorer le patrimoine culturel africain</p>
@@ -161,7 +169,7 @@ const AccessModeSelector = ({ onModeSelect, onClose }) => {
           </div>
         </div>
 
-        <style jsx>{`
+            <style jsx>{`
           .access-mode-modal {
             position: fixed;
             top: 0;
@@ -474,9 +482,11 @@ const AccessModeSelector = ({ onModeSelect, onClose }) => {
               text-align: center;
             }
           }
-        `}</style>
-      </motion.div>
-    </div>
+            `}</style>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 };
 
