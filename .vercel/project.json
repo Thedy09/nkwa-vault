@@ -1,1 +1,16 @@
-{"projectId":"prj_wbijg1nwnEbhSRf549XhudZ0qdud","orgId":"team_YvUCGBqB2mRHBXCF5L13TEvk","projectName":"nkwa-vault"}
+{
+  "projectId": "prj_wbijg1nwnEbhSRf549XhudZ0qdud",
+  "orgId": "team_YvUCGBqB2mRHBXCF5L13TEvk",
+  "projectName": "nkwa-vault",
+  "settings": {
+    "createdAt": 1757700798388,
+    "framework": null,
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "22.x"
+  }
+}

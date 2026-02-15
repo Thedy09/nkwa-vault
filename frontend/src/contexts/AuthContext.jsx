@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { API_BASE_URL } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -46,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     
     setCheckingAuth(true);
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/auth/me`);
+      const response = await axios.get(`${API_BASE_URL}/auth/me`);
       if (response.data.success) {
         setUser(response.data.data.user);
       } else {
@@ -72,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       // Tentative de connexion
       
-      const response = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/auth/login`, {
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password
       });
@@ -122,7 +123,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       // Tentative d'inscription
       
-      const response = await axios.post(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/auth/register`, {
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, {
         email,
         password,
         name
@@ -213,4 +214,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-

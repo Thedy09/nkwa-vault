@@ -1,4 +1,4 @@
-const hederaNFTService = require('./hederaNFTService');
+const blockchainProvider = require('./blockchainProvider');
 const ipfsService = require('./ipfsService');
 
 class MuseumCollectionService {
@@ -12,7 +12,7 @@ class MuseumCollectionService {
       console.log('🔄 Initialisation du service de collection du musée...');
       
       // Initialiser les services
-      await hederaNFTService.initialize();
+      await blockchainProvider.initialize();
       await ipfsService.initialize();
       
       // Charger la collection
@@ -30,8 +30,8 @@ class MuseumCollectionService {
     try {
       console.log('🔄 Chargement de la collection du musée...');
       
-      // Récupérer les NFTs depuis Hedera
-      const nfts = await hederaNFTService.getAllNFTs();
+      // NFTs gérés localement + certification EVM
+      const nfts = this.collection.filter(item => item.type === 'nft');
       
       // Charger les arts libres de droits
       const freeArts = await this.loadFreeArts();
@@ -221,36 +221,37 @@ class MuseumCollectionService {
       // Upload des metadata sur IPFS
       const metadataUpload = await ipfsService.uploadJSON(nftMetadata);
       
-      // Mint du NFT sur Hedera
-      const nftResult = await hederaNFTService.mintNFT({
-        ...nftMetadata,
-        metadataUrl: metadataUpload.url
+      // Certification blockchain EVM
+      const certification = await blockchainProvider.certifyContent({
+        contentId: `NFT-${Date.now()}`,
+        metadataCid: metadataUpload.cid,
+        contentType: 'NFT',
+        license: metadata.license || 'CC0',
+        rawContent: nftMetadata
       });
-      
-      if (nftResult.success) {
-        // Ajouter à la collection locale
-        const newNFT = {
-          id: `NFT-${Date.now()}`,
-          type: 'nft',
-          tokenId: nftResult.tokenId,
-          serialNumber: nftResult.serialNumber,
-          ...nftMetadata
-        };
-        
-        this.collection.push(newNFT);
-        
-        console.log('✅ NFT créé avec succès');
-        return {
-          success: true,
-          nft: newNFT,
-          ipfs: {
-            image: imageUpload,
-            metadata: metadataUpload
-          }
-        };
-      }
-      
-      return { success: false, error: 'Erreur lors du mint du NFT' };
+
+      const newNFT = {
+        id: `NFT-${Date.now()}`,
+        type: 'nft',
+        tokenId: certification.txHash,
+        serialNumber: 1,
+        transactionHash: certification.txHash,
+        explorerUrl: certification.explorerUrl,
+        ...nftMetadata
+      };
+
+      this.collection.push(newNFT);
+
+      console.log('✅ NFT créé avec succès');
+      return {
+        success: true,
+        nft: newNFT,
+        ipfs: {
+          image: imageUpload,
+          metadata: metadataUpload
+        },
+        blockchain: certification
+      };
     } catch (error) {
       console.log('❌ Erreur création NFT:', error.message);
       return { success: false, error: error.message };
@@ -289,4 +290,3 @@ class MuseumCollectionService {
 }
 
 module.exports = new MuseumCollectionService();
-

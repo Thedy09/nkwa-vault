@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, Grid, List, Upload, Star, MapPin, Calendar, Tag, Eye, Play, Pause } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 const VirtualMuseum = () => {
   const [collection, setCollection] = useState([]);
@@ -29,7 +30,6 @@ const VirtualMuseum = () => {
   const loadCollection = async () => {
     try {
       setLoading(true);
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
       const response = await fetch(`${API_BASE_URL}/api/museum/collection`);
       const data = await response.json();
       
@@ -49,7 +49,6 @@ const VirtualMuseum = () => {
 
   const loadStats = async () => {
     try {
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
       const response = await fetch(`${API_BASE_URL}/api/museum/stats`);
       const data = await response.json();
       

@@ -94,11 +94,9 @@ const web3MonitoringMiddleware = (req, res, next) => {
       const responseTime = Date.now() - req.startTime;
       const success = res.statusCode >= 200 && res.statusCode < 400;
       
-      // Déterminer le service (Hedera ou IPFS)
-      let service = 'unknown';
-      if (req.path.includes('/hedera/')) {
-        service = 'hedera';
-      } else if (req.path.includes('/ipfs/')) {
+      // Déterminer le service (Blockchain ou IPFS)
+      let service = 'blockchain';
+      if (req.path.includes('/ipfs/')) {
         service = 'ipfs';
       }
       

@@ -1,0 +1,1288 @@
+{
+  "generatedAt": "2026-02-14T21:44:59.232Z",
+  "sources": {
+    "tales": "Gutendex / Project Gutenberg",
+    "proverbes": "Wikiquote",
+    "chants": "Internet Archive",
+    "danses": "Wikimedia Commons",
+    "art": "Metropolitan Museum of Art"
+  },
+  "counts": {
+    "tales": 1,
+    "proverbes": 17,
+    "chants": 1,
+    "danses": 1,
+    "art": 1,
+    "total": 21
+  },
+  "data": {
+    "tales": [
+      {
+        "id": "tale_66923",
+        "title": "West African Folk-Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Tradition orale",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/66923",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "66923",
+          "textUrl": "https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+          "themes": [
+            "Folklore -- Africa, West",
+            "Tales -- Africa, West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:44:32.004Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_66923",
+          "contentHash": "0xde71e425b3f72a868275d96cb73faad1bb4c408513978850334ae30f10014f37",
+          "metadata": {
+            "id": "tale_66923",
+            "title": "West African Folk-Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:32.004Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixp22vsh0u",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixp22vsh0u",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixp22vsh0u",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_66923",
+            "contentHash": "0xde71e425b3f72a868275d96cb73faad1bb4c408513978850334ae30f10014f37",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixp22vsh0u",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xd094c5f5371472d7b3cc6f61006879d3f784f300de93c648616261437638d269",
+            "blockNumber": 0,
+            "timestamp": 1771105472,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "proverbes": [
+      {
+        "id": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+        "title": "Nin wax cunay xishood. A man who has eaten something becomes shy.",
+        "content": "Nin wax cunay xishood. A man who has eaten something becomes shy.",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+          "contentHash": "0x8e7d6446af7f7540f5ad0683e3e1572337f46807679d10e5458ad6398bbb61ab",
+          "metadata": {
+            "id": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+            "title": "Nin wax cunay xishood. A man who has eaten something becomes shy.",
+            "content": "Nin wax cunay xishood. A man who has eaten something becomes shy.",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.894Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdikbbonc4n5",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdikbbonc4n5",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdikbbonc4n5",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+            "contentHash": "0x8e7d6446af7f7540f5ad0683e3e1572337f46807679d10e5458ad6398bbb61ab",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdikbbonc4n5",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x49478a676c1dd70baa1658d31ce3d5baf4727680398216b00e7568199b459ef9",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+        "title": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+        "content": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+          "contentHash": "0xa4f0aa2829ba35b4d40d98f273f08363d6329aa9a89ad91ab52f47bf9b1bc879",
+          "metadata": {
+            "id": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+            "title": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+            "content": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.897Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixmwex56fc",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixmwex56fc",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixmwex56fc",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+            "contentHash": "0xa4f0aa2829ba35b4d40d98f273f08363d6329aa9a89ad91ab52f47bf9b1bc879",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixmwex56fc",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x20a86eb239cb921e2e58697acb43ca897a41d38abf8b832f226ec69ba62e3627",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+        "title": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+        "content": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+          "contentHash": "0xec5257f28477293ecc0acaa33a5ec60c983810fe5f6a2faeada149b32e77e9d5",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+            "title": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+            "content": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.901Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqxslxdinb",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqxslxdinb",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqxslxdinb",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+            "contentHash": "0xec5257f28477293ecc0acaa33a5ec60c983810fe5f6a2faeada149b32e77e9d5",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqxslxdinb",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x064da4656430ec9c92fd240434bf89bec466b6e5e2c8edbbf680554da0314410",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+        "title": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+        "content": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+          "contentHash": "0x39dfd004b291fb14c244b788bcf3570e1957f411915fd2eab5f8680db83ab3be",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+            "title": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+            "content": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.903Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi220mo0jxc",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi220mo0jxc",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi220mo0jxc",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+            "contentHash": "0x39dfd004b291fb14c244b788bcf3570e1957f411915fd2eab5f8680db83ab3be",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi220mo0jxc",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xd5b746eb4fead30c7bedc8836055ba2a4f3631652b22f446bfb99e60ed71906d",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+        "title": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+        "content": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+          "contentHash": "0x56612582633793f819d0077dbe71c4630980f0c052d8b6cafe8c2ea455b3f252",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+            "title": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+            "content": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.906Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi5wcqq1fe4",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi5wcqq1fe4",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi5wcqq1fe4",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+            "contentHash": "0x56612582633793f819d0077dbe71c4630980f0c052d8b6cafe8c2ea455b3f252",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi5wcqq1fe4",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x3b291a2aefcd6a6cd3d73a88949d3777f8c5fc6b9f439f68f22193783768f36e",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+        "title": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+        "content": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+          "contentHash": "0x0769efdd7bfd61bc1d428cd45fdf88da349e4dd2380c39ab75742abe7b4059d4",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+            "title": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+            "content": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.909Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisug13w5mq",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisug13w5mq",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisug13w5mq",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+            "contentHash": "0x0769efdd7bfd61bc1d428cd45fdf88da349e4dd2380c39ab75742abe7b4059d4",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisug13w5mq",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xac9e879a3da7e501a9ee111717cc24fdc41b8004375878b68799b3e8c3b0498a",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+        "title": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+        "content": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+          "contentHash": "0x4ca85bc5f264de024d4d44986da43b39f55ec2729238a457d945c9edf9d5d51b",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+            "title": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+            "content": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.911Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwo12ugrn5",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwo12ugrn5",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwo12ugrn5",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+            "contentHash": "0x4ca85bc5f264de024d4d44986da43b39f55ec2729238a457d945c9edf9d5d51b",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwo12ugrn5",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x193255c8a64ed5851c0fc5331782a45d4a78c67e3a8f35c8ff2e3b75a3564ca4",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+        "title": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+        "content": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+          "contentHash": "0xf8af0eab66725a57faacd66a3c957336bd2ae656c8b48a9171bceab19c017037",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+            "title": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+            "content": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.914Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3eunmfumj",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3eunmfumj",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3eunmfumj",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+            "contentHash": "0xf8af0eab66725a57faacd66a3c957336bd2ae656c8b48a9171bceab19c017037",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3eunmfumj",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xe8974c3d71fff2636f14c0526c6f61f5d0554e6ba0f7a8bf63ce8aabfbc6a26f",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_6_hisani_haiozi_kindness_does_not_go_ba",
+        "title": "Hisani haiozi. Kindness does not go bad.",
+        "content": "Hisani haiozi. Kindness does not go bad.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_6_hisani_haiozi_kindness_does_not_go_ba",
+          "contentHash": "0x2bedb748997a176763f6fe366494a9a57d36eb45de4cea7704c4155a8ac80674",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_6_hisani_haiozi_kindness_does_not_go_ba",
+            "title": "Hisani haiozi. Kindness does not go bad.",
+            "content": "Hisani haiozi. Kindness does not go bad.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.916Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdioywhswa2k",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdioywhswa2k",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdioywhswa2k",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_6_hisani_haiozi_kindness_does_not_go_ba",
+            "contentHash": "0x2bedb748997a176763f6fe366494a9a57d36eb45de4cea7704c4155a8ac80674",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdioywhswa2k",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x8adcd5e7bd9e45fd156eb39aa33bd4a08c42131693492135e9d853952b83f667",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_7_jogoo_mtenda_mema_kaliwa_the_rooster_",
+        "title": "Jogoo mtenda mema kaliwa. The rooster, always beneficial, is eaten.",
+        "content": "Jogoo mtenda mema kaliwa. The rooster, always beneficial, is eaten.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_7_jogoo_mtenda_mema_kaliwa_the_rooster_",
+          "contentHash": "0xd85a901639a37337227b0913f54b37323392634a0cdec4f8d1658c84284cb9bc",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_7_jogoo_mtenda_mema_kaliwa_the_rooster_",
+            "title": "Jogoo mtenda mema kaliwa. The rooster, always beneficial, is eaten.",
+            "content": "Jogoo mtenda mema kaliwa. The rooster, always beneficial, is eaten.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.919Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio67pf24f9",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio67pf24f9",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio67pf24f9",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_7_jogoo_mtenda_mema_kaliwa_the_rooster_",
+            "contentHash": "0xd85a901639a37337227b0913f54b37323392634a0cdec4f8d1658c84284cb9bc",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio67pf24f9",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x8b5190327eba6f2744ae8ca0dc2fc8d92b35701cf8f6645c5a2ad6c9138b575b",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_8_kibarua_hulima_juani_tajiri_hulia_kiv",
+        "title": "Kibarua hulima juani, tajiri hulia kivulini. A day-worker cultivates in the sun, the master eats in the shade.",
+        "content": "Kibarua hulima juani, tajiri hulia kivulini. A day-worker cultivates in the sun, the master eats in the shade.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_8_kibarua_hulima_juani_tajiri_hulia_kiv",
+          "contentHash": "0xab29945a7733045a8911ce7d8d9d9029bc29b2557b306514708e8d924a741221",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_8_kibarua_hulima_juani_tajiri_hulia_kiv",
+            "title": "Kibarua hulima juani, tajiri hulia kivulini. A day-worker cultivates in the sun, the master eats in the shade.",
+            "content": "Kibarua hulima juani, tajiri hulia kivulini. A day-worker cultivates in the sun, the master eats in the shade.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.921Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivdwj5zr33",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivdwj5zr33",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivdwj5zr33",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_8_kibarua_hulima_juani_tajiri_hulia_kiv",
+            "contentHash": "0xab29945a7733045a8911ce7d8d9d9029bc29b2557b306514708e8d924a741221",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivdwj5zr33",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x713bbaf571cca01d645864cb1e5a96cd11b9d3501751c0af00ef1814cb2fb26f",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_9_msinji_ukiinama_hauna_nguvu_usiushtak",
+        "title": "Msinji ukiinama hauna nguvu; usiushtaki ukuta ukianguka. A foundation that is not level is not strong; don't blame the w",
+        "content": "Msinji ukiinama hauna nguvu; usiushtaki ukuta ukianguka. A foundation that is not level is not strong; don't blame the wall if it falls down.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_9_msinji_ukiinama_hauna_nguvu_usiushtak",
+          "contentHash": "0x9d04dedcf4dbffdb07f199a09ee429a612e11810abebf000a47772b144b741c3",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_9_msinji_ukiinama_hauna_nguvu_usiushtak",
+            "title": "Msinji ukiinama hauna nguvu; usiushtaki ukuta ukianguka. A foundation that is not level is not strong; don't blame the w",
+            "content": "Msinji ukiinama hauna nguvu; usiushtaki ukuta ukianguka. A foundation that is not level is not strong; don't blame the wall if it falls down.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.924Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibjm9cnfz4",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibjm9cnfz4",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibjm9cnfz4",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_9_msinji_ukiinama_hauna_nguvu_usiushtak",
+            "contentHash": "0x9d04dedcf4dbffdb07f199a09ee429a612e11810abebf000a47772b144b741c3",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibjm9cnfz4",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x2813d8920fe12ef462e8bd74068ff962cfeed681b674732bb49b8212c3cc52d4",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_10_ukijifanya_asali_nzi_wote_watakula_i",
+        "title": "Ukijifanya asali nzi wote watakula. If you make yourself [like] honey all the flies will devour you.",
+        "content": "Ukijifanya asali nzi wote watakula. If you make yourself [like] honey all the flies will devour you.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_10_ukijifanya_asali_nzi_wote_watakula_i",
+          "contentHash": "0xb164baf710b03e00faa20e406195937d6a6ba1674d026c8da4c4470310667c24",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_10_ukijifanya_asali_nzi_wote_watakula_i",
+            "title": "Ukijifanya asali nzi wote watakula. If you make yourself [like] honey all the flies will devour you.",
+            "content": "Ukijifanya asali nzi wote watakula. If you make yourself [like] honey all the flies will devour you.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.927Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi8z75kgxg9",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi8z75kgxg9",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi8z75kgxg9",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_10_ukijifanya_asali_nzi_wote_watakula_i",
+            "contentHash": "0xb164baf710b03e00faa20e406195937d6a6ba1674d026c8da4c4470310667c24",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi8z75kgxg9",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xba7af04ba8ca36a21992c20dd63e36dc340590951fc018fbcbe6f600957cd676",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_11_usisafirie_nyota_ya_mwenzio_don_t_se",
+        "title": "Usisafirie nyota ya mwenzio. Don't set sail using somebody else's star.",
+        "content": "Usisafirie nyota ya mwenzio. Don't set sail using somebody else's star.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_11_usisafirie_nyota_ya_mwenzio_don_t_se",
+          "contentHash": "0x27266ca23c411078c7a77b56799a3302784ba78354b2f72f3e25c15d88bd0442",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_11_usisafirie_nyota_ya_mwenzio_don_t_se",
+            "title": "Usisafirie nyota ya mwenzio. Don't set sail using somebody else's star.",
+            "content": "Usisafirie nyota ya mwenzio. Don't set sail using somebody else's star.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.930Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdix8rsnnkni",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdix8rsnnkni",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdix8rsnnkni",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_11_usisafirie_nyota_ya_mwenzio_don_t_se",
+            "contentHash": "0x27266ca23c411078c7a77b56799a3302784ba78354b2f72f3e25c15d88bd0442",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdix8rsnnkni",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x8a8ecb402987c44cada87d9e5e8e091704707485cb02332bd1078089fbd30966",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_12_pole_pole_ndio_mwendo_slow_slow_is_t",
+        "title": "Pole pole ndio mwendo. Slow, slow is the way to go.",
+        "content": "Pole pole ndio mwendo. Slow, slow is the way to go.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_12_pole_pole_ndio_mwendo_slow_slow_is_t",
+          "contentHash": "0xb594eea779422bdb890680e0315ea900f8f10fd30dacadd26957863b1362b49b",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_12_pole_pole_ndio_mwendo_slow_slow_is_t",
+            "title": "Pole pole ndio mwendo. Slow, slow is the way to go.",
+            "content": "Pole pole ndio mwendo. Slow, slow is the way to go.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.931Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzditj8mywa1t",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzditj8mywa1t",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzditj8mywa1t",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_12_pole_pole_ndio_mwendo_slow_slow_is_t",
+            "contentHash": "0xb594eea779422bdb890680e0315ea900f8f10fd30dacadd26957863b1362b49b",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzditj8mywa1t",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x004dcbe99a542ba61e3ea840e75a3d40c23b4256e90dfea435edc978d19de12c",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_13_haraka_haraka_haina_baraka_hurry_hur",
+        "title": "Haraka haraka haina baraka. Hurry, Hurry has no blessings. / More haste, less speed",
+        "content": "Haraka haraka haina baraka. Hurry, Hurry has no blessings. / More haste, less speed",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_13_haraka_haraka_haina_baraka_hurry_hur",
+          "contentHash": "0x18a8650ad581957aabc798dcbb51a0d6c662c4a4e95a2a2f4c9ef15bf9d46227",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_13_haraka_haraka_haina_baraka_hurry_hur",
+            "title": "Haraka haraka haina baraka. Hurry, Hurry has no blessings. / More haste, less speed",
+            "content": "Haraka haraka haina baraka. Hurry, Hurry has no blessings. / More haste, less speed",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.932Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi705zt7bpi",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi705zt7bpi",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi705zt7bpi",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_13_haraka_haraka_haina_baraka_hurry_hur",
+            "contentHash": "0x18a8650ad581957aabc798dcbb51a0d6c662c4a4e95a2a2f4c9ef15bf9d46227",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi705zt7bpi",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x1d0cd9435725c3af57ea27ecd5df807bc9ec29c6ceb6769fe294a6de93c7f1d9",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_14_mtu_ni_watu_a_person_is_people",
+        "title": "Mtu ni watu. A person is people.",
+        "content": "Mtu ni watu. A person is people.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:44:36.894Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_14_mtu_ni_watu_a_person_is_people",
+          "contentHash": "0x6d056523fe070a20e49198ce9fc8456c07867acb7665399d7bc871651170005e",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_14_mtu_ni_watu_a_person_is_people",
+            "title": "Mtu ni watu. A person is people.",
+            "content": "Mtu ni watu. A person is people.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:36.933Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizi9box6yq",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizi9box6yq",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizi9box6yq",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_14_mtu_ni_watu_a_person_is_people",
+            "contentHash": "0x6d056523fe070a20e49198ce9fc8456c07867acb7665399d7bc871651170005e",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizi9box6yq",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x1ddc999f40faa2665bd6654895e74bd2b6cf52b7118aaa385eb900edd67ceea8",
+            "blockNumber": 0,
+            "timestamp": 1771105476,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "chants": [
+      {
+        "id": "music_bayefallchantunplugged",
+        "title": "Baye Fall Chant unplugged",
+        "content": "This is a recording of Baye Fall chanting recorded in Diourbel, Senegal on July 22, 2011. The Baye Falls are a sub-sect of the Mouride Islamic Brotherhood. This was recorded outside the compound of a Peace Corps Volunteer serving in Senegal.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Sénégal",
+        "authorName": "april1213",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/BayeFallChantUnplugged",
+        "license": "Public Domain",
+        "metadata": {
+          "archiveId": "BayeFallChantUnplugged",
+          "audioUrl": "https://archive.org/download/BayeFallChantUnplugged/BayeFallChantUnplugged.mp3",
+          "duration": "01:19",
+          "format": "VBR MP3",
+          "year": null,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "subjects": [
+            "Diourbel",
+            "Senegal",
+            "Chanting",
+            "Baye Fall",
+            "Mouride Brotherhood",
+            "Islamic Chant"
+          ],
+          "collectedAt": "2026-02-14T21:44:43.362Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_bayefallchantunplugged",
+          "contentHash": "0xda6523b8fe81a9c702a7835769f31bf0450987a7c68aeb70cb761d169b46686d",
+          "metadata": {
+            "id": "music_bayefallchantunplugged",
+            "title": "Baye Fall Chant unplugged",
+            "content": "This is a recording of Baye Fall chanting recorded in Diourbel, Senegal on July 22, 2011. The Baye Falls are a sub-sect of the Mouride Islamic Brotherhood. This was recorded outside the compound of a Peace Corps Volunteer serving in Senegal.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Sénégal",
+            "authorName": "april1213",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:43.363Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiouloyoy3z",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiouloyoy3z",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiouloyoy3z",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_bayefallchantunplugged",
+            "contentHash": "0xda6523b8fe81a9c702a7835769f31bf0450987a7c68aeb70cb761d169b46686d",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiouloyoy3z",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x0749079d5863e7dfec8433e42924262849dc779a38dd3bff9d3ea38a572a453c",
+            "blockNumber": 0,
+            "timestamp": 1771105483,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "danses": [
+      {
+        "id": "dance_2113706",
+        "title": "West African Dance at the White House, 2007Apr25.jpg",
+        "content": "Members from the Kankouran West African Dance Company performs during a ceremony marking Malaria Awareness Day Wednesday, April 25, 2007, in the Rose Garden, White House.",
+        "type": "DANCE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "White House photo by Eric Draper",
+        "source": "Wikimedia Commons",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:West_African_Dance_at_the_White_House,_2007Apr25.jpg",
+        "license": "Public domain",
+        "metadata": {
+          "externalId": "2113706",
+          "videoUrl": null,
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/West_African_Dance_at_the_White_House%2C_2007Apr25.jpg",
+          "duration": null,
+          "format": "image/jpeg",
+          "year": 2007,
+          "genre": "Traditional Dance",
+          "licenseUrl": null,
+          "subjects": [],
+          "collectedAt": "2026-02-14T21:44:53.004Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "dance_2113706",
+          "contentHash": "0x5f4feb033e1199d840d4a8904c10e03f494d6f466165e245bec8b7a9a4ca06a0",
+          "metadata": {
+            "id": "dance_2113706",
+            "title": "West African Dance at the White House, 2007Apr25.jpg",
+            "content": "Members from the Kankouran West African Dance Company performs during a ceremony marking Malaria Awareness Day Wednesday, April 25, 2007, in the Rose Garden, White House.",
+            "type": "DANCE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "White House photo by Eric Draper",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:53.004Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdilmuhmnd1z",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdilmuhmnd1z",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdilmuhmnd1z",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "dance_2113706",
+            "contentHash": "0x5f4feb033e1199d840d4a8904c10e03f494d6f466165e245bec8b7a9a4ca06a0",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdilmuhmnd1z",
+            "contentType": "DANCE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x3a187258ef6a0b389f811d606cc1598306bc3a90c2db5e7b56b5cc91485a747b",
+            "blockNumber": 0,
+            "timestamp": 1771105493,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "art": [
+      {
+        "id": "art_202350",
+        "title": "Africa",
+        "content": "Figure - 1751–57 - Hard-paste porcelain",
+        "type": "ART",
+        "language": "fr",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Royal Porcelain Manufactory, Berlin",
+        "source": "Metropolitan Museum of Art",
+        "sourceUrl": "https://www.metmuseum.org/art/collection/search/202350",
+        "license": "CC0",
+        "metadata": {
+          "objectId": "202350",
+          "department": "European Sculpture and Decorative Arts",
+          "culture": null,
+          "period": "1751–57",
+          "medium": "Hard-paste porcelain",
+          "dimensions": "Height: 6 3/16 in. (15.7 cm)",
+          "imageUrl": "https://images.metmuseum.org/CRDImages/es/web-large/170280.jpg",
+          "highResImageUrl": "https://images.metmuseum.org/CRDImages/es/original/170280.jpg",
+          "tags": [
+            "Bow and Arrow",
+            "Men"
+          ],
+          "collectedAt": "2026-02-14T21:44:59.230Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "art_202350",
+          "contentHash": "0x21fac98f280655ddeb6edfbde00db4f91f766a059931e72c51f3cddf3fabf77a",
+          "metadata": {
+            "id": "art_202350",
+            "title": "Africa",
+            "content": "Figure - 1751–57 - Hard-paste porcelain",
+            "type": "ART",
+            "language": "fr",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Royal Porcelain Manufactory, Berlin",
+            "media": [],
+            "createdAt": "2026-02-14T21:44:59.230Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi42oogfcat",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi42oogfcat",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi42oogfcat",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "art_202350",
+            "contentHash": "0x21fac98f280655ddeb6edfbde00db4f91f766a059931e72c51f3cddf3fabf77a",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi42oogfcat",
+            "contentType": "ART",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x9487205dee941d2a63659db7c0f6a5912c48719019aabd0ea153ca45e5da6c6d",
+            "blockNumber": 0,
+            "timestamp": 1771105499,
+            "explorerUrl": null
+          }
+        }
+      }
+    ]
+  }
+}

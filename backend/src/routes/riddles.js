@@ -1,323 +1,204 @@
 const express = require('express');
-const router = express.Router();
-const { authenticateToken, authorize, optionalAuth } = require('../middleware/auth');
 const rateLimit = require('express-rate-limit');
+const { prisma } = require('../config/database');
+const { authenticateToken, authorize, optionalAuth } = require('../middleware/auth');
 
-// Import conditionnel des modèles
-let Riddle, User;
-try {
-  const mongoose = require('mongoose');
-  if (mongoose.connection.readyState === 1) {
-    Riddle = require('../models/Riddle');
-    User = require('../models/User');
-  } else {
-    console.log('Mode démo: MongoDB non connecté, utilisation du stockage en mémoire');
-  }
-} catch (error) {
-  console.log('Mode démo: Modèles non disponibles');
-}
+const router = express.Router();
 
-// Stockage en mémoire pour le mode démo
-const demoRiddles = new Map();
-let nextRiddleId = 1;
-
-// Rate limiting pour les devinettes
 const riddleLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 50, // 50 requêtes par IP
+  windowMs: 15 * 60 * 1000,
+  max: 50,
   message: {
     success: false,
     message: 'Trop de requêtes. Réessayez plus tard.'
   }
 });
 
-// Appliquer le rate limiting à toutes les routes
 router.use(riddleLimiter);
 
-// GET /riddles - Récupérer les devinettes avec filtres
+const CATEGORY_MAP = {
+  nature: 'NATURE',
+  animals: 'ANIMALS',
+  family: 'FAMILY',
+  wisdom: 'WISDOM',
+  community: 'COMMUNITY',
+  history: 'HISTORY',
+  traditions: 'TRADITIONS',
+  other: 'OTHER'
+};
+
+const DIFFICULTY_MAP = {
+  easy: 'EASY',
+  medium: 'MEDIUM',
+  hard: 'HARD'
+};
+
+const STATUS_MAP = {
+  pending: 'PENDING',
+  approved: 'APPROVED',
+  rejected: 'REJECTED',
+  draft: 'DRAFT'
+};
+
+const DEFAULT_STATS = {
+  plays: 0,
+  correctAnswers: 0,
+  incorrectAnswers: 0,
+  averageTime: 0,
+  likes: 0,
+  dislikes: 0,
+  rating: 0
+};
+
+function parsePositiveInt(value, fallback) {
+  const parsed = Number.parseInt(value, 10);
+  if (Number.isNaN(parsed) || parsed <= 0) {
+    return fallback;
+  }
+  return parsed;
+}
+
+function normalizeStringArray(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value
+    .map((entry) => String(entry || '').trim())
+    .filter((entry) => entry.length > 0);
+}
+
+function parseCategory(input, fallback = undefined) {
+  if (typeof input !== 'string') {
+    return fallback;
+  }
+  return CATEGORY_MAP[input.toLowerCase()] || fallback;
+}
+
+function parseDifficulty(input, fallback = undefined) {
+  if (typeof input !== 'string') {
+    return fallback;
+  }
+  return DIFFICULTY_MAP[input.toLowerCase()] || fallback;
+}
+
+function parseStatus(input, fallback = undefined) {
+  if (typeof input !== 'string') {
+    return fallback;
+  }
+  return STATUS_MAP[input.toLowerCase()] || fallback;
+}
+
+function computeRating(likes, dislikes) {
+  const totalVotes = likes + dislikes;
+  if (totalVotes === 0) {
+    return 0;
+  }
+  return Number(((likes / totalVotes) * 5).toFixed(2));
+}
+
+function mapRiddleForClient(riddle) {
+  if (!riddle) {
+    return null;
+  }
+
+  return {
+    ...riddle,
+    category: riddle.category ? riddle.category.toLowerCase() : null,
+    difficulty: riddle.difficulty ? riddle.difficulty.toLowerCase() : null,
+    status: riddle.status ? riddle.status.toLowerCase() : null,
+    stats: riddle.stats || { ...DEFAULT_STATS }
+  };
+}
+
+const riddleInclude = {
+  author: {
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      profile: {
+        select: {
+          avatar: true
+        }
+      }
+    }
+  },
+  stats: true
+};
+
 router.get('/', optionalAuth, async (req, res) => {
   try {
-    const {
-      category,
-      difficulty,
-      language = 'fr',
-      limit = 20,
-      page = 1,
-      search,
-      sort = 'recent',
-      featured
-    } = req.query;
+    const category = parseCategory(req.query.category);
+    const difficulty = parseDifficulty(req.query.difficulty);
+    const language = req.query.language || 'fr';
+    const search = typeof req.query.search === 'string' ? req.query.search.trim() : '';
+    const sort = req.query.sort || 'recent';
+    const featured = req.query.featured === 'true';
+    const page = parsePositiveInt(req.query.page, 1);
+    const limit = Math.min(parsePositiveInt(req.query.limit, 20), 100);
+    const skip = (page - 1) * limit;
 
-    if (!Riddle) {
-      // Mode démo - devinettes par défaut
-      const defaultRiddles = [
-        {
-          id: 1,
-          question: "Je suis grand et fort, je porte des feuilles vertes, que suis-je ?",
-          answer: "L'arbre",
-          hint: "On me trouve dans la forêt",
-          explanation: "L'arbre est un élément essentiel de la culture africaine, symbolisant la vie et la sagesse.",
-          culturalContext: "Dans de nombreuses cultures africaines, l'arbre baobab est considéré comme sacré et représente la connexion entre la terre et le ciel.",
-          category: "nature",
-          difficulty: "easy",
-          language: "fr",
-          author: "tradition-orale",
-          authorName: "Tradition Orale Africaine",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        },
-        {
-          id: 2,
-          question: "Je marche sans jambes, je cours sans pieds, je traverse les montagnes et les vallées. Qui suis-je ?",
-          answer: "Le vent",
-          hint: "Je souffle et je déplace les nuages",
-          explanation: "Le vent peut parcourir de grandes distances sans avoir de jambes ou de pieds physiques.",
-          culturalContext: "Cette devinette peule du Burkina Faso enseigne aux enfants à observer la nature et ses phénomènes. Le vent est personnifié dans many traditions africaines.",
-          category: "nature",
-          difficulty: "easy",
-          language: "fr",
-          author: "tradition-peule",
-          authorName: "Tradition Orale Peule",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        },
-        {
-          id: 3,
-          question: "Nous sommes deux frères jumeaux. L'un pleure quand l'autre rit. Qui sommes-nous ?",
-          answer: "Les yeux",
-          hint: "Nous sommes sur votre visage",
-          explanation: "Quand on pleure, un œil peut pleurer plus que l'autre, ou quand on cligne, un œil se ferme pendant que l'autre reste ouvert.",
-          culturalContext: "Cette devinette yoruba du Nigeria aide les enfants à comprendre le corps humain de manière ludique et poétique.",
-          category: "family",
-          difficulty: "medium",
-          language: "fr",
-          author: "tradition-yoruba",
-          authorName: "Tradition Orale Yoruba",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        },
-        {
-          id: 4,
-          question: "Je suis la maison de millions d'habitants, mais personne ne paie de loyer. Qui suis-je ?",
-          answer: "La fourmilière",
-          hint: "Les habitants sont très travailleurs et organisés",
-          explanation: "La fourmilière abrite des milliers de fourmis qui vivent ensemble sans payer de loyer.",
-          culturalContext: "Cette devinette akan du Ghana enseigne l'importance de la communauté et du travail d'équipe, valeurs centrales de la culture akan.",
-          category: "community",
-          difficulty: "medium",
-          language: "fr",
-          author: "tradition-akan",
-          authorName: "Tradition Orale Akan",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        },
-        {
-          id: 5,
-          question: "Plus je vieillis, plus je deviens petit. Qui suis-je ?",
-          answer: "La bougie",
-          hint: "Je donne de la lumière mais je me consume",
-          explanation: "Une bougie rétrécit au fur et à mesure qu'elle brûle et donne de la lumière.",
-          culturalContext: "Cette devinette swahilie de Tanzanie enseigne le concept du temps et du sacrifice pour éclairer les autres, métaphore de la sagesse partagée.",
-          category: "wisdom",
-          difficulty: "easy",
-          language: "fr",
-          author: "tradition-swahilie",
-          authorName: "Tradition Orale Swahilie",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        },
-        {
-          id: 6,
-          question: "Je peux porter un éléphant mais pas une plume. Qui suis-je ?",
-          answer: "L'eau",
-          hint: "Je suis liquide et les choses flottent sur moi",
-          explanation: "L'eau peut porter un éléphant qui nage, mais une plume coule si elle est mouillée.",
-          culturalContext: "Cette devinette zoulou d'Afrique du Sud enseigne les propriétés physiques et la logique paradoxale, stimulant la réflexion critique.",
-          category: "nature",
-          difficulty: "hard",
-          language: "fr",
-          author: "tradition-zoulou",
-          authorName: "Tradition Orale Zoulou",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        },
-        {
-          id: 7,
-          question: "Je suis plus grand que la montagne, mais je peux tenir dans un grain de mil. Qui suis-je ?",
-          answer: "L'ombre",
-          hint: "Je suis toujours avec toi mais je change de taille",
-          explanation: "L'ombre peut être immense et couvrir une montagne entière, mais elle peut aussi être très petite et tenir dans un grain de mil.",
-          culturalContext: "Cette devinette bambara du Mali développe la logique et l'observation chez les enfants. Elle fait partie des jeux traditionnels d'éducation.",
-          category: "nature",
-          difficulty: "medium",
-          language: "fr",
-          author: "tradition-bambara",
-          authorName: "Tradition Orale Bambara",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        },
-        {
-          id: 8,
-          question: "Je vole sans ailes, je nage sans nageoires, je parle sans bouche. Qui suis-je ?",
-          answer: "L'écho",
-          hint: "Je répète tout ce que tu dis",
-          explanation: "L'écho peut sembler voler dans l'air, se propager sous l'eau et répéter les paroles sans avoir de bouche.",
-          culturalContext: "Cette devinette hausa du Niger enseigne les phénomènes acoustiques et développe la compréhension des sons dans la nature.",
-          category: "nature",
-          difficulty: "hard",
-          language: "fr",
-          author: "tradition-hausa",
-          authorName: "Tradition Orale Hausa",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        }
-      ];
-
-      let filteredRiddles = defaultRiddles;
-
-      // Appliquer les filtres
-      if (category) {
-        filteredRiddles = filteredRiddles.filter(r => r.category === category);
-      }
-      if (difficulty) {
-        filteredRiddles = filteredRiddles.filter(r => r.difficulty === difficulty);
-      }
-      if (search) {
-        const searchLower = search.toLowerCase();
-        filteredRiddles = filteredRiddles.filter(r => 
-          r.question.toLowerCase().includes(searchLower) ||
-          r.answer.toLowerCase().includes(searchLower) ||
-          r.explanation.toLowerCase().includes(searchLower)
-        );
-      }
-
-      // Appliquer le tri
-      switch (sort) {
-        case 'recent':
-          filteredRiddles.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-          break;
-        case 'popular':
-          filteredRiddles.sort((a, b) => b.stats.plays - a.stats.plays);
-          break;
-        case 'rating':
-          filteredRiddles.sort((a, b) => b.stats.rating - a.stats.rating);
-          break;
-        case 'difficulty':
-          const difficultyOrder = { easy: 1, medium: 2, hard: 3 };
-          filteredRiddles.sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]);
-          break;
-      }
-
-      const skip = (parseInt(page) - 1) * parseInt(limit);
-      const paginatedRiddles = filteredRiddles.slice(skip, skip + parseInt(limit));
-
-      return res.json({
-        success: true,
-        data: {
-          riddles: paginatedRiddles,
-          pagination: {
-            page: parseInt(page),
-            limit: parseInt(limit),
-            total: filteredRiddles.length,
-            pages: Math.ceil(filteredRiddles.length / parseInt(limit))
-          }
-        }
-      });
-    }
-
-    // Mode normal avec MongoDB
-    const query = {
-      status: 'approved',
+    const where = {
+      status: 'APPROVED',
       isActive: true,
-      isPublic: true
+      isPublic: true,
+      language
     };
 
-    // Filtres
-    if (category) query.category = category;
-    if (difficulty) query.difficulty = difficulty;
-    if (language) query.language = language;
-    if (featured === 'true') query.isFeatured = true;
-
-    // Recherche textuelle
+    if (category) {
+      where.category = category;
+    }
+    if (difficulty) {
+      where.difficulty = difficulty;
+    }
+    if (featured) {
+      where.isFeatured = true;
+    }
     if (search) {
-      query.$text = { $search: search };
+      where.OR = [
+        { question: { contains: search, mode: 'insensitive' } },
+        { answer: { contains: search, mode: 'insensitive' } },
+        { explanation: { contains: search, mode: 'insensitive' } },
+        { culturalContext: { contains: search, mode: 'insensitive' } }
+      ];
     }
 
-    // Options de tri
-    let sortOptions = {};
+    let orderBy;
     switch (sort) {
-      case 'recent':
-        sortOptions = { publishedAt: -1 };
-        break;
       case 'popular':
-        sortOptions = { 'stats.plays': -1, 'stats.rating': -1 };
+        orderBy = [{ stats: { plays: 'desc' } }, { stats: { rating: 'desc' } }, { createdAt: 'desc' }];
         break;
       case 'rating':
-        sortOptions = { 'stats.rating': -1, 'stats.plays': -1 };
+        orderBy = [{ stats: { rating: 'desc' } }, { stats: { plays: 'desc' } }, { createdAt: 'desc' }];
         break;
       case 'difficulty':
-        sortOptions = { difficulty: 1, 'stats.rating': -1 };
+        orderBy = [{ difficulty: 'asc' }, { publishedAt: 'desc' }, { createdAt: 'desc' }];
         break;
+      case 'recent':
       default:
-        sortOptions = { publishedAt: -1 };
+        orderBy = [{ publishedAt: 'desc' }, { createdAt: 'desc' }];
     }
 
-    // Si recherche textuelle, ajouter le score de recherche
-    if (search) {
-      sortOptions = { score: { $meta: 'textScore' }, ...sortOptions };
-    }
-
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    const riddles = await Riddle.find(query, search ? { score: { $meta: 'textScore' } } : {})
-      .sort(sortOptions)
-      .skip(skip)
-      .limit(parseInt(limit))
-      .populate('author', 'name email profile.avatar')
-      .lean();
-
-    const total = await Riddle.countDocuments(query);
+    const [riddles, total] = await prisma.$transaction([
+      prisma.riddle.findMany({
+        where,
+        include: riddleInclude,
+        orderBy,
+        skip,
+        take: limit
+      }),
+      prisma.riddle.count({ where })
+    ]);
 
     res.json({
       success: true,
       data: {
-        riddles,
+        riddles: riddles.map(mapRiddleForClient),
         pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
+          page,
+          limit,
           total,
-          pages: Math.ceil(total / parseInt(limit))
+          pages: Math.ceil(total / limit)
         }
       }
     });
@@ -330,47 +211,27 @@ router.get('/', optionalAuth, async (req, res) => {
   }
 });
 
-// GET /riddles/featured - Récupérer les devinettes en vedette
 router.get('/featured', async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 5;
-    
-    // Mode démo
-    if (!Riddle) {
-      const defaultRiddles = [
-        {
-          id: 1,
-          question: "Je suis grand et fort, je porte des feuilles vertes, que suis-je ?",
-          answer: "L'arbre",
-          hint: "On me trouve dans la forêt",
-          explanation: "L'arbre est un élément essentiel de la culture africaine, symbolisant la vie et la sagesse.",
-          culturalContext: "Dans de nombreuses cultures africaines, l'arbre est considéré comme sacré et représente la connexion entre la terre et le ciel.",
-          category: "nature",
-          difficulty: "easy",
-          language: "fr",
-          author: "system",
-          authorName: "Système",
-          status: "approved",
-          isActive: true,
-          isPublic: true,
-          isFeatured: true,
-          stats: { plays: 0, correctAnswers: 0, incorrectAnswers: 0, likes: 0, dislikes: 0, rating: 0 },
-          createdAt: new Date(),
-          publishedAt: new Date()
-        }
-      ];
-      
-      return res.json({
-        success: true,
-        data: { riddles: defaultRiddles.slice(0, limit) }
-      });
-    }
+    const limit = Math.min(parsePositiveInt(req.query.limit, 5), 50);
 
-    const riddles = await Riddle.getFeatured(limit);
+    const riddles = await prisma.riddle.findMany({
+      where: {
+        status: 'APPROVED',
+        isActive: true,
+        isPublic: true,
+        isFeatured: true
+      },
+      include: riddleInclude,
+      orderBy: [{ featuredAt: 'desc' }, { publishedAt: 'desc' }, { createdAt: 'desc' }],
+      take: limit
+    });
 
     res.json({
       success: true,
-      data: { riddles }
+      data: {
+        riddles: riddles.map(mapRiddleForClient)
+      }
     });
   } catch (error) {
     console.error('Erreur récupération devinettes vedette:', error);
@@ -381,15 +242,26 @@ router.get('/featured', async (req, res) => {
   }
 });
 
-// GET /riddles/popular - Récupérer les devinettes populaires
 router.get('/popular', async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 10;
-    const riddles = await Riddle.getPopular(limit);
+    const limit = Math.min(parsePositiveInt(req.query.limit, 10), 50);
+
+    const riddles = await prisma.riddle.findMany({
+      where: {
+        status: 'APPROVED',
+        isActive: true,
+        isPublic: true
+      },
+      include: riddleInclude,
+      orderBy: [{ stats: { plays: 'desc' } }, { stats: { rating: 'desc' } }, { createdAt: 'desc' }],
+      take: limit
+    });
 
     res.json({
       success: true,
-      data: { riddles }
+      data: {
+        riddles: riddles.map(mapRiddleForClient)
+      }
     });
   } catch (error) {
     console.error('Erreur récupération devinettes populaires:', error);
@@ -400,26 +272,24 @@ router.get('/popular', async (req, res) => {
   }
 });
 
-// GET /riddles/categories - Récupérer les catégories disponibles
 router.get('/categories', async (req, res) => {
   try {
-    const categories = await Riddle.distinct('category', {
-      status: 'approved',
-      isActive: true,
-      isPublic: true
+    const categories = await prisma.riddle.groupBy({
+      by: ['category'],
+      where: {
+        status: 'APPROVED',
+        isActive: true,
+        isPublic: true
+      },
+      _count: {
+        category: true
+      }
     });
 
-    const categoryStats = await Promise.all(
-      categories.map(async (category) => {
-        const count = await Riddle.countDocuments({
-          category,
-          status: 'approved',
-          isActive: true,
-          isPublic: true
-        });
-        return { category, count };
-      })
-    );
+    const categoryStats = categories.map((entry) => ({
+      category: entry.category.toLowerCase(),
+      count: entry._count.category
+    }));
 
     res.json({
       success: true,
@@ -434,15 +304,17 @@ router.get('/categories', async (req, res) => {
   }
 });
 
-// GET /riddles/:id - Récupérer une devinette spécifique
 router.get('/:id', optionalAuth, async (req, res) => {
   try {
-    const riddle = await Riddle.findOne({
-      _id: req.params.id,
-      status: 'approved',
-      isActive: true,
-      isPublic: true
-    }).populate('author', 'name email profile.avatar');
+    const riddle = await prisma.riddle.findFirst({
+      where: {
+        id: req.params.id,
+        status: 'APPROVED',
+        isActive: true,
+        isPublic: true
+      },
+      include: riddleInclude
+    });
 
     if (!riddle) {
       return res.status(404).json({
@@ -451,24 +323,22 @@ router.get('/:id', optionalAuth, async (req, res) => {
       });
     }
 
-    res.json({
+    return res.json({
       success: true,
-      data: { riddle }
+      data: { riddle: mapRiddleForClient(riddle) }
     });
   } catch (error) {
     console.error('Erreur récupération devinette:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erreur lors de la récupération de la devinette'
     });
   }
 });
 
-// POST /riddles - Créer une nouvelle devinette
 router.post('/', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
-    
     const {
       question,
       answer,
@@ -484,7 +354,6 @@ router.post('/', authenticateToken, async (req, res) => {
       keywords = []
     } = req.body;
 
-    // Validation
     if (!question || !answer) {
       return res.status(400).json({
         success: false,
@@ -506,8 +375,10 @@ router.post('/', authenticateToken, async (req, res) => {
       });
     }
 
-    // Trouver l'utilisateur
-    const user = await User.findById(userId);
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, name: true }
+    });
 
     if (!user) {
       return res.status(404).json({
@@ -516,70 +387,113 @@ router.post('/', authenticateToken, async (req, res) => {
       });
     }
 
-    // Créer la devinette
-    const riddle = new Riddle({
-      question: question.trim(),
-      answer: answer.trim(),
-      hint: hint?.trim(),
-      explanation: explanation?.trim(),
-      culturalContext: culturalContext?.trim(),
-      category: category || 'other',
-      difficulty: difficulty || 'medium',
-      language,
-      region: region?.trim(),
-      country: country?.trim(),
-      tags: tags.filter(tag => tag.trim().length > 0),
-      keywords: keywords.filter(keyword => keyword.trim().length > 0),
-      author: userId,
-      authorName: user.name,
-      status: 'pending'
+    const riddle = await prisma.$transaction(async (tx) => {
+      const createdRiddle = await tx.riddle.create({
+        data: {
+          question: question.trim(),
+          answer: answer.trim(),
+          hint: hint?.trim(),
+          explanation: explanation?.trim(),
+          culturalContext: culturalContext?.trim(),
+          category: parseCategory(category, 'OTHER'),
+          difficulty: parseDifficulty(difficulty, 'MEDIUM'),
+          language,
+          region: region?.trim(),
+          country: country?.trim(),
+          tags: normalizeStringArray(tags),
+          keywords: normalizeStringArray(keywords),
+          authorId: user.id,
+          authorName: user.name,
+          status: 'PENDING',
+          stats: {
+            create: {}
+          }
+        },
+        include: riddleInclude
+      });
+
+      await tx.userStats.upsert({
+        where: { userId: user.id },
+        update: { contributions: { increment: 1 } },
+        create: {
+          userId: user.id,
+          contributions: 1,
+          views: 0,
+          likes: 0,
+          followers: 0,
+          following: 0,
+          totalRewards: 0
+        }
+      });
+
+      return createdRiddle;
     });
 
-    await riddle.save();
-
-    // Mettre à jour les statistiques de l'utilisateur
-    await user.updateStats('contributions');
-
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: 'Devinette soumise avec succès. Elle sera examinée avant publication.',
-      data: { riddle: riddle.toPublicJSON() }
+      data: { riddle: mapRiddleForClient(riddle) }
     });
   } catch (error) {
     console.error('Erreur création devinette:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erreur lors de la création de la devinette'
     });
   }
 });
 
-// POST /riddles/:id/play - Jouer à une devinette
 router.post('/:id/play', optionalAuth, async (req, res) => {
   try {
-    const { answer, timeSpent } = req.body;
-    const riddle = await Riddle.findById(req.params.id);
+    const riddle = await prisma.riddle.findFirst({
+      where: {
+        id: req.params.id,
+        status: 'APPROVED',
+        isActive: true,
+        isPublic: true
+      },
+      include: { stats: true }
+    });
 
-    if (!riddle || riddle.status !== 'approved' || !riddle.isActive || !riddle.isPublic) {
+    if (!riddle) {
       return res.status(404).json({
         success: false,
         message: 'Devinette non trouvée'
       });
     }
 
-    // Vérifier la réponse
     const correctAnswer = riddle.answer.toLowerCase();
-    const userAnswer = answer?.toLowerCase().trim() || '';
+    const userAnswer = String(req.body.answer || '').toLowerCase().trim();
+    const isCorrect = userAnswer.length > 0 && (
+      correctAnswer === userAnswer ||
+      correctAnswer.includes(userAnswer) ||
+      userAnswer.includes(correctAnswer)
+    );
 
-    const isCorrect = correctAnswer === userAnswer ||
-                     correctAnswer.includes(userAnswer) ||
-                     userAnswer.includes(correctAnswer);
+    const safeTimeSpent = Math.max(parsePositiveInt(req.body.timeSpent, 0), 0);
 
-    // Enregistrer les statistiques
-    await riddle.incrementPlays();
-    await riddle.recordAnswer(isCorrect, timeSpent || 0);
+    await prisma.$transaction(async (tx) => {
+      const stats = await tx.riddleStats.upsert({
+        where: { riddleId: riddle.id },
+        update: {},
+        create: { riddleId: riddle.id }
+      });
 
-    res.json({
+      const nextPlays = stats.plays + 1;
+      const nextAverageTime = Math.round(((stats.averageTime * stats.plays) + safeTimeSpent) / nextPlays);
+
+      await tx.riddleStats.update({
+        where: { riddleId: riddle.id },
+        data: {
+          plays: { increment: 1 },
+          correctAnswers: { increment: isCorrect ? 1 : 0 },
+          incorrectAnswers: { increment: isCorrect ? 0 : 1 },
+          averageTime: nextAverageTime
+        }
+      });
+    });
+
+    return res.json({
       success: true,
       data: {
         isCorrect,
@@ -590,102 +504,155 @@ router.post('/:id/play', optionalAuth, async (req, res) => {
     });
   } catch (error) {
     console.error('Erreur jeu devinette:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erreur lors du jeu'
     });
   }
 });
 
-// POST /riddles/:id/like - Aimer une devinette
 router.post('/:id/like', authenticateToken, async (req, res) => {
   try {
-    const riddle = await Riddle.findById(req.params.id);
+    const riddle = await prisma.riddle.findFirst({
+      where: {
+        id: req.params.id,
+        status: 'APPROVED',
+        isActive: true,
+        isPublic: true
+      },
+      select: { id: true }
+    });
 
-    if (!riddle || riddle.status !== 'approved' || !riddle.isActive || !riddle.isPublic) {
+    if (!riddle) {
       return res.status(404).json({
         success: false,
         message: 'Devinette non trouvée'
       });
     }
 
-    await riddle.like();
+    const updatedStats = await prisma.$transaction(async (tx) => {
+      const stats = await tx.riddleStats.upsert({
+        where: { riddleId: riddle.id },
+        update: {},
+        create: { riddleId: riddle.id }
+      });
 
-    res.json({
+      const nextLikes = stats.likes + 1;
+      const nextRating = computeRating(nextLikes, stats.dislikes);
+
+      return tx.riddleStats.update({
+        where: { riddleId: riddle.id },
+        data: {
+          likes: { increment: 1 },
+          rating: nextRating
+        }
+      });
+    });
+
+    return res.json({
       success: true,
       message: 'Devinette aimée avec succès',
       data: {
-        likes: riddle.stats.likes,
-        rating: riddle.stats.rating
+        likes: updatedStats.likes,
+        rating: updatedStats.rating
       }
     });
   } catch (error) {
     console.error('Erreur like devinette:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erreur lors du like'
     });
   }
 });
 
-// POST /riddles/:id/dislike - Ne pas aimer une devinette
 router.post('/:id/dislike', authenticateToken, async (req, res) => {
   try {
-    const riddle = await Riddle.findById(req.params.id);
+    const riddle = await prisma.riddle.findFirst({
+      where: {
+        id: req.params.id,
+        status: 'APPROVED',
+        isActive: true,
+        isPublic: true
+      },
+      select: { id: true }
+    });
 
-    if (!riddle || riddle.status !== 'approved' || !riddle.isActive || !riddle.isPublic) {
+    if (!riddle) {
       return res.status(404).json({
         success: false,
         message: 'Devinette non trouvée'
       });
     }
 
-    await riddle.dislike();
+    const updatedStats = await prisma.$transaction(async (tx) => {
+      const stats = await tx.riddleStats.upsert({
+        where: { riddleId: riddle.id },
+        update: {},
+        create: { riddleId: riddle.id }
+      });
 
-    res.json({
+      const nextDislikes = stats.dislikes + 1;
+      const nextRating = computeRating(stats.likes, nextDislikes);
+
+      return tx.riddleStats.update({
+        where: { riddleId: riddle.id },
+        data: {
+          dislikes: { increment: 1 },
+          rating: nextRating
+        }
+      });
+    });
+
+    return res.json({
       success: true,
       message: 'Devinette dislikée',
       data: {
-        dislikes: riddle.stats.dislikes,
-        rating: riddle.stats.rating
+        dislikes: updatedStats.dislikes,
+        rating: updatedStats.rating
       }
     });
   } catch (error) {
     console.error('Erreur dislike devinette:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erreur lors du dislike'
     });
   }
 });
 
-// GET /riddles/user/:userId - Récupérer les devinettes d'un utilisateur
 router.get('/user/:userId', optionalAuth, async (req, res) => {
   try {
-    const { status, limit = 20, page = 1 } = req.query;
-    const userId = req.params.userId;
+    const status = parseStatus(req.query.status);
+    const limit = Math.min(parsePositiveInt(req.query.limit, 20), 100);
+    const page = parsePositiveInt(req.query.page, 1);
+    const skip = (page - 1) * limit;
 
-    const query = { author: userId };
-    if (status) query.status = status;
+    const where = { authorId: req.params.userId };
+    if (status) {
+      where.status = status;
+    }
 
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    const riddles = await Riddle.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .lean();
-
-    const total = await Riddle.countDocuments(query);
+    const [riddles, total] = await prisma.$transaction([
+      prisma.riddle.findMany({
+        where,
+        include: riddleInclude,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit
+      }),
+      prisma.riddle.count({ where })
+    ]);
 
     res.json({
       success: true,
       data: {
-        riddles,
+        riddles: riddles.map(mapRiddleForClient),
         pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
+          page,
+          limit,
           total,
-          pages: Math.ceil(total / parseInt(limit))
+          pages: Math.ceil(total / limit)
         }
       }
     });
@@ -698,31 +665,34 @@ router.get('/user/:userId', optionalAuth, async (req, res) => {
   }
 });
 
-// Routes d'administration (nécessitent des droits admin/moderator)
-// GET /riddles/admin/pending - Récupérer les devinettes en attente
-router.get('/admin/pending', authenticateToken, authorize('admin', 'moderator'), async (req, res) => {
+router.get('/admin/pending', authenticateToken, authorize('ADMIN', 'MODERATOR'), async (req, res) => {
   try {
-    const { limit = 20, page = 1 } = req.query;
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const limit = Math.min(parsePositiveInt(req.query.limit, 20), 100);
+    const page = parsePositiveInt(req.query.page, 1);
+    const skip = (page - 1) * limit;
 
-    const riddles = await Riddle.find({ status: 'pending' })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .populate('author', 'name email')
-      .lean();
+    const where = { status: 'PENDING' };
 
-    const total = await Riddle.countDocuments({ status: 'pending' });
+    const [riddles, total] = await prisma.$transaction([
+      prisma.riddle.findMany({
+        where,
+        include: riddleInclude,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit
+      }),
+      prisma.riddle.count({ where })
+    ]);
 
     res.json({
       success: true,
       data: {
-        riddles,
+        riddles: riddles.map(mapRiddleForClient),
         pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
+          page,
+          limit,
           total,
-          pages: Math.ceil(total / parseInt(limit))
+          pages: Math.ceil(total / limit)
         }
       }
     });
@@ -735,10 +705,12 @@ router.get('/admin/pending', authenticateToken, authorize('admin', 'moderator'),
   }
 });
 
-// POST /riddles/:id/approve - Approuver une devinette
-router.post('/:id/approve', authenticateToken, authorize('admin', 'moderator'), async (req, res) => {
+router.post('/:id/approve', authenticateToken, authorize('ADMIN', 'MODERATOR'), async (req, res) => {
   try {
-    const riddle = await Riddle.findById(req.params.id);
+    const riddle = await prisma.riddle.findUnique({
+      where: { id: req.params.id },
+      select: { id: true }
+    });
 
     if (!riddle) {
       return res.status(404).json({
@@ -747,26 +719,38 @@ router.post('/:id/approve', authenticateToken, authorize('admin', 'moderator'), 
       });
     }
 
-    await riddle.approve(req.user.id);
+    await prisma.riddle.update({
+      where: { id: req.params.id },
+      data: {
+        status: 'APPROVED',
+        reviewedBy: req.user.id,
+        reviewedAt: new Date(),
+        rejectionReason: null,
+        publishedAt: new Date()
+      }
+    });
 
-    res.json({
+    return res.json({
       success: true,
       message: 'Devinette approuvée avec succès'
     });
   } catch (error) {
     console.error('Erreur approbation devinette:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erreur lors de l\'approbation de la devinette'
     });
   }
 });
 
-// POST /riddles/:id/reject - Rejeter une devinette
-router.post('/:id/reject', authenticateToken, authorize('admin', 'moderator'), async (req, res) => {
+router.post('/:id/reject', authenticateToken, authorize('ADMIN', 'MODERATOR'), async (req, res) => {
   try {
-    const { reason } = req.body;
-    const riddle = await Riddle.findById(req.params.id);
+    const reason = typeof req.body.reason === 'string' ? req.body.reason.trim() : null;
+
+    const riddle = await prisma.riddle.findUnique({
+      where: { id: req.params.id },
+      select: { id: true }
+    });
 
     if (!riddle) {
       return res.status(404).json({
@@ -775,15 +759,23 @@ router.post('/:id/reject', authenticateToken, authorize('admin', 'moderator'), a
       });
     }
 
-    await riddle.reject(req.user.id, reason);
+    await prisma.riddle.update({
+      where: { id: req.params.id },
+      data: {
+        status: 'REJECTED',
+        reviewedBy: req.user.id,
+        reviewedAt: new Date(),
+        rejectionReason: reason || 'Aucune raison fournie'
+      }
+    });
 
-    res.json({
+    return res.json({
       success: true,
       message: 'Devinette rejetée'
     });
   } catch (error) {
     console.error('Erreur rejet devinette:', error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Erreur lors du rejet de la devinette'
     });

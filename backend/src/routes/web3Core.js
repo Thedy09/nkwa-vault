@@ -55,14 +55,6 @@ const { asyncErrorHandler } = require('../utils/errorHandler');
  */
 router.get('/status', asyncErrorHandler(async (req, res) => {
   const status = web3Core.getStatus();
-  
-  if (!status.ready) {
-    return res.status(503).json({
-      success: false,
-      error: 'Services Web3 non disponibles',
-      data: status
-    });
-  }
 
   res.json({
     success: true,
@@ -112,13 +104,6 @@ router.get('/status', asyncErrorHandler(async (req, res) => {
  */
 router.get('/stats', asyncErrorHandler(async (req, res) => {
   const stats = await web3Core.getStats();
-  
-  if (!stats) {
-    return res.status(503).json({
-      success: false,
-      error: 'Impossible de récupérer les statistiques Web3'
-    });
-  }
 
   res.json({
     success: true,

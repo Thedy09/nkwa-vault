@@ -4,9 +4,12 @@
 Ces variables sont essentielles pour le fonctionnement de Nkwa Vault :
 
 ```bash
-HEDERA_ACCOUNT_ID=0.0.123456
-HEDERA_PRIVATE_KEY=302e020100300506032b657004220420...
-HEDERA_NETWORK=testnet
+EVM_RPC_URL=https://sepolia.base.org
+EVM_CHAIN_ID=84532
+EVM_NETWORK=base-sepolia
+EVM_EXPLORER_URL=https://sepolia.basescan.org
+EVM_RELAYER_PRIVATE_KEY=0x...
+EVM_REGISTRY_CONTRACT=0xYourCulturalRegistryAddress
 ```
 
 ## Variables Base de données
@@ -27,8 +30,13 @@ CLOUDINARY_API_SECRET=your_api_secret
 # JWT Secret
 JWT_SECRET=your_jwt_secret_key_here
 
-# Web3.Storage (pour IPFS)
-WEB3_STORAGE_TOKEN=your_web3_storage_token
+# IPFS via endpoint RPC Kubo compatible
+IPFS_API_URL=https://ipfs.my-provider.example
+IPFS_API_TOKEN=your_ipfs_api_token
+
+# Ou IPFS via Infura
+IPFS_PROJECT_ID=...
+IPFS_PROJECT_SECRET=...
 
 # CORS
 CORS_ORIGIN=https://your-domain.vercel.app
@@ -52,6 +60,6 @@ Pour un déploiement rapide, utilisez :
 ## Configuration Web3 recommandée
 
 Pour les tests, utilisez :
-- **Hedera Testnet** : https://portal.hedera.com
-- Créez un compte testnet gratuit
-- Obtenez votre Account ID et Private Key
+- **Base Sepolia** : https://docs.base.org
+- ou **Arbitrum Sepolia** : https://docs.arbitrum.io
+- Déployez `contracts/vyper/CulturalRegistry.vy` puis renseignez `EVM_REGISTRY_CONTRACT`

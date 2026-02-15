@@ -1,208 +1,262 @@
-const { Client, PrivateKey, AccountId } = require('@hashgraph/sdk');
-const { create } = require('ipfs-http-client');
+const { ethers } = require('ethers');
+
+function buildIpfsApiBaseUrl(config = {}) {
+  if (config.url) {
+    const trimmed = config.url.replace(/\/+$/, '');
+    if (trimmed.endsWith('/api/v0')) {
+      return trimmed;
+    }
+    return `${trimmed}/api/v0`;
+  }
+
+  const protocol = config.protocol || 'https';
+  const host = config.host || '127.0.0.1';
+  const port = config.port || 5001;
+  return `${protocol}://${host}:${port}/api/v0`;
+}
+
+function createIPFSRpcClient(config = {}) {
+  const headers = config.headers || {};
+  const baseUrl = buildIpfsApiBaseUrl(config);
+
+  async function request(path, options = {}) {
+    const response = await fetch(`${baseUrl}${path}`, {
+      ...options,
+      headers: {
+        ...headers,
+        ...(options.headers || {})
+      }
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`IPFS RPC ${response.status}: ${errorText || response.statusText}`);
+    }
+
+    return response;
+  }
+
+  return {
+    async version() {
+      const response = await request('/version');
+      return response.json();
+    },
+
+    async add(data, options = {}) {
+      const form = new FormData();
+      const payload = data instanceof Uint8Array || Buffer.isBuffer(data) ? data : Buffer.from(String(data));
+      const blob = new Blob([payload]);
+      form.append('file', blob, 'upload.bin');
+
+      const searchParams = new URLSearchParams();
+      if (typeof options.pin !== 'undefined') {
+        searchParams.set('pin', String(options.pin));
+      }
+
+      const response = await request(`/add?${searchParams.toString()}`, {
+        method: 'POST',
+        body: form
+      });
+
+      const result = await response.json();
+      return {
+        path: result.Hash,
+        size: Number(result.Size || 0)
+      };
+    },
+
+    async *cat(cid) {
+      const response = await request(`/cat?arg=${encodeURIComponent(cid)}`);
+      const buffer = Buffer.from(await response.arrayBuffer());
+      yield buffer;
+    }
+  };
+}
 
 class Web3Config {
   constructor() {
-    this.hedera = {
-      client: null,
-      accountId: null,
-      privateKey: null,
-      network: process.env.HEDERA_NETWORK || 'testnet',
+    this.blockchain = {
+      provider: null,
+      wallet: null,
       isInitialized: false,
-      topics: {
-        content: process.env.HEDERA_CONTENT_TOPIC_ID,
-        rewards: process.env.HEDERA_REWARDS_TOPIC_ID
-      },
-      tokens: {
-        reward: process.env.HEDERA_REWARD_TOKEN_ID,
-        nft: process.env.HEDERA_NFT_TOKEN_ID
-      }
+      network: process.env.EVM_NETWORK || 'evm',
+      chainId: Number(process.env.EVM_CHAIN_ID || 0) || null,
+      rpcUrl: process.env.EVM_RPC_URL || null,
+      registryContract: process.env.EVM_REGISTRY_CONTRACT || null,
+      explorerUrl: process.env.EVM_EXPLORER_URL || null
     };
-    
+
     this.ipfs = {
       client: null,
       isInitialized: false,
-      gateway: process.env.IPFS_GATEWAY || 'https://ipfs.io/ipfs/',
-      pinning: {
-        service: process.env.IPFS_PINNING_SERVICE || 'infura',
-        apiKey: process.env.IPFS_PINNING_API_KEY
-      }
+      gateway: process.env.IPFS_GATEWAY || 'https://ipfs.io/ipfs/'
     };
   }
 
-  async initializeHedera() {
+  async initializeBlockchain() {
     try {
-      // Validation des variables d'environnement - OBLIGATOIRE
-      if (!process.env.HEDERA_ACCOUNT_ID || !process.env.HEDERA_PRIVATE_KEY) {
-        throw new Error('Configuration Hedera OBLIGATOIRE - HEDERA_ACCOUNT_ID et HEDERA_PRIVATE_KEY requis');
+      const rpcUrl = process.env.EVM_RPC_URL;
+      const relayerKey = process.env.EVM_RELAYER_PRIVATE_KEY;
+
+      if (!rpcUrl || !relayerKey) {
+        console.log('⚠️ Configuration EVM incomplète, mode démo blockchain activé');
+        this.blockchain.isInitialized = false;
+        this.blockchain.provider = null;
+        this.blockchain.wallet = null;
+        return false;
       }
 
-      this.hedera.accountId = AccountId.fromString(process.env.HEDERA_ACCOUNT_ID);
-      this.hedera.privateKey = PrivateKey.fromString(process.env.HEDERA_PRIVATE_KEY);
+      const provider = new ethers.JsonRpcProvider(rpcUrl);
+      const wallet = new ethers.Wallet(relayerKey, provider);
+      const network = await provider.getNetwork();
+      const detectedChainId = Number(network.chainId);
+      const configuredChainId = Number(process.env.EVM_CHAIN_ID || 0) || null;
 
-      // Configuration du client avec retry et timeout
-      this.hedera.client = Client.forName(this.hedera.network);
-      this.hedera.client.setOperator(this.hedera.accountId, this.hedera.privateKey);
-      
-      // Configuration des timeouts
-      this.hedera.client.setMaxQueryPayment(1000000000); // 1 HBAR
-      this.hedera.client.setMaxTransactionFee(1000000000); // 1 HBAR
-
-      // Test de connexion avec retry
-      const maxRetries = 3;
-      let retries = 0;
-      
-      while (retries < maxRetries) {
-        try {
-          const balance = await this.hedera.client.getAccountBalance(this.hedera.accountId);
-          console.log(`✅ Hedera ${this.hedera.network} connecté - Solde: ${balance.hbars.toString()}`);
-          this.hedera.isInitialized = true;
-          return true;
-        } catch (error) {
-          retries++;
-          console.log(`⚠️ Tentative ${retries}/${maxRetries} - Erreur Hedera:`, error.message);
-          if (retries < maxRetries) {
-            await new Promise(resolve => setTimeout(resolve, 2000 * retries));
-          }
-        }
+      if (configuredChainId && configuredChainId !== detectedChainId) {
+        throw new Error(
+          `EVM_CHAIN_ID (${configuredChainId}) ne correspond pas au réseau RPC (${detectedChainId})`
+        );
       }
-      
-      throw new Error('Impossible de se connecter à Hedera après plusieurs tentatives');
+
+      this.blockchain.provider = provider;
+      this.blockchain.wallet = wallet;
+      this.blockchain.chainId = configuredChainId || detectedChainId;
+      this.blockchain.network = process.env.EVM_NETWORK || network.name || 'evm';
+      this.blockchain.rpcUrl = rpcUrl;
+      this.blockchain.registryContract = process.env.EVM_REGISTRY_CONTRACT || null;
+      this.blockchain.explorerUrl = process.env.EVM_EXPLORER_URL || null;
+      this.blockchain.isInitialized = true;
+
+      console.log(
+        `✅ EVM connecté (${this.blockchain.network}, chainId=${this.blockchain.chainId})`
+      );
+      console.log(`🔑 Relayer EVM: ${wallet.address}`);
+      return true;
     } catch (error) {
-      console.error('❌ Erreur initialisation Hedera:', error.message);
-      this.hedera.isInitialized = false;
+      console.error('❌ Erreur initialisation EVM:', error.message);
+      this.blockchain.isInitialized = false;
+      this.blockchain.provider = null;
+      this.blockchain.wallet = null;
       return false;
     }
   }
 
   async initializeIPFS() {
     try {
-      // Configuration IPFS - OBLIGATOIRE pour le stockage décentralisé
       const providers = [
         {
+          name: 'Custom Kubo RPC',
+          enabled: !!process.env.IPFS_API_URL,
+          config: {
+            url: process.env.IPFS_API_URL,
+            headers: process.env.IPFS_API_TOKEN
+              ? {
+                  Authorization: `Bearer ${process.env.IPFS_API_TOKEN}`
+                }
+              : undefined
+          }
+        },
+        {
           name: 'Infura',
+          enabled:
+            !!process.env.IPFS_PROJECT_ID && !!process.env.IPFS_PROJECT_SECRET,
           config: {
             host: 'ipfs.infura.io',
             port: 5001,
             protocol: 'https',
             headers: {
-              authorization: `Basic ${Buffer.from(`${process.env.IPFS_PROJECT_ID}:${process.env.IPFS_PROJECT_SECRET}`).toString('base64')}`
-            }
-          }
-        },
-        {
-          name: 'Pinata',
-          config: {
-            host: 'api.pinata.cloud',
-            port: 443,
-            protocol: 'https',
-            headers: {
-              'pinata_api_key': process.env.PINATA_API_KEY,
-              'pinata_secret_api_key': process.env.PINATA_SECRET_API_KEY
-            }
-          }
-        },
-        {
-          name: 'Web3.Storage',
-          config: {
-            host: 'api.web3.storage',
-            port: 443,
-            protocol: 'https',
-            headers: {
-              'Authorization': `Bearer ${process.env.WEB3_STORAGE_TOKEN}`
+              authorization: `Basic ${Buffer.from(
+                `${process.env.IPFS_PROJECT_ID}:${process.env.IPFS_PROJECT_SECRET}`
+              ).toString('base64')}`
             }
           }
         }
       ];
 
-      // Essayer chaque provider dans l'ordre
       for (const provider of providers) {
-        try {
-          if (provider.name === 'Infura' && (!process.env.IPFS_PROJECT_ID || !process.env.IPFS_PROJECT_SECRET)) {
-            continue;
-          }
-          if (provider.name === 'Pinata' && (!process.env.PINATA_API_KEY || !process.env.PINATA_SECRET_API_KEY)) {
-            continue;
-          }
-          if (provider.name === 'Web3.Storage' && !process.env.WEB3_STORAGE_TOKEN) {
-            continue;
-          }
+        if (!provider.enabled) continue;
 
-          this.ipfs.client = create(provider.config);
+        try {
+          this.ipfs.client = createIPFSRpcClient(provider.config);
           const version = await this.ipfs.client.version();
-          console.log(`✅ IPFS connecté via ${provider.name}, version:`, version.version);
           this.ipfs.isInitialized = true;
+          console.log(
+            `✅ IPFS connecté via ${provider.name}, version ${version.version}`
+          );
           return true;
         } catch (error) {
-          console.log(`⚠️ Échec connexion ${provider.name}:`, error.message);
-          continue;
+          console.log(`⚠️ Échec IPFS ${provider.name}: ${error.message}`);
         }
       }
 
-      throw new Error('Aucun provider IPFS configuré - IPFS OBLIGATOIRE pour le stockage décentralisé');
+      console.log('⚠️ Aucun provider IPFS configuré, mode démo IPFS activé');
+      this.ipfs.client = null;
+      this.ipfs.isInitialized = false;
+      return false;
     } catch (error) {
       console.error('❌ Erreur initialisation IPFS:', error.message);
+      this.ipfs.client = null;
       this.ipfs.isInitialized = false;
       return false;
     }
   }
 
   async initialize() {
-    console.log('🚀 Initialisation des services Web3...');
-    
-    const hederaResult = await this.initializeHedera();
-    const ipfsResult = await this.initializeIPFS();
-    
-    if (hederaResult && ipfsResult) {
-      console.log('✅ Services Web3 (pilier central) initialisés avec succès');
+    console.log('🚀 Initialisation des services Web3 (EVM + IPFS)...');
+
+    const blockchain = await this.initializeBlockchain();
+    const ipfs = await this.initializeIPFS();
+
+    if (blockchain || ipfs) {
+      console.log('✅ Services Web3 initialisés (mode live ou démo)');
     } else {
-      throw new Error('Échec initialisation Web3 - Services OBLIGATOIRES pour Nkwa V');
+      console.log('⚠️ Services Web3 en mode démo complet');
     }
-    
+
     return {
-      hedera: hederaResult,
-      ipfs: ipfsResult
+      blockchain,
+      ipfs
     };
   }
 
-  getHederaConfig() {
-    return this.hedera;
+  getBlockchainConfig() {
+    return this.blockchain;
   }
 
   getIPFSConfig() {
     return this.ipfs;
   }
 
-  // Méthodes de validation
-  validateHederaConfig() {
-    const required = ['HEDERA_ACCOUNT_ID', 'HEDERA_PRIVATE_KEY'];
-    const missing = required.filter(key => !process.env[key]);
-    
+  // Compatibilité descendante avec anciens services Hedera (désactivée)
+  getHederaConfig() {
+    return {
+      isInitialized: false,
+      deprecated: true
+    };
+  }
+
+  validateBlockchainConfig() {
+    const required = ['EVM_RPC_URL', 'EVM_RELAYER_PRIVATE_KEY'];
+    const missing = required.filter((key) => !process.env[key]);
+
     if (missing.length > 0) {
-      console.warn('⚠️ Variables Hedera manquantes:', missing.join(', '));
+      console.warn('⚠️ Variables EVM manquantes:', missing.join(', '));
       return false;
     }
     return true;
   }
 
+  validateHederaConfig() {
+    return false;
+  }
+
   validateIPFSConfig() {
     const providers = [
-      { name: 'Infura', keys: ['IPFS_PROJECT_ID', 'IPFS_PROJECT_SECRET'] },
-      { name: 'Pinata', keys: ['PINATA_API_KEY', 'PINATA_SECRET_API_KEY'] },
-      { name: 'Web3.Storage', keys: ['WEB3_STORAGE_TOKEN'] }
+      ['IPFS_API_URL'],
+      ['IPFS_PROJECT_ID', 'IPFS_PROJECT_SECRET'],
     ];
 
-    const available = providers.filter(provider => 
-      provider.keys.every(key => process.env[key])
-    );
-
-    if (available.length === 0) {
-      console.warn('⚠️ Aucun provider IPFS configuré');
-      return false;
-    }
-    
-    console.log('✅ Providers IPFS disponibles:', available.map(p => p.name).join(', '));
-    return true;
+    return providers.some((keys) => keys.every((key) => process.env[key]));
   }
 }
 

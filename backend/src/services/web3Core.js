@@ -1,194 +1,198 @@
-const hederaService = require('./hederaService');
+const crypto = require('crypto');
+const blockchainProvider = require('./blockchainProvider');
 const ipfsService = require('./ipfsService');
-const { logInfo, logError, logWeb3Operation } = require('../utils/logger');
+const { logError, logInfo, logWeb3Operation } = require('../utils/logger');
 const metricsCollector = require('../utils/metrics');
 
 class Web3CoreService {
   constructor() {
     this.isInitialized = false;
-    this.hederaReady = false;
+    this.blockchainReady = false;
     this.ipfsReady = false;
   }
 
-  // Initialisation complète des services Web3
   async initialize() {
     try {
-      console.log('🚀 Initialisation du cœur Web3 de Nkwa V...');
-      
-      // Initialiser Hedera (obligatoire)
-      this.hederaReady = await hederaService.initialize();
-      if (!this.hederaReady) {
-        throw new Error('Hedera non disponible - Service OBLIGATOIRE');
-      }
+      console.log('🚀 Initialisation du cœur Web3 (EVM + IPFS)...');
 
-      // Initialiser IPFS (obligatoire)
+      this.blockchainReady = await blockchainProvider.initialize();
       this.ipfsReady = await ipfsService.initialize();
-      if (!this.ipfsReady) {
-        throw new Error('IPFS non disponible - Service OBLIGATOIRE');
+      this.isInitialized = true;
+
+      if (this.blockchainReady) {
+        console.log('✅ Blockchain EVM prête');
+      } else {
+        console.log('⚠️ Blockchain EVM en mode démo');
       }
 
-      this.isInitialized = true;
-      console.log('✅ Cœur Web3 initialisé - Nkwa V prêt pour la décentralisation');
-      
+      if (this.ipfsReady) {
+        console.log('✅ IPFS prêt');
+      } else {
+        console.log('⚠️ IPFS en mode démo');
+      }
+
       return true;
     } catch (error) {
       logError(error, { service: 'Web3Core', operation: 'initialize' });
-      throw error;
+      this.isInitialized = false;
+      this.blockchainReady = false;
+      this.ipfsReady = false;
+      return false;
     }
   }
 
-  // Vérifier l'état des services Web3
   isReady() {
-    return this.isInitialized && this.hederaReady && this.ipfsReady;
+    return this.isInitialized;
   }
 
-  // Créer un contenu culturel avec certification blockchain
+  createContentHash(content) {
+    const normalized = JSON.stringify(content, Object.keys(content).sort());
+    return `0x${crypto.createHash('sha256').update(normalized).digest('hex')}`;
+  }
+
+  async uploadMediaFiles(mediaFiles) {
+    const uploads = [];
+    for (const file of mediaFiles) {
+      const result = await ipfsService.uploadFile(file.buffer, file.originalname);
+      uploads.push({
+        originalName: file.originalname,
+        mimeType: file.mimetype,
+        cid: result.cid,
+        url: result.url,
+        gatewayUrl: ipfsService.getGatewayUrl(result.url),
+        size: result.size,
+        demo: !!result.mock
+      });
+    }
+    return uploads;
+  }
+
   async createCulturalContent(contentData, mediaFiles = []) {
     if (!this.isReady()) {
-      throw new Error('Services Web3 non disponibles');
+      throw new Error('Services Web3 non initialisés');
     }
 
-    const startTime = Date.now();
-    
-    try {
-      // 1. Upload des médias sur IPFS
-      const ipfsResults = [];
-      for (const file of mediaFiles) {
-        const result = await ipfsService.uploadFile(file.buffer, file.originalname);
-        ipfsResults.push(result);
-      }
+    const start = Date.now();
 
-      // 2. Créer les métadonnées NFT
-      const nftMetadata = {
-        name: contentData.title,
-        description: contentData.content,
-        image: ipfsResults[0]?.url || '',
-        attributes: [
-          { trait_type: "Type", value: contentData.type },
-          { trait_type: "Culture", value: contentData.origin || 'Afrique' },
-          { trait_type: "Langue", value: contentData.language || 'fr' },
-          { trait_type: "Date de création", value: new Date().toISOString() },
-          { trait_type: "Plateforme", value: "Nkwa V" }
-        ],
-        external_url: `https://nkwa.africa/content/${contentData.id}`,
-        background_color: "000000"
+    try {
+      const mediaUploads = await this.uploadMediaFiles(mediaFiles);
+      const metadata = {
+        id: contentData.id,
+        title: contentData.title,
+        content: contentData.content,
+        type: contentData.type,
+        language: contentData.language || 'fr',
+        origin: contentData.origin || 'Afrique',
+        region: contentData.region || null,
+        country: contentData.country || null,
+        authorName: contentData.authorName || 'Anonyme',
+        media: mediaUploads,
+        createdAt: new Date().toISOString(),
+        platform: 'Nkwa V'
       };
 
-      // 3. Upload des métadonnées sur IPFS
-      const metadataResult = await ipfsService.uploadJSON(nftMetadata);
-
-      // 4. Créer le NFT sur Hedera
-      const nftResult = await hederaService.createContentNFT(
-        contentData.id,
-        metadataResult.cid,
-        nftMetadata
-      );
-
-      // 5. Enregistrer sur HCS pour l'immutabilité
-      const hcsResult = await hederaService.submitMessage(
-        process.env.HEDERA_CONTENT_TOPIC_ID,
-        {
-          contentId: contentData.id,
-          type: 'CULTURAL_CONTENT_CREATED',
-          metadata: nftMetadata,
-          ipfsCid: metadataResult.cid,
-          timestamp: new Date().toISOString()
-        }
-      );
-
-      const duration = Date.now() - startTime;
-      logWeb3Operation('createCulturalContent', { success: true }, {
-        contentId: contentData.id,
-        ipfsResults: ipfsResults.length,
-        nftCreated: nftResult.success,
-        hcsRecorded: hcsResult.success,
-        duration
+      const metadataUpload = await ipfsService.uploadJSON(metadata);
+      const contentHash = this.createContentHash({
+        id: contentData.id,
+        title: contentData.title,
+        content: contentData.content,
+        metadataCid: metadataUpload.cid
       });
 
-      // Enregistrer dans les métriques
-      metricsCollector.recordWeb3Operation('hedera', 'createContent', true, duration);
-      metricsCollector.recordWeb3Operation('ipfs', 'uploadFiles', true, duration);
+      const certification = await blockchainProvider.certifyContent({
+        contentId: contentData.id,
+        contentHash,
+        metadataCid: metadataUpload.cid,
+        contentType: contentData.type,
+        license: 'CC-BY',
+        contributor: contentData.authorAddress,
+        rawContent: metadata
+      });
+
+      const duration = Date.now() - start;
+      metricsCollector.recordWeb3Operation(
+        'blockchain',
+        'createContent',
+        true,
+        duration
+      );
+      metricsCollector.recordWeb3Operation('ipfs', 'uploadMetadata', true, duration);
+      logWeb3Operation('createCulturalContent', { success: true }, {
+        contentId: contentData.id,
+        txHash: certification.txHash,
+        metadataCid: metadataUpload.cid,
+        duration
+      });
 
       return {
         success: true,
         contentId: contentData.id,
-        nftMetadata,
+        contentHash,
+        metadata,
         ipfs: {
-          metadataCid: metadataResult.cid,
-          mediaCids: ipfsResults.map(r => r.cid)
+          metadataCid: metadataUpload.cid,
+          metadataUrl: metadataUpload.url,
+          metadataGatewayUrl: ipfsService.getGatewayUrl(metadataUpload.url),
+          mediaCids: mediaUploads.map((item) => item.cid),
+          media: mediaUploads
         },
-        hedera: {
-          nftResult,
-          hcsResult
-        }
+        blockchain: certification
       };
-
     } catch (error) {
-      const duration = Date.now() - startTime;
-      logError(error, { 
-        service: 'Web3Core', 
+      const duration = Date.now() - start;
+      metricsCollector.recordWeb3Operation(
+        'blockchain',
+        'createContent',
+        false,
+        duration
+      );
+      metricsCollector.recordWeb3Operation('ipfs', 'uploadMetadata', false, duration);
+      logError(error, {
+        service: 'Web3Core',
         operation: 'createCulturalContent',
         contentId: contentData.id,
         duration
       });
-      
-      metricsCollector.recordWeb3Operation('hedera', 'createContent', false, duration);
-      metricsCollector.recordWeb3Operation('ipfs', 'uploadFiles', false, duration);
-      
       throw error;
     }
   }
 
-  // Certifier un contenu existant
   async certifyContent(contentId, contentData) {
     if (!this.isReady()) {
-      throw new Error('Services Web3 non disponibles');
+      throw new Error('Services Web3 non initialisés');
     }
 
-    const startTime = Date.now();
+    const start = Date.now();
 
     try {
-      // 1. Créer un hash du contenu
-      const contentHash = this.createContentHash(contentData);
-
-      // 2. Créer le certificat de propriété intellectuelle
       const certificate = {
         contentId,
         title: contentData.title,
-        author: contentData.authorName,
-        origin: contentData.origin,
+        authorName: contentData.authorName,
         type: contentData.type,
-        contentHash,
-        issueDate: new Date().toISOString(),
-        issuer: 'Nkwa V',
-        rights: {
-          attribution: true,
-          nonCommercial: false,
-          shareAlike: true,
-          noDerivatives: false
-        }
+        origin: contentData.origin || 'Afrique',
+        issuedAt: new Date().toISOString(),
+        issuer: 'Nkwa V'
       };
 
-      // 3. Upload du certificat sur IPFS
-      const certificateResult = await ipfsService.uploadJSON(certificate);
+      const ipfsCertificate = await ipfsService.uploadJSON(certificate);
+      const contentHash = this.createContentHash(certificate);
 
-      // 4. Enregistrer sur Hedera HCS
-      const hcsResult = await hederaService.submitMessage(
-        process.env.HEDERA_CONTENT_TOPIC_ID,
-        {
-          contentId,
-          type: 'CONTENT_CERTIFIED',
-          certificate: certificate,
-          ipfsCid: certificateResult.cid,
-          timestamp: new Date().toISOString()
-        }
-      );
-
-      const duration = Date.now() - startTime;
-      logWeb3Operation('certifyContent', { success: true }, {
+      const certification = await blockchainProvider.recertifyContent({
         contentId,
-        certificateCid: certificateResult.cid,
-        hcsRecorded: hcsResult.success,
+        contentHash,
+        metadataCid: ipfsCertificate.cid,
+        contentType: contentData.type,
+        license: 'CC-BY',
+        contributor: contentData.authorAddress,
+        rawContent: certificate
+      });
+
+      const duration = Date.now() - start;
+      metricsCollector.recordWeb3Operation('blockchain', 'certify', true, duration);
+      logInfo('Content certified on blockchain', {
+        contentId,
+        txHash: certification.txHash,
         duration
       });
 
@@ -196,14 +200,18 @@ class Web3CoreService {
         success: true,
         contentId,
         certificate,
-        ipfsCid: certificateResult.cid,
-        hederaTransactionId: hcsResult.transactionId
+        contentHash,
+        ipfsCid: ipfsCertificate.cid,
+        ipfsUrl: ipfsCertificate.url,
+        transactionHash: certification.txHash,
+        blockNumber: certification.blockNumber,
+        explorerUrl: certification.explorerUrl
       };
-
     } catch (error) {
-      const duration = Date.now() - startTime;
-      logError(error, { 
-        service: 'Web3Core', 
+      const duration = Date.now() - start;
+      metricsCollector.recordWeb3Operation('blockchain', 'certify', false, duration);
+      logError(error, {
+        service: 'Web3Core',
         operation: 'certifyContent',
         contentId,
         duration
@@ -212,140 +220,29 @@ class Web3CoreService {
     }
   }
 
-  // Créer un système de récompenses Web3
-  async createRewardSystem() {
-    if (!this.isReady()) {
-      throw new Error('Services Web3 non disponibles');
-    }
-
-    try {
-      // 1. Créer le token de récompense sur Hedera
-      const tokenResult = await hederaService.createToken(
-        'Nkwa V Rewards',
-        'NKWA',
-        1000000 // 1 million de tokens initiaux
-      );
-
-      // 2. Créer le topic HCS pour les récompenses
-      const topicResult = await hederaService.createTopic('Nkwa V Rewards System');
-
-      // 3. Enregistrer la configuration
-      const config = {
-        tokenId: tokenResult.tokenId,
-        topicId: topicResult.topicId,
-        createdAt: new Date().toISOString(),
-        status: 'ACTIVE'
-      };
-
-      await ipfsService.uploadJSON(config);
-
-      logInfo('Reward system created', { 
-        tokenId: tokenResult.tokenId,
-        topicId: topicResult.topicId
-      });
-
-      return {
-        success: true,
-        tokenId: tokenResult.tokenId,
-        topicId: topicResult.topicId,
-        config
-      };
-
-    } catch (error) {
-      logError(error, { service: 'Web3Core', operation: 'createRewardSystem' });
-      throw error;
-    }
-  }
-
-  // Distribuer des récompenses
-  async distributeReward(userId, rewardType, amount, metadata = {}) {
-    if (!this.isReady()) {
-      throw new Error('Services Web3 non disponibles');
-    }
-
-    const startTime = Date.now();
-
-    try {
-      // 1. Distribuer les tokens
-      const rewardResult = await hederaService.rewardContributor(
-        userId,
-        rewardType,
-        amount
-      );
-
-      // 2. Enregistrer la distribution sur HCS
-      const hcsResult = await hederaService.submitMessage(
-        process.env.HEDERA_REWARDS_TOPIC_ID,
-        {
-          userId,
-          rewardType,
-          amount,
-          metadata,
-          timestamp: new Date().toISOString(),
-          type: 'REWARD_DISTRIBUTED'
-        }
-      );
-
-      const duration = Date.now() - startTime;
-      logWeb3Operation('distributeReward', { success: true }, {
-        userId,
-        rewardType,
-        amount,
-        duration
-      });
-
-      return {
-        success: true,
-        userId,
-        rewardType,
-        amount,
-        transactionId: rewardResult.transactionId,
-        hcsSequenceNumber: hcsResult.sequenceNumber
-      };
-
-    } catch (error) {
-      const duration = Date.now() - startTime;
-      logError(error, { 
-        service: 'Web3Core', 
-        operation: 'distributeReward',
-        userId,
-        rewardType,
-        amount,
-        duration
-      });
-      throw error;
-    }
-  }
-
-  // Vérifier l'authenticité d'un contenu
   async verifyContentAuthenticity(contentId, contentHash) {
     if (!this.isReady()) {
-      throw new Error('Services Web3 non disponibles');
+      throw new Error('Services Web3 non initialisés');
     }
 
     try {
-      // 1. Récupérer les données du HCS
-      const hcsData = await this.getHCSData(contentId);
-
-      // 2. Vérifier le hash
-      const isValid = hcsData.contentHash === contentHash;
-
-      // 3. Vérifier l'intégrité IPFS
-      const ipfsData = await ipfsService.getContent(hcsData.ipfsCid);
-      const ipfsHash = this.createContentHash(JSON.parse(ipfsData.toString()));
+      const onChain = await blockchainProvider.getContent(contentId);
+      const exists = !!onChain.exists;
+      const onChainHash = onChain.contentHash || null;
+      const matches = exists && onChainHash === blockchainProvider.toBytes32(contentHash);
 
       return {
         success: true,
         contentId,
-        isAuthentic: isValid,
-        ipfsIntegrity: ipfsHash === contentHash,
-        hcsData,
+        exists,
+        isAuthentic: matches,
+        ipfsIntegrity: exists,
+        onChain,
         verifiedAt: new Date().toISOString()
       };
-
     } catch (error) {
-      logError(error, { 
-        service: 'Web3Core', 
+      logError(error, {
+        service: 'Web3Core',
         operation: 'verifyContentAuthenticity',
         contentId
       });
@@ -353,60 +250,94 @@ class Web3CoreService {
     }
   }
 
-  // Créer un hash du contenu
-  createContentHash(content) {
-    const crypto = require('crypto');
-    const contentString = JSON.stringify(content, Object.keys(content).sort());
-    return crypto.createHash('sha256').update(contentString).digest('hex');
-  }
+  async distributeReward(userId, rewardType, amount, metadata = {}) {
+    if (!this.isReady()) {
+      throw new Error('Services Web3 non initialisés');
+    }
 
-  // Récupérer les données du HCS
-  async getHCSData(contentId) {
-    // Implémentation pour récupérer les données du HCS
-    // Cette fonction devrait interroger le HCS pour récupérer les données
-    // Pour l'instant, on retourne des données simulées
+    const contributor = metadata.walletAddress || process.env.DEFAULT_REWARD_ADDRESS;
+    const reward = await blockchainProvider.recordReward({
+      contributor,
+      points: amount,
+      reason: `${rewardType}:${userId}`.slice(0, 64)
+    });
+
     return {
-      contentId,
-      contentHash: 'simulated_hash',
-      ipfsCid: 'simulated_cid',
-      timestamp: new Date().toISOString()
+      success: true,
+      userId,
+      rewardType,
+      amount,
+      metadata,
+      transactionId: reward.txHash,
+      blockNumber: reward.blockNumber,
+      explorerUrl: reward.explorerUrl,
+      demo: reward.demo
     };
   }
 
-  // Obtenir le statut des services Web3
+  async createRewardSystem() {
+    const status = blockchainProvider.getStatus();
+    return {
+      success: true,
+      mode: status.ready ? 'onchain' : 'demo',
+      tokenId: null,
+      topicId: null,
+      config: {
+        network: status.network,
+        chainId: status.chainId,
+        registryContract: status.registryContract,
+        relayerAddress: status.relayerAddress
+      }
+    };
+  }
+
   getStatus() {
+    const blockchainStatus = blockchainProvider.getStatus();
+
     return {
       initialized: this.isInitialized,
-      hedera: this.hederaReady,
-      ipfs: this.ipfsReady,
       ready: this.isReady(),
+      mode: blockchainStatus.ready ? 'onchain' : 'demo',
+      blockchain: {
+        initialized: blockchainStatus.initialized,
+        ready: blockchainStatus.ready,
+        demo: blockchainStatus.demo,
+        network: blockchainStatus.network,
+        chainId: blockchainStatus.chainId,
+        relayerAddress: blockchainStatus.relayerAddress,
+        contractAddress: blockchainStatus.registryContract,
+        explorerUrl: blockchainStatus.explorerUrl
+      },
+      ipfs: {
+        initialized: this.ipfsReady,
+        demo: !this.ipfsReady,
+        gateway: process.env.IPFS_GATEWAY || 'https://ipfs.io/ipfs/'
+      },
+      evm: blockchainStatus.initialized,
       timestamp: new Date().toISOString()
     };
   }
 
-  // Obtenir les statistiques Web3
   async getStats() {
-    if (!this.isReady()) {
-      return null;
-    }
+    const blockchainStats = await blockchainProvider.getStats();
 
-    try {
-      const hederaStats = await hederaService.getAccountBalance(process.env.HEDERA_ACCOUNT_ID);
-      const ipfsStats = await ipfsService.getStats();
-
-      return {
-        hedera: {
-          accountId: process.env.HEDERA_ACCOUNT_ID,
-          balance: hederaStats.hbars,
-          tokens: hederaStats.tokens
-        },
-        ipfs: ipfsStats,
-        timestamp: new Date().toISOString()
-      };
-    } catch (error) {
-      logError(error, { service: 'Web3Core', operation: 'getStats' });
-      return null;
-    }
+    return {
+      blockchain: {
+        network: blockchainStats.network,
+        chainId: blockchainStats.chainId,
+        relayerAddress: blockchainStats.relayerAddress,
+        contractAddress: blockchainStats.registryContract,
+        balanceEth: blockchainStats.balanceEth,
+        totalCertifications: blockchainStats.totalCertifications,
+        demo: blockchainStats.demo
+      },
+      ipfs: {
+        initialized: this.ipfsReady,
+        gateway: process.env.IPFS_GATEWAY || 'https://ipfs.io/ipfs/',
+        mode: this.ipfsReady ? 'live' : 'demo'
+      },
+      timestamp: new Date().toISOString()
+    };
   }
 }
 

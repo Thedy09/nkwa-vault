@@ -5,12 +5,16 @@ class RedisService {
   constructor() {
     this.client = null;
     this.isConnected = false;
-    this.retryAttempts = 0;
-    this.maxRetries = 5;
-    this.retryDelay = 1000;
+    this.enabled = String(process.env.REDIS_ENABLED ?? 'true').toLowerCase() !== 'false';
+    this.connectionWarningShown = false;
   }
 
   async initialize() {
+    if (!this.enabled) {
+      logWarning('Redis désactivé (REDIS_ENABLED=false). Cache en mode passif.');
+      return false;
+    }
+
     try {
       // Configuration Redis
       const redisConfig = {
@@ -19,11 +23,14 @@ class RedisService {
         password: process.env.REDIS_PASSWORD,
         db: process.env.REDIS_DB || 0,
         retryDelayOnFailover: 100,
-        maxRetriesPerRequest: 3,
+        maxRetriesPerRequest: 1,
         lazyConnect: true,
         keepAlive: 30000,
         connectTimeout: 10000,
-        commandTimeout: 5000
+        commandTimeout: 5000,
+        enableOfflineQueue: false,
+        // Pas de boucle de reconnexion infinie en local sans Redis.
+        retryStrategy: () => null
       };
 
       this.client = new Redis(redisConfig);
@@ -32,22 +39,24 @@ class RedisService {
       this.client.on('connect', () => {
         console.log('✅ Redis connecté');
         this.isConnected = true;
-        this.retryAttempts = 0;
+        this.connectionWarningShown = false;
       });
 
       this.client.on('error', (error) => {
-        console.error('❌ Erreur Redis:', error.message);
         this.isConnected = false;
-        this.handleConnectionError(error);
+        if (!this.connectionWarningShown) {
+          logWarning('Redis indisponible. L’application continue sans cache Redis.', {
+            error: error.message
+          });
+          this.connectionWarningShown = true;
+        }
       });
 
       this.client.on('close', () => {
-        console.log('⚠️ Connexion Redis fermée');
+        if (this.isConnected) {
+          console.log('⚠️ Connexion Redis fermée');
+        }
         this.isConnected = false;
-      });
-
-      this.client.on('reconnecting', () => {
-        console.log('🔄 Reconnexion Redis...');
       });
 
       // Test de connexion
@@ -60,32 +69,30 @@ class RedisService {
       
       return true;
     } catch (error) {
-      logError(error, { service: 'Redis', operation: 'initialize' });
+      logWarning('Redis non démarré. Mode sans cache activé.', {
+        service: 'Redis',
+        operation: 'initialize',
+        error: error.message
+      });
+      if (this.client) {
+        try {
+          this.client.disconnect();
+        } catch (_) {
+          // Ignore cleanup error
+        }
+      }
+      this.client = null;
       this.isConnected = false;
       return false;
     }
   }
 
-  handleConnectionError(error) {
-    this.retryAttempts++;
-    
-    if (this.retryAttempts <= this.maxRetries) {
-      logWarning(`Tentative de reconnexion Redis ${this.retryAttempts}/${this.maxRetries}`, {
-        error: error.message
-      });
-      
-      setTimeout(() => {
-        this.initialize();
-      }, this.retryDelay * this.retryAttempts);
-    } else {
-      logError(new Error('Impossible de se connecter à Redis après plusieurs tentatives'), {
-        attempts: this.retryAttempts
-      });
-    }
-  }
-
   // Vérifier la connexion
   async isReady() {
+    if (!this.enabled) {
+      return false;
+    }
+
     if (!this.client || !this.isConnected) {
       return false;
     }

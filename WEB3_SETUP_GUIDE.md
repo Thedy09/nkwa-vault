@@ -1,70 +1,55 @@
-# 🌐 Guide de Configuration Web3 - Nkwa Vault
+# 🌐 Guide de Configuration Web3 (EVM + Vyper) - Nkwa Vault
 
-## 📋 **Configuration Requise**
+## 📋 Configuration Requise
 
-### 1. **Hedera Hashgraph** (OBLIGATOIRE)
-Pour la certification blockchain et les NFT :
+### 1. Blockchain EVM + relayer (obligatoire)
+Le backend publie les certifications on-chain pour l'utilisateur (mode gasless).
 
-#### Étape 1 : Créer un compte Hedera
-1. Allez sur [Hedera Portal](https://portal.hedera.com/)
-2. Créez un compte et notez :
-   - **Account ID** (ex: `0.0.123456`)
-   - **Private Key** (clé privée)
+Variables à configurer dans `backend/.env`:
 
-#### Étape 2 : Obtenir des HBAR
-- Achetez des HBAR sur des exchanges (Binance, Coinbase, etc.)
-- Transférez vers votre compte Hedera
-- **Minimum requis** : 10-20 HBAR pour les tests
-
-#### Étape 3 : Configurer les variables
 ```bash
-# Dans backend/.env
-HEDERA_ACCOUNT_ID=0.0.123456  # Votre Account ID
-HEDERA_PRIVATE_KEY=302e020100300506032b657004220420...  # Votre clé privée
-HEDERA_NETWORK=testnet  # ou mainnet pour la production
+EVM_RPC_URL=https://sepolia.base.org
+EVM_CHAIN_ID=84532
+EVM_NETWORK=base-sepolia
+EVM_EXPLORER_URL=https://sepolia.basescan.org
+EVM_RELAYER_PRIVATE_KEY=0x...
+EVM_REGISTRY_CONTRACT=0xYourCulturalRegistryAddress
 ```
 
-### 2. **IPFS** (OBLIGATOIRE)
-Pour le stockage décentralisé :
+Réseaux conseillés:
+- Base Sepolia (tests)
+- Arbitrum Sepolia (tests)
+- Base / Arbitrum mainnet (production)
 
-#### Option A : Web3.Storage (Recommandé)
-1. Allez sur [Web3.Storage](https://web3.storage/)
-2. Créez un compte
-3. Générez un token API
-4. Configurez :
+### 2. Contrat Vyper (obligatoire)
+Le contrat est dans `contracts/vyper/CulturalRegistry.vy`.
+
+Compiler (si `vyper` installé):
+
 ```bash
-# Dans backend/.env
-IPFS_API_URL=https://api.web3.storage
-IPFS_API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...  # Votre token
+vyper contracts/vyper/CulturalRegistry.vy
 ```
 
-#### Option B : Pinata
-1. Allez sur [Pinata](https://pinata.cloud/)
-2. Créez un compte
-3. Générez une API Key
-4. Configurez :
+Déployer puis renseigner l'adresse dans `EVM_REGISTRY_CONTRACT`.
+
+### 3. IPFS (obligatoire)
+
+Configurer au moins un provider:
+
 ```bash
-# Dans backend/.env
-IPFS_API_URL=https://api.pinata.cloud
-IPFS_API_TOKEN=pk_...  # Votre API Key
+# Option 1: endpoint RPC Kubo compatible
+IPFS_API_URL=https://ipfs.my-provider.example
+IPFS_API_TOKEN=...
+
+# Option 2: Infura IPFS
+IPFS_PROJECT_ID=...
+IPFS_PROJECT_SECRET=...
 ```
 
-### 3. **Cloudinary** (Optionnel)
-Pour l'optimisation des médias :
-1. Allez sur [Cloudinary](https://cloudinary.com/)
-2. Créez un compte gratuit
-3. Configurez :
-```bash
-# Dans backend/.env
-CLOUDINARY_CLOUD_NAME=votre-cloud-name
-CLOUDINARY_API_KEY=votre-api-key
-CLOUDINARY_API_SECRET=votre-api-secret
-```
+## 🚀 Démarrage
 
-## 🚀 **Démarrage de l'Application**
-
-### 1. **Backend**
 ```bash
+# Backend
 cd backend
 npm install
 npx prisma generate
@@ -72,52 +57,23 @@ npx prisma migrate deploy
 npm run dev
 ```
 
-### 2. **Frontend**
 ```bash
+# Frontend
 cd frontend
 npm install
 npm start
 ```
 
-### 3. **Accès**
-- **Frontend** : http://localhost:3000
-- **Backend API** : http://localhost:4000
-- **Documentation API** : http://localhost:4000/api-docs
+## ✅ Résultat attendu
 
-## 🔧 **Fonctionnalités Web3**
+- Les contenus sont enregistrés sur IPFS.
+- Une preuve d'authenticité est écrite sur la blockchain EVM.
+- Les utilisateurs non-crypto utilisent la plateforme normalement (email/UI classique).
+- Le relayer backend gère les transactions on-chain.
 
-### ✅ **Fonctionnalités Actives**
-- ✅ Certification blockchain des contenus
-- ✅ Stockage décentralisé IPFS
-- ✅ Système de récompenses (NKWA tokens)
-- ✅ NFT pour les contenus premium
-- ✅ Collecte automatique de contenus culturels
-- ✅ Accès hybride (avec/sans wallet crypto)
+## 🧪 Mode démo
 
-### 🎯 **Prochaines Étapes**
-1. **Configuration Web3** : Suivez le guide ci-dessus
-2. **Test des fonctionnalités** : Naviguez sur l'application
-3. **Collecte de contenus** : Utilisez le collecteur automatique
-4. **Déploiement production** : Configurez Vercel avec les vraies clés
-
-## 📊 **Statut Actuel**
-
-| Service | Statut | Configuration |
-|---------|--------|---------------|
-| PostgreSQL | ✅ Actif | Base de données configurée |
-| Backend API | ✅ Actif | Port 4000 |
-| Frontend React | ✅ Actif | Port 3000 |
-| Hedera | ⚠️ À configurer | Clés requises |
-| IPFS | ⚠️ À configurer | Token requis |
-| Cloudinary | ⚠️ Optionnel | Pour les médias |
-
-## 🆘 **Support**
-
-Si vous rencontrez des problèmes :
-1. Vérifiez les logs : `backend/logs/`
-2. Testez l'API : `curl http://localhost:4000/`
-3. Vérifiez la base de données : `npx prisma studio`
-
----
-
-**🎉 Félicitations !** Votre plateforme Nkwa Vault est prête. Il ne reste plus qu'à configurer les services Web3 pour une expérience complète !
+Si `EVM_RPC_URL`, `EVM_RELAYER_PRIVATE_KEY` ou `EVM_REGISTRY_CONTRACT` manquent:
+- l'app reste fonctionnelle,
+- la partie blockchain passe en mode démo,
+- l'interface reste accessible à tous.

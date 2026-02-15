@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, Image, X, Star, Tag, MapPin, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 const NFTUpload = ({ onUploadSuccess, onClose }) => {
   const [formData, setFormData] = useState({
@@ -65,8 +66,6 @@ const NFTUpload = ({ onUploadSuccess, onClose }) => {
     setError('');
 
     try {
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
-      
       const formDataToSend = new FormData();
       formDataToSend.append('image', selectedImage);
       formDataToSend.append('name', formData.name);

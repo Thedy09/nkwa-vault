@@ -1,0 +1,1658 @@
+{
+  "generatedAt": "2026-02-14T21:24:16.318Z",
+  "sources": {
+    "tales": "Gutendex / Project Gutenberg",
+    "proverbes": "Wikiquote",
+    "chants": "Internet Archive",
+    "danses": "Wikimedia Commons",
+    "art": "Metropolitan Museum of Art"
+  },
+  "counts": {
+    "tales": 5,
+    "proverbes": 6,
+    "chants": 5,
+    "danses": 4,
+    "art": 5,
+    "total": 25
+  },
+  "data": {
+    "tales": [
+      {
+        "id": "tale_66923",
+        "title": "West African Folk-Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Tradition orale",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/66923",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "66923",
+          "textUrl": "https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+          "themes": [
+            "Folklore -- Africa, West",
+            "Tales -- Africa, West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:23:52.211Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_66923",
+          "contentHash": "0xd0c278dba3306bfa56a3d125614a8352ca3e536b91dee2aa88296018507248f7",
+          "metadata": {
+            "id": "tale_66923",
+            "title": "West African Folk-Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:52.212Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi41ghw669g",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi41ghw669g",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi41ghw669g",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_66923",
+            "contentHash": "0xd0c278dba3306bfa56a3d125614a8352ca3e536b91dee2aa88296018507248f7",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi41ghw669g",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x7d703f80b81d190376e34da173a5ed09fbfa856808a49ab1dc47e04c5c2998d3",
+            "blockNumber": 0,
+            "timestamp": 1771104232,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_38339",
+        "title": "South-African Folk-Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/38339.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Honey, James A.",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/38339",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "38339",
+          "textUrl": "https://www.gutenberg.org/ebooks/38339.txt.utf-8",
+          "themes": [
+            "Folklore -- South Africa",
+            "Tales -- South Africa"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:23:52.211Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_38339",
+          "contentHash": "0xc7c2364c114dd7bcfa6e2bfde261dbb6d4d23c21f92d7251c43f35c05a91795a",
+          "metadata": {
+            "id": "tale_38339",
+            "title": "South-African Folk-Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/38339.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Honey, James A.",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:52.219Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio70t4pbk4",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio70t4pbk4",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio70t4pbk4",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_38339",
+            "contentHash": "0xc7c2364c114dd7bcfa6e2bfde261dbb6d4d23c21f92d7251c43f35c05a91795a",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio70t4pbk4",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x6b6c885319d121f7d70182e9dcb9b445e3d742d0143fa781fbe50865b70690a9",
+            "blockNumber": 0,
+            "timestamp": 1771104232,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_58900",
+        "title": "Where Animals Talk: West African Folk Lore Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/58900.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Nassau, Robert Hamill",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/58900",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "58900",
+          "textUrl": "https://www.gutenberg.org/ebooks/58900.txt.utf-8",
+          "themes": [
+            "Animals -- Folklore",
+            "Tales -- Africa, West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:23:52.211Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_58900",
+          "contentHash": "0x170e3af1e1ce783dbb6f394786967ac4c4a1d69b53b39182ddd3187b88e03897",
+          "metadata": {
+            "id": "tale_58900",
+            "title": "Where Animals Talk: West African Folk Lore Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/58900.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Nassau, Robert Hamill",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:52.222Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibxwql7lhy",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibxwql7lhy",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibxwql7lhy",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_58900",
+            "contentHash": "0x170e3af1e1ce783dbb6f394786967ac4c4a1d69b53b39182ddd3187b88e03897",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibxwql7lhy",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x305195acf4a17a4c49e1bc2c20a7a13607507a9d4afcc9adef6f6e9cfc75d47b",
+            "blockNumber": 0,
+            "timestamp": 1771104232,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_48828",
+        "title": "Cunnie Rabbit, Mr. Spider and the Other Beef: West African Folk Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/48828.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Cronise, Florence M., Ward, Henry W.",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/48828",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "48828",
+          "textUrl": "https://www.gutenberg.org/ebooks/48828.txt.utf-8",
+          "themes": [
+            "Anansi (Legendary character)",
+            "Folklore -- Africa, West",
+            "Tales -- Africa, West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:23:52.211Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_48828",
+          "contentHash": "0xf91495ca9c938570e92c3c1325fb133e9461d827623851a2c5ea276b1a88a8d2",
+          "metadata": {
+            "id": "tale_48828",
+            "title": "Cunnie Rabbit, Mr. Spider and the Other Beef: West African Folk Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/48828.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Cronise, Florence M., Ward, Henry W.",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:52.226Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi75s4yq21s",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi75s4yq21s",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi75s4yq21s",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_48828",
+            "contentHash": "0xf91495ca9c938570e92c3c1325fb133e9461d827623851a2c5ea276b1a88a8d2",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi75s4yq21s",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x2d3c5b6679b06993f1446161fa9bd047026d72dc8a23fef6787fd38488873339",
+            "blockNumber": 0,
+            "timestamp": 1771104232,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_35557",
+        "title": "Outa Karel's Stories: South African Folk-Lore Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/35557.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Metelerkamp, Sanni",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/35557",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "35557",
+          "textUrl": "https://www.gutenberg.org/ebooks/35557.txt.utf-8",
+          "themes": [
+            "Folklore -- South Africa"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:23:52.211Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_35557",
+          "contentHash": "0x80b91be4f631eb52c1da691f0673e6fbf27407ea64f13900d36b3a705cad3f1b",
+          "metadata": {
+            "id": "tale_35557",
+            "title": "Outa Karel's Stories: South African Folk-Lore Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/35557.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Metelerkamp, Sanni",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:52.229Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirte8anhpx",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirte8anhpx",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirte8anhpx",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_35557",
+            "contentHash": "0x80b91be4f631eb52c1da691f0673e6fbf27407ea64f13900d36b3a705cad3f1b",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirte8anhpx",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x1f733d573e10ddc40ccff17c8e59cb649b575c45c3e8f64c2ae5f1b38a33475f",
+            "blockNumber": 0,
+            "timestamp": 1771104232,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "proverbes": [
+      {
+        "id": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+        "title": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack",
+        "content": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack crime. Now society has a cop problem.\"",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T21:23:55.102Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+          "contentHash": "0x37fbad32c8197ec49279509d20476a44768287a335e55ff885e74e25a5355698",
+          "metadata": {
+            "id": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+            "title": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack",
+            "content": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack crime. Now society has a cop problem.\"",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:55.103Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiodoezx9nu",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiodoezx9nu",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiodoezx9nu",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+            "contentHash": "0x37fbad32c8197ec49279509d20476a44768287a335e55ff885e74e25a5355698",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiodoezx9nu",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xa2b972c85c5d34ebda348c9a60caeb261900f9e7cdb3bc0c26cc7bccc37c063d",
+            "blockNumber": 0,
+            "timestamp": 1771104235,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+        "title": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+        "content": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T21:23:55.102Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+          "contentHash": "0x08bad653bd18e793adf3b97bf0a990309aee44de009d6b622d8439572e407171",
+          "metadata": {
+            "id": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+            "title": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+            "content": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:55.106Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirm9lol7ti",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirm9lol7ti",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirm9lol7ti",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+            "contentHash": "0x08bad653bd18e793adf3b97bf0a990309aee44de009d6b622d8439572e407171",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirm9lol7ti",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xb0ebe0e9cba70342995f4c74e7641ff0cd6c59304992c90a3566a2a9baa8f162",
+            "blockNumber": 0,
+            "timestamp": 1771104235,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_somali_proverbs_2_afrikaans_proverbs",
+        "title": "Afrikaans proverbs",
+        "content": "Afrikaans proverbs",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T21:23:55.102Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_2_afrikaans_proverbs",
+          "contentHash": "0xe9f8d40cc1f72b11e157a7514c81915bc3c501b68b6edca147a9accc9cc105b8",
+          "metadata": {
+            "id": "proverb_somali_proverbs_2_afrikaans_proverbs",
+            "title": "Afrikaans proverbs",
+            "content": "Afrikaans proverbs",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:55.108Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirfq4bhy1j",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirfq4bhy1j",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirfq4bhy1j",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_2_afrikaans_proverbs",
+            "contentHash": "0xe9f8d40cc1f72b11e157a7514c81915bc3c501b68b6edca147a9accc9cc105b8",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdirfq4bhy1j",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x477ec3a0ee976f8847667c64676213436a4ac9924cb1ba8d6f7862cd437d1208",
+            "blockNumber": 0,
+            "timestamp": 1771104235,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_somali_proverbs_3_oromo_proverbs",
+        "title": "Oromo proverbs",
+        "content": "Oromo proverbs",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T21:23:55.103Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_3_oromo_proverbs",
+          "contentHash": "0x9d55f1b3c43c7055187881836ddb3e312ec7b2c72c06e506d4360f89dc164fbd",
+          "metadata": {
+            "id": "proverb_somali_proverbs_3_oromo_proverbs",
+            "title": "Oromo proverbs",
+            "content": "Oromo proverbs",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:55.109Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqh3z4ushj",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqh3z4ushj",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqh3z4ushj",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_3_oromo_proverbs",
+            "contentHash": "0x9d55f1b3c43c7055187881836ddb3e312ec7b2c72c06e506d4360f89dc164fbd",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiqh3z4ushj",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x529c7e96d66bcbcd7947f89d37c16d14a6d87d9061a1584a2e555ad5d4b2f989",
+            "blockNumber": 0,
+            "timestamp": 1771104235,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+        "title": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+        "content": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:23:55.103Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+          "contentHash": "0x13868ffa3bbddea675afa413d85bcca990ba0d70c9241f8580534fc4522d4c1e",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+            "title": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+            "content": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:55.111Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi6x5zvi4y3",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi6x5zvi4y3",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi6x5zvi4y3",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+            "contentHash": "0x13868ffa3bbddea675afa413d85bcca990ba0d70c9241f8580534fc4522d4c1e",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi6x5zvi4y3",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xcd2c552c6dd50db9c8432225a511d795ea7c27c4029c52b09cdfeb21198b2066",
+            "blockNumber": 0,
+            "timestamp": 1771104235,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+        "title": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+        "content": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T21:23:55.103Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+          "contentHash": "0x23b826714ab9cf68f971556ec1e148b127f0adf93463d57041b04f49282c8513",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+            "title": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+            "content": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:23:55.113Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdief16o3ofk",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdief16o3ofk",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdief16o3ofk",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+            "contentHash": "0x23b826714ab9cf68f971556ec1e148b127f0adf93463d57041b04f49282c8513",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdief16o3ofk",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xcba4c545c248189f15a1c3243f2d8da71d01ec120500976539401f9e6cc07d9f",
+            "blockNumber": 0,
+            "timestamp": 1771104235,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "chants": [
+      {
+        "id": "music_bayefallchantunplugged",
+        "title": "Baye Fall Chant unplugged",
+        "content": "This is a recording of Baye Fall chanting recorded in Diourbel, Senegal on July 22, 2011. The Baye Falls are a sub-sect of the Mouride Islamic Brotherhood. This was recorded outside the compound of a Peace Corps Volunteer serving in Senegal.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Sénégal",
+        "authorName": "april1213",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/BayeFallChantUnplugged",
+        "license": "Public Domain",
+        "metadata": {
+          "archiveId": "BayeFallChantUnplugged",
+          "audioUrl": "https://archive.org/download/BayeFallChantUnplugged/BayeFallChantUnplugged.mp3",
+          "duration": "01:19",
+          "format": "VBR MP3",
+          "year": null,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "subjects": [
+            "Diourbel",
+            "Senegal",
+            "Chanting",
+            "Baye Fall",
+            "Mouride Brotherhood",
+            "Islamic Chant"
+          ],
+          "collectedAt": "2026-02-14T21:24:02.447Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_bayefallchantunplugged",
+          "contentHash": "0xa8bbe4f33809c46e9e295a36e15a55d1f6f356fa77d3329d7ccb7595f88a940b",
+          "metadata": {
+            "id": "music_bayefallchantunplugged",
+            "title": "Baye Fall Chant unplugged",
+            "content": "This is a recording of Baye Fall chanting recorded in Diourbel, Senegal on July 22, 2011. The Baye Falls are a sub-sect of the Mouride Islamic Brotherhood. This was recorded outside the compound of a Peace Corps Volunteer serving in Senegal.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Sénégal",
+            "authorName": "april1213",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:02.447Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizrb0mhgha",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizrb0mhgha",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizrb0mhgha",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_bayefallchantunplugged",
+            "contentHash": "0xa8bbe4f33809c46e9e295a36e15a55d1f6f356fa77d3329d7ccb7595f88a940b",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizrb0mhgha",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x7fbdd5980704ce8aaf7d63fa992b8c9e9c525f9508a9324cb943d9704d867246",
+            "blockNumber": 0,
+            "timestamp": 1771104242,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_ghana_traditional",
+        "title": "Africa - Ghana - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Ghana",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Ghana_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Ghana_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Ghana_Traditional/Acora_Ghana.mp3",
+          "duration": "231.81",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Ghana",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:24:02.447Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_ghana_traditional",
+          "contentHash": "0x0cadd0ff5b419deaca77420f3ee9b775ad448adf4cf54a45511773e096378f16",
+          "metadata": {
+            "id": "music_thomasladonne_ghana_traditional",
+            "title": "Africa - Ghana - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Ghana",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:02.450Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi440zoi6g8",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi440zoi6g8",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi440zoi6g8",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_ghana_traditional",
+            "contentHash": "0x0cadd0ff5b419deaca77420f3ee9b775ad448adf4cf54a45511773e096378f16",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi440zoi6g8",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xb1f284f0325a230e42d7282fd7668e44b94bf523235b4d833221073b2f57e667",
+            "blockNumber": 0,
+            "timestamp": 1771104242,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_burkina_faso_traditional",
+        "title": "Africa - Burkina-Faso - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Burkina Faso",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Burkina-Faso_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Burkina-Faso_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Burkina-Faso_Traditional/Bisa_Burkina-Faso.mp3",
+          "duration": "301.37",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Burkina-Faso",
+            "music"
+          ],
+          "collectedAt": "2026-02-14T21:24:02.447Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_burkina_faso_traditional",
+          "contentHash": "0xe00f4b4b252dd5c3cafee37e872045e05250ec50903a3c009eaf3b4315fabd1d",
+          "metadata": {
+            "id": "music_thomasladonne_burkina_faso_traditional",
+            "title": "Africa - Burkina-Faso - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Burkina Faso",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:02.452Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipzjysqr5z",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipzjysqr5z",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipzjysqr5z",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_burkina_faso_traditional",
+            "contentHash": "0xe00f4b4b252dd5c3cafee37e872045e05250ec50903a3c009eaf3b4315fabd1d",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipzjysqr5z",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xd58b72c4b59f8b3afae3dc758a48dcfa18c1c9e7eaa9db09511bcc2b15ae3501",
+            "blockNumber": 0,
+            "timestamp": 1771104242,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_burundi_traditional",
+        "title": "Africa - Burundi - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Burundi",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Burundi_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Burundi_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Burundi_Traditional/Akenze_Burundi.mp3",
+          "duration": "104.46",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Burundi",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:24:02.447Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_burundi_traditional",
+          "contentHash": "0x0eda0c18088f350dd5dd82d4fb3c70f8addb9bdfaf8bc3813d5bd43e8d1a6793",
+          "metadata": {
+            "id": "music_thomasladonne_burundi_traditional",
+            "title": "Africa - Burundi - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Burundi",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:02.454Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdik54ndie2c",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdik54ndie2c",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdik54ndie2c",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_burundi_traditional",
+            "contentHash": "0x0eda0c18088f350dd5dd82d4fb3c70f8addb9bdfaf8bc3813d5bd43e8d1a6793",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdik54ndie2c",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x141325070464aa52761ad1435408f6ccdda9046496fbdf335cccfb55fb147a72",
+            "blockNumber": 0,
+            "timestamp": 1771104242,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_cameroon_traditional",
+        "title": "Africa - Cameroon - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique Centrale",
+        "country": "Cameroun",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Cameroon_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Cameroon_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Cameroon_Traditional/Bamilike_Cameroon.mp3",
+          "duration": "155.87",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Cameroon",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:24:02.447Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_cameroon_traditional",
+          "contentHash": "0xe1e2a33158f8837486166ecb14abca82d1c3294c0f2a870e8844c3bb3c72d960",
+          "metadata": {
+            "id": "music_thomasladonne_cameroon_traditional",
+            "title": "Africa - Cameroon - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique Centrale",
+            "country": "Cameroun",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:02.456Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijaz9tjmqn",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijaz9tjmqn",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijaz9tjmqn",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_cameroon_traditional",
+            "contentHash": "0xe1e2a33158f8837486166ecb14abca82d1c3294c0f2a870e8844c3bb3c72d960",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijaz9tjmqn",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x2224edacf3e24d7fb59010a4f80d53246bd03dc96bbef875bbed5d9a0d26b31a",
+            "blockNumber": 0,
+            "timestamp": 1771104242,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "danses": [
+      {
+        "id": "dance_2113706",
+        "title": "West African Dance at the White House, 2007Apr25.jpg",
+        "content": "Members from the Kankouran West African Dance Company performs during a ceremony marking Malaria Awareness Day Wednesday, April 25, 2007, in the Rose Garden, White House.",
+        "type": "DANCE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "White House photo by Eric Draper",
+        "source": "Wikimedia Commons",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:West_African_Dance_at_the_White_House,_2007Apr25.jpg",
+        "license": "Public domain",
+        "metadata": {
+          "externalId": "2113706",
+          "videoUrl": null,
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/West_African_Dance_at_the_White_House%2C_2007Apr25.jpg",
+          "duration": null,
+          "format": "image/jpeg",
+          "year": 2007,
+          "genre": "Traditional Dance",
+          "licenseUrl": null,
+          "subjects": [],
+          "collectedAt": "2026-02-14T21:24:06.050Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "dance_2113706",
+          "contentHash": "0x03fd32dd4ec249650cca34ed13e2b17759c24f09e3694c7d884fde83e415b226",
+          "metadata": {
+            "id": "dance_2113706",
+            "title": "West African Dance at the White House, 2007Apr25.jpg",
+            "content": "Members from the Kankouran West African Dance Company performs during a ceremony marking Malaria Awareness Day Wednesday, April 25, 2007, in the Rose Garden, White House.",
+            "type": "DANCE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "White House photo by Eric Draper",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:06.050Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizp4mpegdz",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizp4mpegdz",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizp4mpegdz",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "dance_2113706",
+            "contentHash": "0x03fd32dd4ec249650cca34ed13e2b17759c24f09e3694c7d884fde83e415b226",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizp4mpegdz",
+            "contentType": "DANCE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x48383bee914b63c6b441eec7245612fe1335588667a93b117281fa007a2888ed",
+            "blockNumber": 0,
+            "timestamp": 1771104246,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "dance_16161144",
+        "title": "African Dance Show P1040457.ogv",
+        "content": "The African Dance Show at the Wikimania 2011 Beach Party",
+        "type": "DANCE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Deror_avi",
+        "source": "Wikimedia Commons",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:African_Dance_Show_P1040457.ogv",
+        "license": "CC BY-SA 3.0",
+        "metadata": {
+          "externalId": "16161144",
+          "videoUrl": "https://upload.wikimedia.org/wikipedia/commons/4/43/African_Dance_Show_P1040457.ogv",
+          "imageUrl": null,
+          "duration": null,
+          "format": "application/ogg",
+          "year": 2011,
+          "genre": "Traditional Dance",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "subjects": [],
+          "collectedAt": "2026-02-14T21:24:06.050Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "dance_16161144",
+          "contentHash": "0x9b2d062ca88fbd17d7227d7ea9223f76e17294ef2c5863d178a10a097041d032",
+          "metadata": {
+            "id": "dance_16161144",
+            "title": "African Dance Show P1040457.ogv",
+            "content": "The African Dance Show at the Wikimania 2011 Beach Party",
+            "type": "DANCE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Deror_avi",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:06.052Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdimtee8bv59",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdimtee8bv59",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdimtee8bv59",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "dance_16161144",
+            "contentHash": "0x9b2d062ca88fbd17d7227d7ea9223f76e17294ef2c5863d178a10a097041d032",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdimtee8bv59",
+            "contentType": "DANCE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xd176435f31eee86105a3c3291be4d54a79064c478256770f8b804fcb490eea35",
+            "blockNumber": 0,
+            "timestamp": 1771104246,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "dance_16161236",
+        "title": "African Dance Show P1040458.ogv",
+        "content": "The African Dance Show at the Wikimania 2011 Beach Party",
+        "type": "DANCE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Deror_avi",
+        "source": "Wikimedia Commons",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:African_Dance_Show_P1040458.ogv",
+        "license": "CC BY-SA 3.0",
+        "metadata": {
+          "externalId": "16161236",
+          "videoUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/African_Dance_Show_P1040458.ogv",
+          "imageUrl": null,
+          "duration": null,
+          "format": "application/ogg",
+          "year": 2011,
+          "genre": "Traditional Dance",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "subjects": [],
+          "collectedAt": "2026-02-14T21:24:06.050Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "dance_16161236",
+          "contentHash": "0xa628b073e315ea12aadc30d71cfbf339a8ce2b6da626b19ef6bb86a8132fe598",
+          "metadata": {
+            "id": "dance_16161236",
+            "title": "African Dance Show P1040458.ogv",
+            "content": "The African Dance Show at the Wikimania 2011 Beach Party",
+            "type": "DANCE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Deror_avi",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:06.053Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdid4sri7uyf",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdid4sri7uyf",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdid4sri7uyf",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "dance_16161236",
+            "contentHash": "0xa628b073e315ea12aadc30d71cfbf339a8ce2b6da626b19ef6bb86a8132fe598",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdid4sri7uyf",
+            "contentType": "DANCE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xb4a23369edd868a22ae0523a659d37a5943f22ecac36601a77aec6be5f8c899d",
+            "blockNumber": 0,
+            "timestamp": 1771104246,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "dance_16161278",
+        "title": "African Dance Show P1040459.ogv",
+        "content": "The African Dance Show at the Wikimania 2011 Beach Party",
+        "type": "DANCE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Deror_avi",
+        "source": "Wikimedia Commons",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:African_Dance_Show_P1040459.ogv",
+        "license": "CC BY-SA 3.0",
+        "metadata": {
+          "externalId": "16161278",
+          "videoUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8a/African_Dance_Show_P1040459.ogv",
+          "imageUrl": null,
+          "duration": null,
+          "format": "application/ogg",
+          "year": 2011,
+          "genre": "Traditional Dance",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "subjects": [],
+          "collectedAt": "2026-02-14T21:24:06.050Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "dance_16161278",
+          "contentHash": "0x7c63268f0550c0114ed30ac2e5fabf9165fb2b18e1ed3f68407da764637c3650",
+          "metadata": {
+            "id": "dance_16161278",
+            "title": "African Dance Show P1040459.ogv",
+            "content": "The African Dance Show at the Wikimania 2011 Beach Party",
+            "type": "DANCE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Deror_avi",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:06.054Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihe798nayx",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihe798nayx",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihe798nayx",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "dance_16161278",
+            "contentHash": "0x7c63268f0550c0114ed30ac2e5fabf9165fb2b18e1ed3f68407da764637c3650",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihe798nayx",
+            "contentType": "DANCE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x6d5a333a4b940c5eff9c86021d40ca2a520f0297717da89939637a52acd25fa9",
+            "blockNumber": 0,
+            "timestamp": 1771104246,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "art": [
+      {
+        "id": "art_202350",
+        "title": "Africa",
+        "content": "Figure - 1751–57 - Hard-paste porcelain",
+        "type": "ART",
+        "language": "fr",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Royal Porcelain Manufactory, Berlin",
+        "source": "Metropolitan Museum of Art",
+        "sourceUrl": "https://www.metmuseum.org/art/collection/search/202350",
+        "license": "CC0",
+        "metadata": {
+          "objectId": "202350",
+          "department": "European Sculpture and Decorative Arts",
+          "culture": null,
+          "period": "1751–57",
+          "medium": "Hard-paste porcelain",
+          "dimensions": "Height: 6 3/16 in. (15.7 cm)",
+          "imageUrl": "https://images.metmuseum.org/CRDImages/es/web-large/170280.jpg",
+          "highResImageUrl": "https://images.metmuseum.org/CRDImages/es/original/170280.jpg",
+          "tags": [
+            "Bow and Arrow",
+            "Men"
+          ],
+          "collectedAt": "2026-02-14T21:24:16.303Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "art_202350",
+          "contentHash": "0x0e0d58ab026d5ab3da60e22f1a4d4406908a9175f69344e3778554137160776d",
+          "metadata": {
+            "id": "art_202350",
+            "title": "Africa",
+            "content": "Figure - 1751–57 - Hard-paste porcelain",
+            "type": "ART",
+            "language": "fr",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Royal Porcelain Manufactory, Berlin",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:16.304Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihwas26q4b",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihwas26q4b",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihwas26q4b",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "art_202350",
+            "contentHash": "0x0e0d58ab026d5ab3da60e22f1a4d4406908a9175f69344e3778554137160776d",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihwas26q4b",
+            "contentType": "ART",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xbccbc75a1590c4f75af89c39c5b62c99eb5cded890122a8f5975d5cbb0614936",
+            "blockNumber": 0,
+            "timestamp": 1771104256,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "art_202348",
+        "title": "Africa",
+        "content": "Figure - ca. 1765 - Hard-paste porcelain",
+        "type": "ART",
+        "language": "fr",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Frankenthal Porcelain Manufactory",
+        "source": "Metropolitan Museum of Art",
+        "sourceUrl": "https://www.metmuseum.org/art/collection/search/202348",
+        "license": "CC0",
+        "metadata": {
+          "objectId": "202348",
+          "department": "European Sculpture and Decorative Arts",
+          "culture": null,
+          "period": "ca. 1765",
+          "medium": "Hard-paste porcelain",
+          "dimensions": "Height: 8 1/8 in. (20.6 cm)",
+          "imageUrl": "https://images.metmuseum.org/CRDImages/es/web-large/170277.jpg",
+          "highResImageUrl": "https://images.metmuseum.org/CRDImages/es/original/170277.jpg",
+          "tags": [
+            "Women"
+          ],
+          "collectedAt": "2026-02-14T21:24:16.304Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "art_202348",
+          "contentHash": "0xbdb037248f1680f24cfbcfe5c06d0c7d6f8fce69b8398905bf63ae24c76eca2e",
+          "metadata": {
+            "id": "art_202348",
+            "title": "Africa",
+            "content": "Figure - ca. 1765 - Hard-paste porcelain",
+            "type": "ART",
+            "language": "fr",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Frankenthal Porcelain Manufactory",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:16.308Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3pnhl5dni",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3pnhl5dni",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3pnhl5dni",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "art_202348",
+            "contentHash": "0xbdb037248f1680f24cfbcfe5c06d0c7d6f8fce69b8398905bf63ae24c76eca2e",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3pnhl5dni",
+            "contentType": "ART",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x4b5baccc9c8612727c9031f50b8312bd95bd7b8728fd75c828fe02a348b6d7cd",
+            "blockNumber": 0,
+            "timestamp": 1771104256,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "art_202460",
+        "title": "Personification of Africa",
+        "content": "Plaquette - 1580–90 - Lead and gilding",
+        "type": "ART",
+        "language": "fr",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Artiste inconnu",
+        "source": "Metropolitan Museum of Art",
+        "sourceUrl": "https://www.metmuseum.org/art/collection/search/202460",
+        "license": "CC0",
+        "metadata": {
+          "objectId": "202460",
+          "department": "European Sculpture and Decorative Arts",
+          "culture": null,
+          "period": "1580–90",
+          "medium": "Lead and gilding",
+          "dimensions": "Diameter: 6 7/8 in. (17.5 cm)",
+          "imageUrl": "https://images.metmuseum.org/CRDImages/es/web-large/DP-29221-001.jpg",
+          "highResImageUrl": "https://images.metmuseum.org/CRDImages/es/original/DP-29221-001.jpg",
+          "tags": [
+            "Women",
+            "Crocodiles",
+            "Lions",
+            "Cornucopia"
+          ],
+          "collectedAt": "2026-02-14T21:24:16.304Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "art_202460",
+          "contentHash": "0x204ba5f9b56912785ce06a5904b95b3fa73d9b34010ec37538f628f1fbc6a0ac",
+          "metadata": {
+            "id": "art_202460",
+            "title": "Personification of Africa",
+            "content": "Plaquette - 1580–90 - Lead and gilding",
+            "type": "ART",
+            "language": "fr",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Artiste inconnu",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:16.311Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio5vrhrfcr",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio5vrhrfcr",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio5vrhrfcr",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "art_202460",
+            "contentHash": "0x204ba5f9b56912785ce06a5904b95b3fa73d9b34010ec37538f628f1fbc6a0ac",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdio5vrhrfcr",
+            "contentType": "ART",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xb1a7af0ad6db8d6bd593b38fb0e6b840ddc1b644da14f99f60d60a41b280f385",
+            "blockNumber": 0,
+            "timestamp": 1771104256,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "art_501097",
+        "title": "Zanze",
+        "content": "Zanze - Ghanian, Ashanti (Asante) - Ghana - late 19th century - Wood",
+        "type": "ART",
+        "language": "fr",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Ghana",
+        "authorName": "Ashanti (Asante)",
+        "source": "Metropolitan Museum of Art",
+        "sourceUrl": "https://www.metmuseum.org/art/collection/search/501097",
+        "license": "CC0",
+        "metadata": {
+          "objectId": "501097",
+          "department": "Musical Instruments",
+          "culture": "Ghanian, Ashanti (Asante)",
+          "period": "late 19th century",
+          "medium": "Wood",
+          "dimensions": "L. 19.1 cm (7-1/2 in.), W. 7.6 cm (3 in.)",
+          "imageUrl": "https://images.metmuseum.org/CRDImages/mi/web-large/midp89.2.190.jpg",
+          "highResImageUrl": "https://images.metmuseum.org/CRDImages/mi/original/midp89.2.190.jpg",
+          "tags": [],
+          "collectedAt": "2026-02-14T21:24:16.304Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "art_501097",
+          "contentHash": "0xc95798401bd89d182cdd7757be2dfbd419642fa6b222b81d1741781e760353a0",
+          "metadata": {
+            "id": "art_501097",
+            "title": "Zanze",
+            "content": "Zanze - Ghanian, Ashanti (Asante) - Ghana - late 19th century - Wood",
+            "type": "ART",
+            "language": "fr",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Ghana",
+            "authorName": "Ashanti (Asante)",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:16.314Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiq10nh0nzr",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiq10nh0nzr",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiq10nh0nzr",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "art_501097",
+            "contentHash": "0xc95798401bd89d182cdd7757be2dfbd419642fa6b222b81d1741781e760353a0",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiq10nh0nzr",
+            "contentType": "ART",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xdc568435b9d8723d02b1a9428e2b0aa6b6de5ad2d5a84afd754e5d91984b7782",
+            "blockNumber": 0,
+            "timestamp": 1771104256,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "art_501152",
+        "title": "Drum",
+        "content": "Drum - South African - South Africa - 19th century - Wood, fiber",
+        "type": "ART",
+        "language": "fr",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Zulu people",
+        "source": "Metropolitan Museum of Art",
+        "sourceUrl": "https://www.metmuseum.org/art/collection/search/501152",
+        "license": "CC0",
+        "metadata": {
+          "objectId": "501152",
+          "department": "Musical Instruments",
+          "culture": "South African",
+          "period": "19th century",
+          "medium": "Wood, fiber",
+          "dimensions": "Diameter: 20cm\r\nLength: 63cm",
+          "imageUrl": "https://images.metmuseum.org/CRDImages/mi/web-large/191203.jpg",
+          "highResImageUrl": "https://images.metmuseum.org/CRDImages/mi/original/191203.jpg",
+          "tags": [],
+          "collectedAt": "2026-02-14T21:24:16.304Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "art_501152",
+          "contentHash": "0x8268475be5ab1d3b445e0dc00ab577af6da9787d39abbf77555c1ef7b8653768",
+          "metadata": {
+            "id": "art_501152",
+            "title": "Drum",
+            "content": "Drum - South African - South Africa - 19th century - Wood, fiber",
+            "type": "ART",
+            "language": "fr",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Zulu people",
+            "media": [],
+            "createdAt": "2026-02-14T21:24:16.316Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiv1wtn734u",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiv1wtn734u",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiv1wtn734u",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "art_501152",
+            "contentHash": "0x8268475be5ab1d3b445e0dc00ab577af6da9787d39abbf77555c1ef7b8653768",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiv1wtn734u",
+            "contentType": "ART",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x50054e992988fbedf6cc06e4825f2a0fe4739aae93b9a582dd5ba70df2baf920",
+            "blockNumber": 0,
+            "timestamp": 1771104256,
+            "explorerUrl": null
+          }
+        }
+      }
+    ]
+  }
+}

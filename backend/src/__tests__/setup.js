@@ -2,15 +2,38 @@
 process.env.NODE_ENV = 'test';
 process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgresql://test:test@localhost:5432/nkwa_vault_test';
 process.env.JWT_SECRET = 'test-jwt-secret';
-process.env.HEDERA_NETWORK = 'testnet';
+process.env.EVM_NETWORK = 'testnet';
+process.env.EVM_CHAIN_ID = '84532';
 
 // Mock des services Web3 pour les tests
-jest.mock('../services/hederaService', () => ({
+jest.mock('../services/blockchainProvider', () => ({
   initialize: jest.fn().mockResolvedValue(true),
-  createTopic: jest.fn().mockResolvedValue({ success: true, topicId: 'test-topic' }),
-  submitMessage: jest.fn().mockResolvedValue({ success: true, sequenceNumber: '123' }),
-  createContentNFT: jest.fn().mockResolvedValue({ success: true, contentId: 'test-content' }),
-  rewardContributor: jest.fn().mockResolvedValue({ success: true })
+  isAvailable: jest.fn().mockReturnValue(true),
+  isReady: jest.fn().mockReturnValue(false),
+  getStatus: jest.fn().mockReturnValue({
+    initialized: true,
+    ready: false,
+    demo: true,
+    network: 'testnet',
+    chainId: 84532
+  }),
+  certifyContent: jest.fn().mockResolvedValue({ success: true, txHash: '0xtest' }),
+  recertifyContent: jest.fn().mockResolvedValue({ success: true, txHash: '0xtest' }),
+  getContent: jest.fn().mockResolvedValue({ success: true, exists: false }),
+  recordReward: jest.fn().mockResolvedValue({ success: true, txHash: '0xtest' }),
+  getStats: jest.fn().mockResolvedValue({
+    initialized: true,
+    ready: false,
+    demo: true,
+    network: 'testnet',
+    chainId: 84532,
+    relayerAddress: '0x0000000000000000000000000000000000000000',
+    registryContract: null,
+    balanceEth: '0',
+    totalCertifications: 0
+  }),
+  hashContent: jest.fn().mockReturnValue('0xtest'),
+  toBytes32: jest.fn((value) => value)
 }));
 
 jest.mock('../services/ipfsService', () => ({

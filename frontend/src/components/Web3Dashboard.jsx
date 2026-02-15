@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Globe, 
+import {
+  Globe,
   Shield, 
   Upload, 
   CheckCircle, 
@@ -14,6 +14,7 @@ import {
   Zap
 } from 'lucide-react';
 import ContentCollector from './ContentCollector';
+import { API_BASE_URL } from '../config/api';
 
 const Web3Dashboard = () => {
   const [web3Status, setWeb3Status] = useState(null);
@@ -29,8 +30,6 @@ const Web3Dashboard = () => {
   const loadWeb3Data = async () => {
     try {
       setLoading(true);
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
-      
       // Charger le statut Web3
       const statusResponse = await fetch(`${API_BASE_URL}/api/web3/status`);
       const statusData = await statusResponse.json();
@@ -136,14 +135,19 @@ const Web3Dashboard = () => {
         >
           <div className="status-header">
             <Globe size={24} />
-            <h3>Hedera Hashgraph</h3>
-            {getStatusIcon(web3Status?.hedera)}
+            <h3>Réseau EVM</h3>
+            {getStatusIcon(web3Status?.blockchain?.initialized)}
           </div>
           <div className="status-content">
-            <p className={getStatusColor(web3Status?.hedera)}>
-              {getStatusText(web3Status?.hedera)}
+            <p className={getStatusColor(web3Status?.blockchain?.initialized)}>
+              {getStatusText(web3Status?.blockchain?.initialized)}
             </p>
-            <p>Blockchain pour la certification et les NFTs</p>
+            <p>
+              {web3Status?.blockchain?.network || 'EVM'}{' '}
+              {web3Status?.blockchain?.chainId
+                ? `(chain ${web3Status.blockchain.chainId})`
+                : ''}
+            </p>
           </div>
         </motion.div>
 
@@ -156,11 +160,11 @@ const Web3Dashboard = () => {
           <div className="status-header">
             <Database size={24} />
             <h3>IPFS</h3>
-            {getStatusIcon(web3Status?.ipfs)}
+            {getStatusIcon(web3Status?.ipfs?.initialized)}
           </div>
           <div className="status-content">
-            <p className={getStatusColor(web3Status?.ipfs)}>
-              {getStatusText(web3Status?.ipfs)}
+            <p className={getStatusColor(web3Status?.ipfs?.initialized)}>
+              {getStatusText(web3Status?.ipfs?.initialized)}
             </p>
             <p>Stockage décentralisé des médias</p>
           </div>
@@ -175,11 +179,11 @@ const Web3Dashboard = () => {
           <div className="status-header">
             <Shield size={24} />
             <h3>Certification</h3>
-            {getStatusIcon(web3Status?.ready)}
+            {getStatusIcon(web3Status?.blockchain?.ready)}
           </div>
           <div className="status-content">
-            <p className={getStatusColor(web3Status?.ready)}>
-              {getStatusText(web3Status?.ready)}
+            <p className={getStatusColor(web3Status?.blockchain?.ready)}>
+              {getStatusText(web3Status?.blockchain?.ready)}
             </p>
             <p>Certification blockchain active</p>
           </div>
@@ -201,9 +205,9 @@ const Web3Dashboard = () => {
                 <Coins size={20} />
               </div>
               <div className="stat-content">
-                <h4>Solde Hedera</h4>
-                <p className="stat-value">{web3Stats.hedera?.balance || 'N/A'}</p>
-                <p className="stat-label">HBAR</p>
+                <h4>Solde Relayer</h4>
+                <p className="stat-value">{web3Stats.blockchain?.balanceEth || 'N/A'}</p>
+                <p className="stat-label">ETH</p>
               </div>
             </motion.div>
 
@@ -217,9 +221,9 @@ const Web3Dashboard = () => {
                 <Activity size={20} />
               </div>
               <div className="stat-content">
-                <h4>Tokens</h4>
-                <p className="stat-value">{web3Stats.hedera?.tokens || 'N/A'}</p>
-                <p className="stat-label">NKWA Tokens</p>
+                <h4>Certifications</h4>
+                <p className="stat-value">{web3Stats.blockchain?.totalCertifications || '0'}</p>
+                <p className="stat-label">On-chain</p>
               </div>
             </motion.div>
 
@@ -234,8 +238,12 @@ const Web3Dashboard = () => {
               </div>
               <div className="stat-content">
                 <h4>Réseau</h4>
-                <p className="stat-value">Hedera</p>
-                <p className="stat-label">Testnet</p>
+                <p className="stat-value">{web3Stats.blockchain?.network || 'EVM'}</p>
+                <p className="stat-label">
+                  {web3Stats.blockchain?.chainId
+                    ? `chain ${web3Stats.blockchain.chainId}`
+                    : 'non configuré'}
+                </p>
               </div>
             </motion.div>
           </div>
@@ -289,16 +297,20 @@ const Web3Dashboard = () => {
         <h3>🔧 Informations Techniques</h3>
         <div className="tech-grid">
           <div className="tech-item">
-            <strong>Hedera Account:</strong>
-            <span>{web3Stats?.hedera?.accountId || 'N/A'}</span>
+            <strong>Relayer:</strong>
+            <span>{web3Stats?.blockchain?.relayerAddress || 'N/A'}</span>
           </div>
           <div className="tech-item">
             <strong>Réseau:</strong>
-            <span>Hedera Testnet</span>
+            <span>{web3Stats?.blockchain?.network || 'EVM'}</span>
+          </div>
+          <div className="tech-item">
+            <strong>Contrat Registry:</strong>
+            <span>{web3Stats?.blockchain?.contractAddress || 'N/A'}</span>
           </div>
           <div className="tech-item">
             <strong>IPFS Gateway:</strong>
-            <span>https://ipfs.io/ipfs/</span>
+            <span>{web3Stats?.ipfs?.gateway || 'https://ipfs.io/ipfs/'}</span>
           </div>
           <div className="tech-item">
             <strong>Dernière mise à jour:</strong>

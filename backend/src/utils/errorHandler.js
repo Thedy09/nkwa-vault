@@ -162,8 +162,8 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // Erreurs Web3
-  if (err.message && err.message.includes('Hedera')) {
-    error = new Web3Error('Erreur de connexion Hedera');
+  if (err.message && err.message.toLowerCase().includes('blockchain')) {
+    error = new Web3Error('Erreur de connexion blockchain');
   } else if (err.message && err.message.includes('IPFS')) {
     error = new Web3Error('Erreur de connexion IPFS');
   }

@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { 
   Download, 
   BookOpen, 
+  Quote,
   Music, 
+  Activity,
   Image, 
   Shield, 
-  Globe,
   CheckCircle,
   Loader,
   AlertCircle,
-  Play,
-  Pause,
-  RotateCcw
+  Play
 } from 'lucide-react';
 
 const ContentCollector = () => {
@@ -25,56 +24,57 @@ const ContentCollector = () => {
 
   const collectionTypes = [
     {
-      id: 'stories',
-      name: 'Contes Africains',
-      description: 'Collecte depuis African Storybook',
+      id: 'tales',
+      name: 'Tales',
+      description: 'Collecte depuis Gutendex (Project Gutenberg)',
       icon: BookOpen,
       color: 'blue',
-      endpoint: '/api/collector/stories',
+      endpoint: '/api/collector/tales',
       defaultLimit: 30
     },
     {
-      id: 'artworks',
-      name: 'Œuvres d\'Art',
-      description: 'Collection Met Museum Open Access',
-      icon: Image,
-      color: 'purple',
-      endpoint: '/api/collector/artworks',
-      defaultLimit: 25
+      id: 'proverbs',
+      name: 'Proverbes',
+      description: 'Collection depuis Wikiquote',
+      icon: Quote,
+      color: 'yellow',
+      endpoint: '/api/collector/proverbs',
+      defaultLimit: 30
     },
     {
-      id: 'music',
-      name: 'Musique Traditionnelle',
+      id: 'chants',
+      name: 'Chants',
       description: 'Archives Internet Archive',
       icon: Music,
       color: 'green',
-      endpoint: '/api/collector/music',
+      endpoint: '/api/collector/chants',
       defaultLimit: 20
     },
     {
-      id: 'images',
-      name: 'Images Culturelles',
-      description: 'Wikimedia Commons',
-      icon: Globe,
-      color: 'orange',
-      endpoint: '/api/collector/images',
-      defaultLimit: 35
+      id: 'danses',
+      name: 'Danses',
+      description: 'Médias libres Wikimedia Commons',
+      icon: Activity,
+      color: 'red',
+      endpoint: '/api/collector/dances',
+      defaultLimit: 15
     },
     {
-      id: 'heritage',
-      name: 'Patrimoine UNESCO',
-      description: 'Patrimoine immatériel africain',
-      icon: Shield,
-      color: 'red',
-      endpoint: '/api/collector/heritage',
-      defaultLimit: 15
+      id: 'art',
+      name: 'Art',
+      description: 'Collection Met Museum Open Access',
+      icon: Image,
+      color: 'purple',
+      endpoint: '/api/collector/art',
+      defaultLimit: 20
     }
   ];
 
   const startCollection = async (type, limit) => {
     try {
+      const startTime = Date.now();
       setIsCollecting(true);
-      setCurrentCollection({ type, limit, startTime: Date.now() });
+      setCurrentCollection({ type: type.id, limit, startTime });
       
       const response = await axios.post(`${type.endpoint}?limit=${limit}`);
       
@@ -95,7 +95,7 @@ const ContentCollector = () => {
           type: type.name,
           count: response.data.data.count,
           timestamp: new Date().toISOString(),
-          duration: Date.now() - currentCollection.startTime
+          duration: Date.now() - startTime
         }, ...prev]);
       }
     } catch (error) {
@@ -116,8 +116,9 @@ const ContentCollector = () => {
 
   const startMassiveCollection = async () => {
     try {
+      const startTime = Date.now();
       setIsCollecting(true);
-      setCurrentCollection({ type: 'all', startTime: Date.now() });
+      setCurrentCollection({ type: 'all', startTime });
       
       const response = await axios.post('/api/collector/all');
       
@@ -140,7 +141,7 @@ const ContentCollector = () => {
           type: 'Collecte Massive',
           count: response.data.data.totalCollected,
           timestamp: new Date().toISOString(),
-          duration: Date.now() - currentCollection.startTime
+          duration: Date.now() - startTime
         }, ...prev]);
       }
     } catch (error) {
@@ -212,10 +213,10 @@ const ContentCollector = () => {
         
         <div className="stat-card">
           <div className="stat-icon">
-            <Globe size={24} />
+            <Download size={24} />
           </div>
           <div className="stat-content">
-            <h3>6</h3>
+            <h3>4</h3>
             <p>Sources libres</p>
           </div>
         </div>
@@ -467,6 +468,10 @@ const ContentCollector = () => {
 
         .type-card.orange {
           border-color: #f59e0b;
+        }
+
+        .type-card.yellow {
+          border-color: #eab308;
         }
 
         .type-card.red {

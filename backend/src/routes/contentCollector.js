@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const contentCollector = require('../services/contentCollectorService');
 const { asyncErrorHandler } = require('../utils/errorHandler');
-const { validate } = require('../middleware/validation');
-const { logInfo, logError } = require('../utils/logger');
+const { logInfo } = require('../utils/logger');
 
 /**
  * @swagger
@@ -12,11 +11,53 @@ const { logInfo, logError } = require('../utils/logger');
  *   description: Collecte de contenus culturels africains depuis des sources libres
  */
 
+const collectTalesHandler = async (req, res) => {
+  const { language = 'fr', limit = 50 } = req.query;
+
+  logInfo('Starting African tales collection', { language, limit });
+
+  const result = await contentCollector.collectAfricanStories(language, parseInt(limit, 10));
+
+  res.json({
+    success: true,
+    message: `${result.count} tales africains collectés et certifiés Web3`,
+    data: result
+  });
+};
+
+const collectArtHandler = async (req, res) => {
+  const { limit = 30 } = req.query;
+
+  logInfo('Starting African art collection', { limit });
+
+  const result = await contentCollector.collectMetMuseumArt(parseInt(limit, 10));
+
+  res.json({
+    success: true,
+    message: `${result.count} éléments d'art africain collectés et certifiés Web3`,
+    data: result
+  });
+};
+
+const collectChantsHandler = async (req, res) => {
+  const { limit = 30 } = req.query;
+
+  logInfo('Starting African chants collection', { limit });
+
+  const result = await contentCollector.collectTraditionalMusic(parseInt(limit, 10));
+
+  res.json({
+    success: true,
+    message: `${result.count} chants traditionnels collectés et certifiés Web3`,
+    data: result
+  });
+};
+
 /**
  * @swagger
  * /api/collector/stories:
  *   post:
- *     summary: Collecter des contes africains depuis African Storybook
+ *     summary: Collecter des contes africains depuis Gutendex (Project Gutenberg)
  *     tags: [Content Collector]
  *     parameters:
  *       - in: query
@@ -51,20 +92,40 @@ const { logInfo, logError } = require('../utils/logger');
  *                     type: object
  *                 source:
  *                   type: string
- *                   example: African Storybook
+ *                   example: Gutendex / Project Gutenberg
  *       500:
  *         description: Erreur serveur
  */
-router.post('/stories', asyncErrorHandler(async (req, res) => {
-  const { language = 'fr', limit = 50 } = req.query;
-  
-  logInfo('Starting African stories collection', { language, limit });
-  
-  const result = await contentCollector.collectAfricanStories(language, parseInt(limit));
-  
+router.post('/stories', asyncErrorHandler(collectTalesHandler));
+router.post('/tales', asyncErrorHandler(collectTalesHandler));
+
+/**
+ * @swagger
+ * /api/collector/proverbs:
+ *   post:
+ *     summary: Collecter des proverbes africains depuis Wikiquote
+ *     tags: [Content Collector]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 50
+ *         description: Nombre de proverbes à collecter
+ *     responses:
+ *       200:
+ *         description: Proverbes collectés avec succès
+ */
+router.post('/proverbs', asyncErrorHandler(async (req, res) => {
+  const { limit = 50 } = req.query;
+
+  logInfo('Starting African proverbs collection', { limit });
+
+  const result = await contentCollector.collectAfricanProverbs(parseInt(limit, 10));
+
   res.json({
     success: true,
-    message: `${result.count} contes africains collectés et certifiés Web3`,
+    message: `${result.count} proverbes africains collectés et certifiés Web3`,
     data: result
   });
 }));
@@ -86,19 +147,8 @@ router.post('/stories', asyncErrorHandler(async (req, res) => {
  *       200:
  *         description: Œuvres d'art collectées avec succès
  */
-router.post('/artworks', asyncErrorHandler(async (req, res) => {
-  const { limit = 50 } = req.query;
-  
-  logInfo('Starting Met Museum artworks collection', { limit });
-  
-  const result = await contentCollector.collectMetMuseumArt(parseInt(limit));
-  
-  res.json({
-    success: true,
-    message: `${result.count} œuvres d'art africaines collectées et certifiées Web3`,
-    data: result
-  });
-}));
+router.post('/artworks', asyncErrorHandler(collectArtHandler));
+router.post('/art', asyncErrorHandler(collectArtHandler));
 
 /**
  * @swagger
@@ -117,16 +167,36 @@ router.post('/artworks', asyncErrorHandler(async (req, res) => {
  *       200:
  *         description: Musique traditionnelle collectée avec succès
  */
-router.post('/music', asyncErrorHandler(async (req, res) => {
-  const { limit = 30 } = req.query;
-  
-  logInfo('Starting traditional music collection', { limit });
-  
-  const result = await contentCollector.collectTraditionalMusic(parseInt(limit));
-  
+router.post('/music', asyncErrorHandler(collectChantsHandler));
+router.post('/chants', asyncErrorHandler(collectChantsHandler));
+
+/**
+ * @swagger
+ * /api/collector/dances:
+ *   post:
+ *     summary: Collecter des danses traditionnelles africaines depuis Internet Archive
+ *     tags: [Content Collector]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 20
+ *         description: Nombre d'éléments de danse à collecter
+ *     responses:
+ *       200:
+ *         description: Danses traditionnelles collectées avec succès
+ */
+router.post('/dances', asyncErrorHandler(async (req, res) => {
+  const { limit = 20 } = req.query;
+
+  logInfo('Starting traditional dance collection', { limit });
+
+  const result = await contentCollector.collectTraditionalDances(parseInt(limit, 10));
+
   res.json({
     success: true,
-    message: `${result.count} morceaux de musique traditionnelle collectés et certifiés Web3`,
+    message: `${result.count} danses traditionnelles collectées et certifiées Web3`,
     data: result
   });
 }));
@@ -159,7 +229,7 @@ router.post('/images', asyncErrorHandler(async (req, res) => {
   
   logInfo('Starting Wikimedia images collection', { category, limit });
   
-  const result = await contentCollector.collectWikimediaImages(category, parseInt(limit));
+  const result = await contentCollector.collectWikimediaImages(category, parseInt(limit, 10));
   
   res.json({
     success: true,
@@ -190,7 +260,7 @@ router.post('/heritage', asyncErrorHandler(async (req, res) => {
   
   logInfo('Starting UNESCO heritage collection', { limit });
   
-  const result = await contentCollector.collectUNESCOHeritage(parseInt(limit));
+  const result = await contentCollector.collectUNESCOHeritage(parseInt(limit, 10));
   
   res.json({
     success: true,
@@ -222,15 +292,15 @@ router.post('/heritage', asyncErrorHandler(async (req, res) => {
  *                 results:
  *                   type: object
  *                   properties:
- *                     stories:
+ *                     tales:
  *                       type: object
- *                     artworks:
+ *                     proverbs:
  *                       type: object
- *                     music:
+ *                     chants:
  *                       type: object
- *                     images:
+ *                     danses:
  *                       type: object
- *                     heritage:
+ *                     art:
  *                       type: object
  *       500:
  *         description: Erreur serveur
@@ -267,7 +337,7 @@ router.post('/all', asyncErrorHandler(async (req, res) => {
  *                 sources:
  *                   type: object
  *                   properties:
- *                     africanStorybook:
+ *                     gutendex:
  *                       type: object
  *                       properties:
  *                         available:
@@ -276,54 +346,46 @@ router.post('/all', asyncErrorHandler(async (req, res) => {
  *                           type: string
  *                         type:
  *                           type: string
+ *                     wikiquote:
+ *                       type: object
  *                     internetArchive:
  *                       type: object
  *                     wikimediaCommons:
  *                       type: object
  *                     metMuseum:
  *                       type: object
- *                     smithsonianFolkways:
- *                       type: object
- *                     unesco:
- *                       type: object
  */
 router.get('/status', asyncErrorHandler(async (req, res) => {
   const sources = {
-    africanStorybook: {
+    gutendex: {
       available: true,
-      license: 'CC BY',
+      license: 'Public Domain',
       type: 'contes',
-      description: 'Contes africains multilingues'
+      description: 'Contes africains du domaine public (Project Gutenberg)'
+    },
+    wikiquote: {
+      available: true,
+      license: 'CC BY-SA 4.0',
+      type: 'proverbes',
+      description: 'Proverbes africains issus de pages publiques Wikiquote'
     },
     internetArchive: {
       available: true,
-      license: 'Public Domain',
-      type: 'patrimoine',
-      description: 'Archives numériques du domaine public'
+      license: 'Creative Commons / Public Domain',
+      type: 'chants',
+      description: 'Archives audio traditionnelles en accès libre'
     },
     wikimediaCommons: {
       available: true,
-      license: 'CC0/CC-BY',
-      type: 'arts_visuels',
-      description: 'Images et médias libres de droits'
+      license: 'CC BY-SA / CC0',
+      type: 'danses',
+      description: 'Médias libres (images/vidéos) sur les danses africaines'
     },
     metMuseum: {
       available: true,
       license: 'CC0',
-      type: 'arts_visuels',
-      description: 'Collection Open Access du Met Museum'
-    },
-    smithsonianFolkways: {
-      available: true,
-      license: 'Educational',
-      type: 'musique',
-      description: 'Musique traditionnelle et folklorique'
-    },
-    unesco: {
-      available: true,
-      license: 'Educational',
-      type: 'patrimoine_immatériel',
-      description: 'Patrimoine culturel immatériel'
+      type: 'art',
+      description: 'Collection Open Access du Met Museum (art africain)'
     }
   };
 

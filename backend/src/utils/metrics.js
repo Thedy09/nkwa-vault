@@ -12,14 +12,14 @@ class MetricsCollector {
         responseTimes: []
       },
       web3: {
-        hedera: {
+        blockchain: {
           operations: 0,
           successful: 0,
           failed: 0,
           averageResponseTime: 0
         },
         ipfs: {
-          uploads: 0,
+          operations: 0,
           successful: 0,
           failed: 0,
           averageResponseTime: 0
@@ -248,16 +248,16 @@ class MetricsCollector {
           : 0
       },
       web3: {
-        hedera: {
-          operations: this.metrics.web3.hedera.operations,
-          successRate: this.metrics.web3.hedera.operations > 0
-            ? Math.round((this.metrics.web3.hedera.successful / this.metrics.web3.hedera.operations) * 100)
+        blockchain: {
+          operations: this.metrics.web3.blockchain.operations,
+          successRate: this.metrics.web3.blockchain.operations > 0
+            ? Math.round((this.metrics.web3.blockchain.successful / this.metrics.web3.blockchain.operations) * 100)
             : 0
         },
         ipfs: {
-          uploads: this.metrics.web3.ipfs.uploads,
-          successRate: this.metrics.web3.ipfs.uploads > 0
-            ? Math.round((this.metrics.web3.ipfs.successful / this.metrics.web3.ipfs.uploads) * 100)
+          operations: this.metrics.web3.ipfs.operations,
+          successRate: this.metrics.web3.ipfs.operations > 0
+            ? Math.round((this.metrics.web3.ipfs.successful / this.metrics.web3.ipfs.operations) * 100)
             : 0
         }
       },
@@ -286,14 +286,14 @@ class MetricsCollector {
         responseTimes: []
       },
       web3: {
-        hedera: {
+        blockchain: {
           operations: 0,
           successful: 0,
           failed: 0,
           averageResponseTime: 0
         },
         ipfs: {
-          uploads: 0,
+          operations: 0,
           successful: 0,
           failed: 0,
           averageResponseTime: 0

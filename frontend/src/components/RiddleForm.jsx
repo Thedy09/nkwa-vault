@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../contexts/TranslationContext';
-import { 
+import {
   Brain, 
   Lightbulb, 
   BookOpen, 
@@ -17,6 +17,7 @@ import {
   Info
 } from 'lucide-react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const RiddleForm = ({ onClose, onSuccess }) => {
   const { user, isAuthenticated } = useAuth();
@@ -121,7 +122,7 @@ const RiddleForm = ({ onClose, onSuccess }) => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/riddles`,
+        `${API_BASE_URL}/riddles`,
         formData,
         {
           headers: {

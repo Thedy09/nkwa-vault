@@ -2,16 +2,45 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const TranslationContext = createContext();
 
+const SUPPORTED_LANGUAGES = [
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'es', name: 'Español', flag: '🇪🇸' },
+  { code: 'pt', name: 'Português', flag: '🇵🇹' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  { code: 'sw', name: 'Kiswahili', flag: '🇹🇿' },
+  { code: 'yo', name: 'Yorùbá', flag: '🇳🇬' },
+  { code: 'ig', name: 'Igbo', flag: '🇳🇬' },
+  { code: 'ha', name: 'Hausa', flag: '🇳🇬' },
+  { code: 'zu', name: 'IsiZulu', flag: '🇿🇦' },
+  { code: 'xh', name: 'IsiXhosa', flag: '🇿🇦' },
+  { code: 'am', name: 'አማርኛ', flag: '🇪🇹' },
+  { code: 'ti', name: 'ትግርኛ', flag: '🇪🇹' },
+  { code: 'so', name: 'Soomaali', flag: '🇸🇴' },
+  { code: 'rw', name: 'Kinyarwanda', flag: '🇷🇼' },
+  { code: 'lg', name: 'Luganda', flag: '🇺🇬' },
+  { code: 'ny', name: 'Chichewa', flag: '🇲🇼' },
+  { code: 'sn', name: 'Shona', flag: '🇿🇼' },
+  { code: 'st', name: 'Sesotho', flag: '🇱🇸' },
+  { code: 'tn', name: 'Setswana', flag: '🇧🇼' }
+];
+
 // Détection automatique de la langue basée sur la géolocalisation
 const detectLanguage = () => {
+  const supportedCodes = new Set(SUPPORTED_LANGUAGES.map((lang) => lang.code));
+
   // D'abord, vérifier si l'utilisateur a une préférence stockée
-  const savedLanguage = localStorage.getItem('nkwa-language');
-  if (savedLanguage) {
+  const savedLanguage = typeof window !== 'undefined'
+    ? window.localStorage.getItem('nkwa-language')
+    : null;
+  if (savedLanguage && supportedCodes.has(savedLanguage)) {
     return savedLanguage;
   }
 
   // Détecter la langue du navigateur
-  const browserLang = navigator.language || navigator.languages[0];
+  const browserLang = typeof navigator !== 'undefined'
+    ? (navigator.language || navigator.languages?.[0] || 'en')
+    : 'en';
   const langCode = browserLang.split('-')[0];
 
   // Mapper les codes de langue vers nos langues supportées
@@ -35,17 +64,11 @@ const detectLanguage = () => {
     'ny': 'ny', // Chichewa
     'sn': 'sn', // Shona
     'st': 'st', // Sesotho
-    'tn': 'tn', // Setswana
-    'ss': 'ss', // Siswati
-    've': 've', // Venda
-    'ts': 'ts', // Tsonga
-    'nr': 'nr', // Ndebele
-    'nso': 'nso', // Northern Sotho
-    'zu': 'zu', // Zulu
-    'xh': 'xh'  // Xhosa
+    'tn': 'tn' // Setswana
   };
 
-  return languageMap[langCode] || 'en'; // Par défaut anglais
+  const resolvedLanguage = languageMap[langCode] || 'en';
+  return supportedCodes.has(resolvedLanguage) ? resolvedLanguage : 'en';
 };
 
 // Traductions disponibles
@@ -54,11 +77,15 @@ const translations = {
     // Navigation
     home: 'Home',
     museum: 'Museum',
+    virtualMuseum: 'Virtual Museum',
+    web3Dashboard: 'Web3',
     share: 'Share',
     about: 'About',
+    admin: 'Admin',
     login: 'Login',
     logout: 'Logout',
     profile: 'Profile',
+    guestUser: 'User',
     
     // Home Page
     heroTitle: 'Nkwa V',
@@ -81,7 +108,7 @@ const translations = {
     
     // Features
     digitalPreservation: 'Digital Preservation',
-    digitalPreservationDesc: 'Permanent backup on Hedera blockchain',
+    digitalPreservationDesc: 'Permanent backup on an EVM-compatible blockchain',
     community: 'Community',
     communityDesc: 'Share and discover with other enthusiasts',
     authenticity: 'Authenticity',
@@ -167,7 +194,7 @@ const translations = {
     multilingualSupport: 'Multilingual Support',
     multilingualSupportDesc: 'Real-time translation into 20+ African languages with cultural context understanding',
     blockchainSecurity: 'Blockchain Security',
-    blockchainSecurityDesc: 'Permanent preservation on Hedera blockchain with IPFS decentralized storage',
+    blockchainSecurityDesc: 'Permanent preservation on blockchain with IPFS decentralized storage',
     communityDriven: 'Community Driven',
     communityDrivenDesc: 'Peer verification and token rewards for authentic cultural contributions',
     aiPowered: 'AI Powered',
@@ -298,11 +325,15 @@ const translations = {
     // Navigation
     home: 'Accueil',
     museum: 'Musée',
+    virtualMuseum: 'Musée Virtuel',
+    web3Dashboard: 'Web3',
     share: 'Partager',
     about: 'À Propos',
+    admin: 'Admin',
     login: 'Connexion',
     logout: 'Déconnexion',
     profile: 'Profil',
+    guestUser: 'Utilisateur',
     
     // Home Page
     heroTitle: 'Nkwa V',
@@ -325,7 +356,7 @@ const translations = {
     
     // Features
     digitalPreservation: 'Préservation Digitale',
-    digitalPreservationDesc: 'Sauvegarde permanente sur la blockchain Hedera',
+    digitalPreservationDesc: 'Sauvegarde permanente sur une blockchain compatible EVM',
     community: 'Communauté',
     communityDesc: 'Partagez et découvrez avec d\'autres passionnés',
     authenticity: 'Authenticité',
@@ -411,7 +442,7 @@ const translations = {
     multilingualSupport: 'Support Multilingue',
     multilingualSupportDesc: 'Traduction en temps réel dans 20+ langues africaines avec compréhension du contexte culturel',
     blockchainSecurity: 'Sécurité Blockchain',
-    blockchainSecurityDesc: 'Préservation permanente sur la blockchain Hedera avec stockage décentralisé IPFS',
+    blockchainSecurityDesc: 'Préservation permanente sur blockchain avec stockage décentralisé IPFS',
     communityDriven: 'Communautaire',
     communityDrivenDesc: 'Vérification par les pairs et récompenses token pour les contributions culturelles authentiques',
     aiPowered: 'Alimenté par l\'IA',
@@ -539,6 +570,138 @@ const translations = {
   }
 };
 
+// Traductions rapides (couverture des écrans principaux)
+const quickTranslations = {
+  es: {
+    home: 'Inicio',
+    museum: 'Museo',
+    virtualMuseum: 'Museo Virtual',
+    web3Dashboard: 'Web3',
+    riddles: 'Adivinanzas',
+    share: 'Compartir',
+    about: 'Acerca de',
+    admin: 'Admin',
+    login: 'Conexión',
+    logout: 'Cerrar sesión',
+    profile: 'Perfil',
+    guestUser: 'Usuario',
+    heroSubtitle: 'Preservar. Compartir. Celebrar.',
+    exploreCollection: 'Explorar colección',
+    contribute: 'Contribuir',
+    museumTitle: 'Museo Cultural Africano',
+    museumSubtitle: 'Explora nuestra colección de tesoros culturales africanos',
+    searchPlaceholder: 'Buscar en la colección...',
+    all: 'Todas',
+    talesFilter: 'Cuentos',
+    proverbs: 'Proverbios',
+    songs: 'Cantos',
+    dances: 'Danzas',
+    artFilter: 'Arte',
+    noResults: 'No se encontraron resultados',
+    tryModifying: 'Intenta modificar tu búsqueda',
+    audioAvailable: 'Audio disponible',
+    footerDesc: 'Preservar y compartir el rico patrimonio cultural africano',
+    allRightsReserved: 'Todos los derechos reservados',
+    languages: 'Idiomas'
+  },
+  pt: {
+    home: 'Início',
+    museum: 'Museu',
+    virtualMuseum: 'Museu Virtual',
+    web3Dashboard: 'Web3',
+    riddles: 'Adivinhas',
+    share: 'Partilhar',
+    about: 'Sobre',
+    admin: 'Admin',
+    login: 'Entrar',
+    logout: 'Sair',
+    profile: 'Perfil',
+    guestUser: 'Utilizador',
+    heroSubtitle: 'Preservar. Partilhar. Celebrar.',
+    exploreCollection: 'Explorar coleção',
+    contribute: 'Contribuir',
+    museumTitle: 'Museu Cultural Africano',
+    museumSubtitle: 'Explore a nossa coleção de tesouros culturais africanos',
+    searchPlaceholder: 'Pesquisar na coleção...',
+    all: 'Todas',
+    talesFilter: 'Contos',
+    proverbs: 'Provérbios',
+    songs: 'Canções',
+    dances: 'Danças',
+    artFilter: 'Arte',
+    noResults: 'Nenhum resultado encontrado',
+    tryModifying: 'Tente alterar os critérios de pesquisa',
+    audioAvailable: 'Áudio disponível',
+    footerDesc: 'Preservar e partilhar o rico património cultural africano',
+    allRightsReserved: 'Todos os direitos reservados',
+    languages: 'Idiomas'
+  },
+  sw: {
+    home: 'Nyumbani',
+    museum: 'Makumbusho',
+    virtualMuseum: 'Makumbusho Pepe',
+    web3Dashboard: 'Web3',
+    riddles: 'Vitendawili',
+    share: 'Shiriki',
+    about: 'Kuhusu',
+    admin: 'Admin',
+    login: 'Ingia',
+    logout: 'Toka',
+    profile: 'Wasifu',
+    guestUser: 'Mtumiaji',
+    heroSubtitle: 'Hifadhi. Shiriki. Sherehekea.',
+    exploreCollection: 'Chunguza mkusanyo',
+    contribute: 'Changia',
+    museumTitle: 'Makumbusho ya Utamaduni wa Afrika',
+    museumSubtitle: 'Chunguza mkusanyo wetu wa hazina za utamaduni wa Afrika',
+    searchPlaceholder: 'Tafuta kwenye mkusanyo...',
+    all: 'Vyote',
+    talesFilter: 'Hadithi',
+    proverbs: 'Methali',
+    songs: 'Nyimbo',
+    dances: 'Ngoma',
+    artFilter: 'Sanaa',
+    noResults: 'Hakuna matokeo yaliyopatikana',
+    tryModifying: 'Jaribu kubadilisha vigezo vya utafutaji',
+    audioAvailable: 'Sauti inapatikana',
+    footerDesc: 'Kuhifadhi na kushiriki urithi tajiri wa utamaduni wa Afrika',
+    allRightsReserved: 'Haki zote zimehifadhiwa',
+    languages: 'Lugha'
+  },
+  ar: {
+    home: 'الرئيسية',
+    museum: 'المتحف',
+    virtualMuseum: 'المتحف الافتراضي',
+    web3Dashboard: 'ويب3',
+    riddles: 'الألغاز',
+    share: 'مشاركة',
+    about: 'حول',
+    admin: 'مشرف',
+    login: 'تسجيل الدخول',
+    logout: 'تسجيل الخروج',
+    profile: 'الملف الشخصي',
+    guestUser: 'مستخدم',
+    heroSubtitle: 'احفظ. شارك. احتفل.',
+    exploreCollection: 'استكشف المجموعة',
+    contribute: 'ساهم',
+    museumTitle: 'المتحف الثقافي الأفريقي',
+    museumSubtitle: 'استكشف مجموعتنا من الكنوز الثقافية الأفريقية',
+    searchPlaceholder: 'ابحث في المجموعة...',
+    all: 'الكل',
+    talesFilter: 'حكايات',
+    proverbs: 'أمثال',
+    songs: 'أناشيد',
+    dances: 'رقصات',
+    artFilter: 'فن',
+    noResults: 'لا توجد نتائج',
+    tryModifying: 'حاول تعديل معايير البحث',
+    audioAvailable: 'الصوت متاح',
+    footerDesc: 'حفظ ومشاركة التراث الثقافي الأفريقي الغني',
+    allRightsReserved: 'جميع الحقوق محفوظة',
+    languages: 'اللغات'
+  }
+};
+
 // Fonction de traduction automatique avec Google Translate (simulée)
 const translateText = async (text, targetLang) => {
   // Simulation de l'API Google Translate
@@ -560,10 +723,33 @@ export const TranslationProvider = ({ children }) => {
   useEffect(() => {
     const detectedLang = detectLanguage();
     setLanguage(detectedLang);
+
+    if (typeof window !== 'undefined') {
+      const cachedTranslations = window.localStorage.getItem('nkwa-translations');
+      if (cachedTranslations) {
+        try {
+          setTranslatedContent(JSON.parse(cachedTranslations));
+        } catch (_) {
+          // ignore invalid cache
+        }
+      }
+    }
   }, []);
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+  }, [language]);
+
   const t = (key, params = {}) => {
-    let text = translations[language]?.[key] || translations.en[key] || key;
+    const textValue = translations[language]?.[key]
+      || quickTranslations[language]?.[key]
+      || translatedContent[language]?.[key]
+      || translations.en[key]
+      || key;
+
+    let text = String(textValue);
     
     // Remplacer les paramètres
     Object.keys(params).forEach(param => {
@@ -578,10 +764,15 @@ export const TranslationProvider = ({ children }) => {
     
     setIsTranslating(true);
     setLanguage(newLang);
-    localStorage.setItem('nkwa-language', newLang);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('nkwa-language', newLang);
+    }
     
     // Si la langue n'est pas dans nos traductions, utiliser la traduction automatique
-    if (!translations[newLang]) {
+    const hasInlineTranslations = Boolean(translations[newLang] || quickTranslations[newLang]);
+    const hasCachedTranslations = Boolean(translatedContent[newLang]);
+
+    if (!hasInlineTranslations && !hasCachedTranslations) {
       const keys = Object.keys(translations.en);
       const translated = {};
       
@@ -589,35 +780,25 @@ export const TranslationProvider = ({ children }) => {
         translated[key] = await translateText(translations.en[key], newLang);
       }
       
-      setTranslatedContent(translated);
+      setTranslatedContent((previousContent) => {
+        const nextContent = {
+          ...previousContent,
+          [newLang]: translated
+        };
+
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem('nkwa-translations', JSON.stringify(nextContent));
+        }
+
+        return nextContent;
+      });
     }
     
     setIsTranslating(false);
   };
 
   const getSupportedLanguages = () => {
-    return [
-      { code: 'en', name: 'English', flag: '🇺🇸' },
-      { code: 'fr', name: 'Français', flag: '🇫🇷' },
-      { code: 'es', name: 'Español', flag: '🇪🇸' },
-      { code: 'pt', name: 'Português', flag: '🇵🇹' },
-      { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-      { code: 'sw', name: 'Kiswahili', flag: '🇹🇿' },
-      { code: 'yo', name: 'Yorùbá', flag: '🇳🇬' },
-      { code: 'ig', name: 'Igbo', flag: '🇳🇬' },
-      { code: 'ha', name: 'Hausa', flag: '🇳🇬' },
-      { code: 'zu', name: 'IsiZulu', flag: '🇿🇦' },
-      { code: 'xh', name: 'IsiXhosa', flag: '🇿🇦' },
-      { code: 'am', name: 'አማርኛ', flag: '🇪🇹' },
-      { code: 'ti', name: 'ትግርኛ', flag: '🇪🇹' },
-      { code: 'so', name: 'Soomaali', flag: '🇸🇴' },
-      { code: 'rw', name: 'Kinyarwanda', flag: '🇷🇼' },
-      { code: 'lg', name: 'Luganda', flag: '🇺🇬' },
-      { code: 'ny', name: 'Chichewa', flag: '🇲🇼' },
-      { code: 'sn', name: 'Shona', flag: '🇿🇼' },
-      { code: 'st', name: 'Sesotho', flag: '🇱🇸' },
-      { code: 'tn', name: 'Setswana', flag: '🇧🇼' }
-    ];
+    return SUPPORTED_LANGUAGES;
   };
 
   const value = {

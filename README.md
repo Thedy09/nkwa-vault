@@ -11,11 +11,11 @@ Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour 
 ## ✨ **Fonctionnalités Principales**
 
 ### 🌐 **Web3 Central (Pilier Fondamental)**
-- **Certification Blockchain** : Tous les contenus sont certifiés sur Hedera Hashgraph
+- **Certification Blockchain** : Tous les contenus sont certifiés sur une blockchain EVM
 - **Stockage Décentralisé** : IPFS pour un stockage immuable et résistant à la censure
-- **NFT Culturels** : Création de NFT pour les contenus premium
-- **Tokens NKWA** : Système de récompenses pour les contributeurs
-- **Accès Hybride** : 100% Web3 mais accessible sans wallet crypto
+- **Contrat Vyper** : Registre culturel on-chain pour l'authenticité
+- **Relayer Gasless** : publication accessible sans wallet crypto
+- **Accès Hybride** : expérience Web2 simple + preuve Web3
 
 ### 📚 **Contenus Culturels**
 - **Contes & Littérature** : Collecte automatique depuis African Storybook, Wikisource
@@ -48,11 +48,11 @@ Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour 
 - **Swagger** pour la documentation API
 
 ### **Web3 & Blockchain**
-- **Hedera Hashgraph** pour la certification
+- **Réseaux EVM** (Base, Arbitrum, Ethereum compatibles)
+- **Vyper** pour les contrats intelligents
 - **IPFS** pour le stockage décentralisé
-- **Web3.Storage** pour l'interface IPFS
-- **NFT** pour les contenus premium
-- **Smart Contracts** pour les récompenses
+- **IPFS RPC** (endpoint custom ou Infura)
+- **Relayer backend** pour les transactions transparentes (gasless UX)
 
 ## 📦 **Installation**
 
@@ -60,8 +60,8 @@ Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour 
 - Node.js 18+
 - PostgreSQL 13+
 - Redis (optionnel)
-- Compte Hedera (pour Web3)
-- Token IPFS (pour le stockage)
+- RPC EVM + clé relayer (pour Web3)
+- Provider IPFS (endpoint RPC ou credentials Infura)
 
 ### **Installation Locale**
 
@@ -98,19 +98,27 @@ vercel --prod
 
 ## ⚙️ **Configuration Web3**
 
-### **1. Hedera Hashgraph**
+### **1. Blockchain EVM + Contrat Vyper**
 ```bash
 # Dans backend/.env
-HEDERA_ACCOUNT_ID=0.0.123456
-HEDERA_PRIVATE_KEY=votre_cle_privee
-HEDERA_NETWORK=testnet
+EVM_RPC_URL=https://sepolia.base.org
+EVM_CHAIN_ID=84532
+EVM_NETWORK=base-sepolia
+EVM_EXPLORER_URL=https://sepolia.basescan.org
+EVM_RELAYER_PRIVATE_KEY=votre_cle_relayer
+EVM_REGISTRY_CONTRACT=0xVotreContratVyper
 ```
 
-### **2. IPFS (Web3.Storage)**
+### **2. IPFS**
 ```bash
 # Dans backend/.env
-IPFS_API_URL=https://api.web3.storage
-IPFS_API_TOKEN=votre_token_web3_storage
+# Option 1: endpoint RPC Kubo compatible
+IPFS_API_URL=https://ipfs.my-provider.example
+IPFS_API_TOKEN=...
+
+# Option 2: Infura IPFS
+IPFS_PROJECT_ID=...
+IPFS_PROJECT_SECRET=...
 ```
 
 ### **3. Base de Données**
@@ -167,7 +175,8 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 - **Smithsonian Folkways** pour la musique
 - **Met Museum** pour les arts visuels
 - **UNESCO** pour le patrimoine immatériel
-- **Hedera Hashgraph** pour la blockchain
+- **Écosystème EVM** pour la blockchain
+- **Vyper** pour les smart contracts orientés sécurité
 - **IPFS** pour le stockage décentralisé
 
 ## 📞 **Support**

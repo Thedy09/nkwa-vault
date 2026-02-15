@@ -2,7 +2,11 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const { authenticateToken } = require('../middleware/auth');
-const upload = multer({ dest: 'uploads/' });
+const uploadDir = process.env.VERCEL ? '/tmp/uploads' : 'uploads';
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+const upload = multer({ dest: uploadDir });
 const router = express.Router();
 
 // Route d'upload simplifiée - mode démo uniquement

@@ -1,77 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Link, 
-  Shield, 
-  Coins, 
-  Award, 
-  TrendingUp,
-  CheckCircle,
-  AlertCircle,
-  Loader
-} from 'lucide-react';
+import { Link, Shield, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 const Web3Status = () => {
-  const [web3Status, setWeb3Status] = useState(null);
-  const [userBalance, setUserBalance] = useState(null);
-  const [userLevel, setUserLevel] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchWeb3Status();
-  }, []);
+    const fetchStatus = async () => {
+      try {
+        setLoading(true);
+        const [statusResponse, statsResponse] = await Promise.all([
+          fetch(`${API_BASE_URL}/api/web3/status`),
+          fetch(`${API_BASE_URL}/api/web3/stats`)
+        ]);
 
-  const fetchWeb3Status = async () => {
-    try {
-      setLoading(true);
-      
-      // Récupérer le statut des services Web3
-      const statusResponse = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/web3/status`);
-      const statusData = await statusResponse.json();
-      
-      if (statusData.success) {
-        setWeb3Status(statusData.services);
-        
-        // Récupérer le solde utilisateur si connecté
-        const token = localStorage.getItem('acv_token');
-        if (token) {
-          try {
-            const balanceResponse = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/web3/user-balance`, {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              }
-            });
-            const balanceData = await balanceResponse.json();
-            
-            if (balanceData.success) {
-              setUserBalance(balanceData.balance);
-            }
-          } catch (error) {
-            console.log('Utilisateur non connecté');
-          }
-          
-          try {
-            const levelResponse = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/api/web3/user-level`, {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              }
-            });
-            const levelData = await levelResponse.json();
-            
-            if (levelData.success) {
-              setUserLevel(levelData.level);
-            }
-          } catch (error) {
-            console.log('Niveau utilisateur non disponible');
-          }
+        const statusPayload = await statusResponse.json();
+        const statsPayload = await statsResponse.json();
+
+        if (statusPayload.success) {
+          setStatus(statusPayload.data);
         }
+
+        if (statsPayload.success) {
+          setStats(statsPayload.data);
+        }
+      } catch (error) {
+        console.error('Erreur récupération statut Web3:', error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Erreur récupération statut Web3:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchStatus();
+  }, []);
 
   if (loading) {
     return (
@@ -84,7 +48,7 @@ const Web3Status = () => {
     );
   }
 
-  if (!web3Status) {
+  if (!status) {
     return (
       <div className="web3-status">
         <div className="error">
@@ -95,8 +59,11 @@ const Web3Status = () => {
     );
   }
 
+  const blockchain = status.blockchain || {};
+  const ipfs = status.ipfs || {};
+
   return (
-    <motion.div 
+    <motion.div
       className="web3-status"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -104,22 +71,24 @@ const Web3Status = () => {
     >
       <div className="web3-header">
         <h3>🌐 Services Web3</h3>
-        <p>Blockchain et stockage décentralisé</p>
+        <p>Blockchain EVM + stockage décentralisé</p>
       </div>
 
       <div className="web3-services">
-        {/* Statut Hedera */}
-        <div className={`service-card ${web3Status.hedera.initialized ? 'active' : 'demo'}`}>
+        <div className={`service-card ${blockchain.initialized ? 'active' : 'demo'}`}>
           <div className="service-icon">
             <Shield size={24} />
           </div>
           <div className="service-info">
-            <h4>Hedera Hashgraph</h4>
-            <p>{web3Status.hedera.initialized ? 'Connecté' : 'Mode démo'}</p>
-            <span className="service-network">{web3Status.hedera.network}</span>
+            <h4>Réseau EVM</h4>
+            <p>{blockchain.initialized ? 'Connecté' : 'Mode démo'}</p>
+            <span className="service-network">
+              {blockchain.network || 'Non configuré'}
+              {blockchain.chainId ? ` (chain ${blockchain.chainId})` : ''}
+            </span>
           </div>
           <div className="service-status">
-            {web3Status.hedera.initialized ? (
+            {blockchain.initialized ? (
               <CheckCircle size={20} className="text-green-500" />
             ) : (
               <AlertCircle size={20} className="text-yellow-500" />
@@ -127,18 +96,17 @@ const Web3Status = () => {
           </div>
         </div>
 
-        {/* Statut IPFS */}
-        <div className={`service-card ${web3Status.ipfs.initialized ? 'active' : 'demo'}`}>
+        <div className={`service-card ${ipfs.initialized ? 'active' : 'demo'}`}>
           <div className="service-icon">
             <Link size={24} />
           </div>
           <div className="service-info">
             <h4>IPFS Storage</h4>
-            <p>{web3Status.ipfs.initialized ? 'Connecté' : 'Mode démo'}</p>
-            <span className="service-provider">{web3Status.ipfs.provider}</span>
+            <p>{ipfs.initialized ? 'Connecté' : 'Mode démo'}</p>
+            <span className="service-provider">{ipfs.gateway || 'ipfs://gateway'}</span>
           </div>
           <div className="service-status">
-            {web3Status.ipfs.initialized ? (
+            {ipfs.initialized ? (
               <CheckCircle size={20} className="text-green-500" />
             ) : (
               <AlertCircle size={20} className="text-yellow-500" />
@@ -147,69 +115,36 @@ const Web3Status = () => {
         </div>
       </div>
 
-      {/* Solde utilisateur */}
-      {userBalance && (
-        <div className="user-balance">
-          <div className="balance-header">
-            <Coins size={20} />
-            <span>Mes Tokens</span>
+      {stats?.blockchain && (
+        <div className="runtime">
+          <div className="runtime-item">
+            <strong>Relayer:</strong>
+            <span>{stats.blockchain.relayerAddress || 'N/A'}</span>
           </div>
-          <div className="balance-amount">
-            {userBalance.totalRewards.toLocaleString()} NKWA
+          <div className="runtime-item">
+            <strong>Solde:</strong>
+            <span>{stats.blockchain.balanceEth || '0'} ETH</span>
           </div>
-          {userBalance.hederaBalance && (
-            <div className="balance-source">
-              {userBalance.hederaBalance.demo ? 'Mode démo' : 'Blockchain'}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Niveau utilisateur */}
-      {userLevel && (
-        <div className="user-level">
-          <div className="level-header">
-            <Award size={20} />
-            <span>Niveau: {userLevel.current.name}</span>
-          </div>
-          <div className="level-progress">
-            <div className="progress-bar">
-              <div 
-                className="progress-fill"
-                style={{ 
-                  width: `${userLevel.progress}%`,
-                  backgroundColor: userLevel.current.color
-                }}
-              />
-            </div>
-            <span className="progress-text">
-              {userLevel.progress.toFixed(1)}% vers {userLevel.next?.name || 'Max'}
-            </span>
-          </div>
-          <div className="level-stats">
-            <div className="stat">
-              <TrendingUp size={16} />
-              <span>{userLevel.contributions} contributions</span>
-            </div>
-            <div className="stat">
-              <Coins size={16} />
-              <span>{userLevel.totalRewards} tokens</span>
-            </div>
+          <div className="runtime-item">
+            <strong>Certifications:</strong>
+            <span>{stats.blockchain.totalCertifications || 0}</span>
           </div>
         </div>
       )}
 
-      {/* Mode démo */}
-      {web3Status.blockchain.demo && (
+      {status.mode === 'demo' && (
         <div className="demo-notice">
           <AlertCircle size={16} />
-          <span>Mode démo activé - Configurez les services Web3 pour la production</span>
+          <span>
+            Mode démo activé. Configurez `EVM_RPC_URL`, `EVM_RELAYER_PRIVATE_KEY`
+            et `EVM_REGISTRY_CONTRACT` pour activer l&apos;écriture on-chain.
+          </span>
         </div>
       )}
 
       <style jsx>{`
         .web3-status {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #005f73 0%, #0a9396 100%);
           border-radius: 16px;
           padding: 24px;
           color: white;
@@ -228,7 +163,7 @@ const Web3Status = () => {
         }
 
         .web3-header p {
-          opacity: 0.8;
+          opacity: 0.85;
           margin: 0;
         }
 
@@ -252,16 +187,12 @@ const Web3Status = () => {
 
         .service-card.active {
           border-color: #10b981;
-          background: rgba(16, 185, 129, 0.1);
+          background: rgba(16, 185, 129, 0.15);
         }
 
         .service-card.demo {
           border-color: #f59e0b;
-          background: rgba(245, 158, 11, 0.1);
-        }
-
-        .service-icon {
-          flex-shrink: 0;
+          background: rgba(245, 158, 11, 0.15);
         }
 
         .service-info {
@@ -276,111 +207,65 @@ const Web3Status = () => {
 
         .service-info p {
           font-size: 0.875rem;
-          opacity: 0.8;
+          opacity: 0.85;
           margin: 0 0 4px 0;
         }
 
         .service-network,
         .service-provider {
           font-size: 0.75rem;
-          opacity: 0.7;
-          background: rgba(255, 255, 255, 0.1);
+          opacity: 0.8;
+          background: rgba(255, 255, 255, 0.15);
           padding: 2px 8px;
           border-radius: 4px;
+          display: inline-block;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
-        .service-status {
-          flex-shrink: 0;
-        }
-
-        .user-balance,
-        .user-level {
+        .runtime {
           background: rgba(255, 255, 255, 0.1);
           border-radius: 12px;
           padding: 16px;
           margin-bottom: 16px;
-          backdrop-filter: blur(10px);
-        }
-
-        .balance-header,
-        .level-header {
-          display: flex;
-          align-items: center;
+          display: grid;
           gap: 8px;
-          font-weight: 600;
-          margin-bottom: 8px;
         }
 
-        .balance-amount {
-          font-size: 1.5rem;
-          font-weight: 700;
-          margin-bottom: 4px;
+        .runtime-item {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          font-size: 0.9rem;
         }
 
-        .balance-source {
-          font-size: 0.75rem;
-          opacity: 0.7;
-        }
-
-        .level-progress {
-          margin-bottom: 12px;
-        }
-
-        .progress-bar {
-          height: 8px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 4px;
+        .runtime-item span {
           overflow: hidden;
-          margin-bottom: 8px;
-        }
-
-        .progress-fill {
-          height: 100%;
-          transition: width 0.3s ease;
-        }
-
-        .progress-text {
-          font-size: 0.875rem;
-          opacity: 0.8;
-        }
-
-        .level-stats {
-          display: flex;
-          gap: 16px;
-        }
-
-        .stat {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          font-size: 0.875rem;
-          opacity: 0.8;
-        }
-
-        .demo-notice {
-          background: rgba(245, 158, 11, 0.2);
-          border: 1px solid rgba(245, 158, 11, 0.3);
-          border-radius: 8px;
-          padding: 12px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 0.875rem;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         .loading,
         .error {
           display: flex;
           align-items: center;
+          gap: 10px;
           justify-content: center;
-          gap: 8px;
           padding: 20px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
         }
 
-        .error {
-          color: #ef4444;
+        .demo-notice {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+          background: rgba(245, 158, 11, 0.2);
+          border: 1px solid rgba(245, 158, 11, 0.45);
+          border-radius: 10px;
+          padding: 12px;
+          font-size: 0.85rem;
+          line-height: 1.4;
         }
       `}</style>
     </motion.div>
@@ -388,5 +273,3 @@ const Web3Status = () => {
 };
 
 export default Web3Status;
-
-

@@ -1,5 +1,9 @@
 const winston = require('winston');
 const path = require('path');
+const fs = require('fs');
+
+const isVercel = Boolean(process.env.VERCEL);
+const logsDir = path.join(process.cwd(), 'logs');
 
 // Configuration des niveaux de log
 const levels = {
@@ -30,33 +34,40 @@ const format = winston.format.combine(
   )
 );
 
+if (!isVercel) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
+
 // Configuration des transports
 const transports = [
-  // Console transport
   new winston.transports.Console({
     level: process.env.LOG_LEVEL || 'info',
     format: format
-  }),
-  
-  // Fichier pour les erreurs
-  new winston.transports.File({
-    filename: path.join(process.cwd(), 'logs', 'error.log'),
-    level: 'error',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json()
-    )
-  }),
-  
-  // Fichier pour tous les logs
-  new winston.transports.File({
-    filename: path.join(process.cwd(), 'logs', 'combined.log'),
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json()
-    )
   })
 ];
+
+if (!isVercel) {
+  transports.push(
+    new winston.transports.File({
+      filename: path.join(logsDir, 'error.log'),
+      level: 'error',
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
+    })
+  );
+
+  transports.push(
+    new winston.transports.File({
+      filename: path.join(logsDir, 'combined.log'),
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+      )
+    })
+  );
+}
 
 // Création du logger
 const logger = winston.createLogger({
@@ -67,6 +78,14 @@ const logger = winston.createLogger({
   exitOnError: false
 });
 
+const httpLoggerTransports = isVercel
+  ? [new winston.transports.Console({ level: 'http', format })]
+  : [
+      new winston.transports.File({
+        filename: path.join(logsDir, 'http.log')
+      })
+    ];
+
 // Logger pour les requêtes HTTP
 const httpLogger = winston.createLogger({
   level: 'http',
@@ -75,11 +94,7 @@ const httpLogger = winston.createLogger({
     winston.format.timestamp(),
     winston.format.json()
   ),
-  transports: [
-    new winston.transports.File({
-      filename: path.join(process.cwd(), 'logs', 'http.log')
-    })
-  ]
+  transports: httpLoggerTransports
 });
 
 // Middleware pour logger les requêtes HTTP
@@ -139,6 +154,14 @@ const logDebug = (message, data = {}) => {
   });
 };
 
+const performanceTransports = isVercel
+  ? [new winston.transports.Console({ level: 'info', format })]
+  : [
+      new winston.transports.File({
+        filename: path.join(logsDir, 'performance.log')
+      })
+    ];
+
 // Logger pour les performances
 const performanceLogger = winston.createLogger({
   level: 'info',
@@ -146,11 +169,7 @@ const performanceLogger = winston.createLogger({
     winston.format.timestamp(),
     winston.format.json()
   ),
-  transports: [
-    new winston.transports.File({
-      filename: path.join(process.cwd(), 'logs', 'performance.log')
-    })
-  ]
+  transports: performanceTransports
 });
 
 const logPerformance = (operation, duration, metadata = {}) => {
@@ -162,6 +181,14 @@ const logPerformance = (operation, duration, metadata = {}) => {
   });
 };
 
+const web3Transports = isVercel
+  ? [new winston.transports.Console({ level: 'info', format })]
+  : [
+      new winston.transports.File({
+        filename: path.join(logsDir, 'web3.log')
+      })
+    ];
+
 // Logger pour les métriques Web3
 const web3Logger = winston.createLogger({
   level: 'info',
@@ -169,11 +196,7 @@ const web3Logger = winston.createLogger({
     winston.format.timestamp(),
     winston.format.json()
   ),
-  transports: [
-    new winston.transports.File({
-      filename: path.join(process.cwd(), 'logs', 'web3.log')
-    })
-  ]
+  transports: web3Transports
 });
 
 const logWeb3Operation = (operation, result, metadata = {}) => {

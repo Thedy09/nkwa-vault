@@ -14,10 +14,11 @@
     "db:reset": "npx prisma migrate reset",
     "db:seed": "npx prisma db seed",
     "db:studio": "npx prisma studio",
-    "setup:logs": "node scripts/setup-logs.js"
+    "setup:logs": "node scripts/setup-logs.js",
+    "collect:open": "node scripts/collect-open-content.js",
+    "import:open": "node scripts/import-open-content-to-postgres.js"
   },
   "dependencies": {
-    "@hashgraph/sdk": "^2.73.1",
     "@prisma/client": "^6.16.1",
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
@@ -29,12 +30,11 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
+    "ethers": "^6.15.0",
     "helmet": "^8.1.0",
     "ioredis": "^5.7.0",
-    "ipfs-http-client": "^56.0.3",
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.18.1",
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^2.0.0",
     "prisma": "^6.16.1",
@@ -42,7 +42,6 @@
     "sharp": "^0.34.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "web3.storage": "^4.5.5",
     "winston": "^3.11.0"
   },
   "devDependencies": {

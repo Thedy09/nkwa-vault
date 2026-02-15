@@ -1,4 +1,3 @@
-const { create, globSource } = require('ipfs-http-client');
 const web3Config = require('../config/web3');
 
 class IPFSService {

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import ImageUpload from './ImageUpload';
+import { API_BASE_URL } from '../config/api';
 import { 
   Upload, 
   FileText, 
@@ -63,7 +64,7 @@ export default function UploadForm({ userId }) {
     }
 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/upload/check-auth`);
+      const response = await axios.get(`${API_BASE_URL}/upload/check-auth`);
       if (response.data.success) {
         setAuthStatus('authenticated');
         setCanContribute(response.data.data.canContribute);
@@ -191,7 +192,7 @@ export default function UploadForm({ userId }) {
     setStatus('Téléchargement en cours...');
     
     try {
-      const res = await axios.post((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/upload', fd);
+      const res = await axios.post(`${API_BASE_URL}/upload`, fd);
       setStatus('Succès ! Contribution ID: ' + res.data.contributionId);
       setMeta({ title: '', description: '', category: '', location: '', author_name: '' });
       setFile(null);

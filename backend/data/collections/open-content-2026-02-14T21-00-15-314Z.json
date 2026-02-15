@@ -1,0 +1,2773 @@
+{
+  "generatedAt": "2026-02-14T21:00:15.314Z",
+  "sources": {
+    "stories": "Gutendex / Project Gutenberg",
+    "proverbs": "Wikiquote",
+    "music": "Internet Archive"
+  },
+  "counts": {
+    "stories": 7,
+    "proverbs": 25,
+    "music": 12,
+    "total": 44
+  },
+  "data": {
+    "stories": [
+      {
+        "id": "tale_66923",
+        "title": "West African Folk-Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Tradition orale",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/66923",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "66923",
+          "textUrl": "https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+          "themes": [
+            "Folklore -- Africa, West",
+            "Tales -- Africa, West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:00:15.301Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_66923",
+          "contentHash": "0x0e0a30fe0d0a224bc2ee67d37b8f97f8fc35430ec89a5e3f3774ebcd6b3e310f",
+          "metadata": {
+            "id": "tale_66923",
+            "title": "West African Folk-Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/66923.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:15.301Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdighgo1ea1p",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdighgo1ea1p",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdighgo1ea1p",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_66923",
+            "contentHash": "0x0e0a30fe0d0a224bc2ee67d37b8f97f8fc35430ec89a5e3f3774ebcd6b3e310f",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdighgo1ea1p",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xfa4a9f6fafb9d277f2ff6d24dcb7389eb7034a05d50f9b1bf8dc43c3444615f1",
+            "blockNumber": 0,
+            "timestamp": 1771102815,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_38339",
+        "title": "South-African Folk-Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/38339.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Honey, James A.",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/38339",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "38339",
+          "textUrl": "https://www.gutenberg.org/ebooks/38339.txt.utf-8",
+          "themes": [
+            "Folklore -- South Africa",
+            "Tales -- South Africa"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:00:15.301Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_38339",
+          "contentHash": "0x20b435218cbfd065b47d55fda4d7e290c21fa0b1124d02b190007e38f2d2be17",
+          "metadata": {
+            "id": "tale_38339",
+            "title": "South-African Folk-Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/38339.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Honey, James A.",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:15.304Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiy6dvz8t8s",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiy6dvz8t8s",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiy6dvz8t8s",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_38339",
+            "contentHash": "0x20b435218cbfd065b47d55fda4d7e290c21fa0b1124d02b190007e38f2d2be17",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiy6dvz8t8s",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x73cdfbb50a2b643e992e3218e225e5caa18490f7b68d4c34c56afe4643037d72",
+            "blockNumber": 0,
+            "timestamp": 1771102815,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_58900",
+        "title": "Where Animals Talk: West African Folk Lore Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/58900.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Nassau, Robert Hamill",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/58900",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "58900",
+          "textUrl": "https://www.gutenberg.org/ebooks/58900.txt.utf-8",
+          "themes": [
+            "Animals -- Folklore",
+            "Tales -- Africa, West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:00:15.301Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_58900",
+          "contentHash": "0xeeb9fdcd0681f4be2fc1571d26202dc4ecdf502c8167a2c02847fa5a689f8c72",
+          "metadata": {
+            "id": "tale_58900",
+            "title": "Where Animals Talk: West African Folk Lore Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/58900.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Nassau, Robert Hamill",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:15.305Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit6zcphc43",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit6zcphc43",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit6zcphc43",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_58900",
+            "contentHash": "0xeeb9fdcd0681f4be2fc1571d26202dc4ecdf502c8167a2c02847fa5a689f8c72",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit6zcphc43",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x8141ba2f7d421a7854b1ac015c85074038ead475775ca2006bba58690a6a7f35",
+            "blockNumber": 0,
+            "timestamp": 1771102815,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_48828",
+        "title": "Cunnie Rabbit, Mr. Spider and the Other Beef: West African Folk Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/48828.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Cronise, Florence M., Ward, Henry W.",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/48828",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "48828",
+          "textUrl": "https://www.gutenberg.org/ebooks/48828.txt.utf-8",
+          "themes": [
+            "Anansi (Legendary character)",
+            "Folklore -- Africa, West",
+            "Tales -- Africa, West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:00:15.301Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_48828",
+          "contentHash": "0x32266e04b3ae3ac128cffadf4e8a4a237343b0fcbdfe29ebf97e56f5c44128c3",
+          "metadata": {
+            "id": "tale_48828",
+            "title": "Cunnie Rabbit, Mr. Spider and the Other Beef: West African Folk Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/48828.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Cronise, Florence M., Ward, Henry W.",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:15.306Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifzf1rjpfm",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifzf1rjpfm",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifzf1rjpfm",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_48828",
+            "contentHash": "0x32266e04b3ae3ac128cffadf4e8a4a237343b0fcbdfe29ebf97e56f5c44128c3",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifzf1rjpfm",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x2b0aed8373a7a1703f443ba3eac37fed9a5f898bc075a86428f92b8b963e00e3",
+            "blockNumber": 0,
+            "timestamp": 1771102815,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_35557",
+        "title": "Outa Karel's Stories: South African Folk-Lore Tales",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/35557.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Metelerkamp, Sanni",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/35557",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "35557",
+          "textUrl": "https://www.gutenberg.org/ebooks/35557.txt.utf-8",
+          "themes": [
+            "Folklore -- South Africa"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:00:15.301Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_35557",
+          "contentHash": "0xcbbcb285f199ea1b2e00928e8022adc16b9780139b314f4d2b2f651303a69ee7",
+          "metadata": {
+            "id": "tale_35557",
+            "title": "Outa Karel's Stories: South African Folk-Lore Tales",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/35557.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Metelerkamp, Sanni",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:15.308Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibqr2j8daw",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibqr2j8daw",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibqr2j8daw",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_35557",
+            "contentHash": "0xcbbcb285f199ea1b2e00928e8022adc16b9780139b314f4d2b2f651303a69ee7",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdibqr2j8daw",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x408c58cd16be1025fedc0a1f5f8725fcee5349a40ac018c1f4d36fd74d4b44a1",
+            "blockNumber": 0,
+            "timestamp": 1771102815,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_72735",
+        "title": "Jamaica Anansi stories",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/72735.txt.utf-8",
+        "type": "TALE",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Beckwith, Martha Warren",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/72735",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "72735",
+          "textUrl": "https://www.gutenberg.org/ebooks/72735.txt.utf-8",
+          "themes": [
+            "Creole dialects, English",
+            "Folklore -- Jamaica"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:00:15.301Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_72735",
+          "contentHash": "0xf362edcfb43306f10c9803e990fa57cb70cf8248f060e7a6e9d535e3f63f9cc5",
+          "metadata": {
+            "id": "tale_72735",
+            "title": "Jamaica Anansi stories",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/72735.txt.utf-8",
+            "type": "TALE",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Beckwith, Martha Warren",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:15.309Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdir0i8im9qz",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdir0i8im9qz",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdir0i8im9qz",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_72735",
+            "contentHash": "0xf362edcfb43306f10c9803e990fa57cb70cf8248f060e7a6e9d535e3f63f9cc5",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdir0i8im9qz",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x6e21d5179679035f191b52b24091d21b20151c2900691b798353ebfd7ce976c0",
+            "blockNumber": 0,
+            "timestamp": 1771102815,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "tale_15458",
+        "title": "Essai sur la littérature merveilleuse des noirs, suivi de Contes indigènes de l'Ouest africain français - Tome premier",
+        "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/15458.txt.utf-8",
+        "type": "TALE",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Equilbecq, François-Victor",
+        "source": "Gutendex / Project Gutenberg",
+        "sourceUrl": "https://www.gutenberg.org/ebooks/15458",
+        "license": "Public Domain",
+        "metadata": {
+          "originalId": "15458",
+          "textUrl": "https://www.gutenberg.org/ebooks/15458.txt.utf-8",
+          "themes": [
+            "Tales -- Africa, French-speaking West"
+          ],
+          "apiSource": "gutendex",
+          "collectedAt": "2026-02-14T21:00:15.301Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "tale_15458",
+          "contentHash": "0xf979cea703f5a0b33d73fff907f0bb3485b8f6d098af0e18cbdd6f134469431d",
+          "metadata": {
+            "id": "tale_15458",
+            "title": "Essai sur la littérature merveilleuse des noirs, suivi de Contes indigènes de l'Ouest africain français - Tome premier",
+            "content": "Conte africain libre d'accès (domaine public). Téléchargement texte: https://www.gutenberg.org/ebooks/15458.txt.utf-8",
+            "type": "TALE",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Equilbecq, François-Victor",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:15.310Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifuta5go6l",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifuta5go6l",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifuta5go6l",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "tale_15458",
+            "contentHash": "0xf979cea703f5a0b33d73fff907f0bb3485b8f6d098af0e18cbdd6f134469431d",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdifuta5go6l",
+            "contentType": "TALE",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xf15fd5b103d96ea4d90b8917e6726970bc011731de65d77987ef24249278dbcf",
+            "blockNumber": 0,
+            "timestamp": 1771102815,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "proverbs": [
+      {
+        "id": "proverb_afrikaans_proverbs_0_een_swaeltjie_maak_nog_geen_somer_n",
+        "title": "Een swaeltjie maak nog geen somer nie.",
+        "content": "Een swaeltjie maak nog geen somer nie.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_0_een_swaeltjie_maak_nog_geen_somer_n",
+          "contentHash": "0xdcfb6607c55ace16aeb18f0b89da903cdfb4a4577f1c6477b88519d77d320a2a",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_0_een_swaeltjie_maak_nog_geen_somer_n",
+            "title": "Een swaeltjie maak nog geen somer nie.",
+            "content": "Een swaeltjie maak nog geen somer nie.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.146Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdidqgk27pka",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdidqgk27pka",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdidqgk27pka",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_0_een_swaeltjie_maak_nog_geen_somer_n",
+            "contentHash": "0xdcfb6607c55ace16aeb18f0b89da903cdfb4a4577f1c6477b88519d77d320a2a",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdidqgk27pka",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x4b875c4b4e14cfe4a17af5c31608611e77af01bc1439b0d105433a9c7b73ac46",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_1_die_middel_kan_wel_erger_as_die_kwa",
+        "title": "Die middel kan wel erger as die kwaad wees.",
+        "content": "Die middel kan wel erger as die kwaad wees.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_1_die_middel_kan_wel_erger_as_die_kwa",
+          "contentHash": "0xb4035591ca464e77868f1ebbd4b05d9ab8a39508ff9dbb659b5f19887093f3b7",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_1_die_middel_kan_wel_erger_as_die_kwa",
+            "title": "Die middel kan wel erger as die kwaad wees.",
+            "content": "Die middel kan wel erger as die kwaad wees.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.154Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi2ote40zrp",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi2ote40zrp",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi2ote40zrp",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_1_die_middel_kan_wel_erger_as_die_kwa",
+            "contentHash": "0xb4035591ca464e77868f1ebbd4b05d9ab8a39508ff9dbb659b5f19887093f3b7",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi2ote40zrp",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x31eb81bbd691c1410f2e277c1a98b784a91df621f220813b69816b5f0d91ab13",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_2_jakkals_prys_sy_eie_stert",
+        "title": "Jakkals prys sy eie stert.",
+        "content": "Jakkals prys sy eie stert.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_2_jakkals_prys_sy_eie_stert",
+          "contentHash": "0x9a073ca7d01336688a624a9d2fbcb2b922a2164403c9fbf1fe0866c6d88041d2",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_2_jakkals_prys_sy_eie_stert",
+            "title": "Jakkals prys sy eie stert.",
+            "content": "Jakkals prys sy eie stert.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.157Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdin9zg2nyoo",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdin9zg2nyoo",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdin9zg2nyoo",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_2_jakkals_prys_sy_eie_stert",
+            "contentHash": "0x9a073ca7d01336688a624a9d2fbcb2b922a2164403c9fbf1fe0866c6d88041d2",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdin9zg2nyoo",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xcd45086e8df50472bf9fd736aa26a51126e604fcf80519b3912189755a105ed8",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_3_die_appel_val_nie_ver_van_die_boom_",
+        "title": "Die appel val nie ver van die boom nie. The apple does not fall far from the tree.",
+        "content": "Die appel val nie ver van die boom nie. The apple does not fall far from the tree.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_3_die_appel_val_nie_ver_van_die_boom_",
+          "contentHash": "0xfcba0f753126b1543a7fbf70859ee993a31085bef53eb5364dc04e1a1e5032a5",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_3_die_appel_val_nie_ver_van_die_boom_",
+            "title": "Die appel val nie ver van die boom nie. The apple does not fall far from the tree.",
+            "content": "Die appel val nie ver van die boom nie. The apple does not fall far from the tree.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.161Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiho2m4gyka",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiho2m4gyka",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiho2m4gyka",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_3_die_appel_val_nie_ver_van_die_boom_",
+            "contentHash": "0xfcba0f753126b1543a7fbf70859ee993a31085bef53eb5364dc04e1a1e5032a5",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiho2m4gyka",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xa61381505e75abcc2495ff548ad1240eb2a116327ea5df3561bb7d4d9e873f20",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_4_van_die_os_op_die_jas",
+        "title": "Van die os op die jas.",
+        "content": "Van die os op die jas.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_4_van_die_os_op_die_jas",
+          "contentHash": "0x6a427b88ae36b4a49f56e60b250e07487ed2212c42e28c9ff1912c64387ff466",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_4_van_die_os_op_die_jas",
+            "title": "Van die os op die jas.",
+            "content": "Van die os op die jas.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.164Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi0dp16ttf7",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi0dp16ttf7",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi0dp16ttf7",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_4_van_die_os_op_die_jas",
+            "contentHash": "0x6a427b88ae36b4a49f56e60b250e07487ed2212c42e28c9ff1912c64387ff466",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi0dp16ttf7",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xfa35ba64c2477d844db3f3318b5cf982c81ced7e2d71cd448b71c397bb8b5154",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_5_daar_waar_die_tekkie_die_teer_tref",
+        "title": "Daar waar die tekkie die teer tref.",
+        "content": "Daar waar die tekkie die teer tref.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_5_daar_waar_die_tekkie_die_teer_tref",
+          "contentHash": "0x8b5ad53e42b62ae346bd9f7af4510375dd10b05bb3e4fc6b27bd2812195ecf7a",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_5_daar_waar_die_tekkie_die_teer_tref",
+            "title": "Daar waar die tekkie die teer tref.",
+            "content": "Daar waar die tekkie die teer tref.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.167Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixwc54215a",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixwc54215a",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixwc54215a",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_5_daar_waar_die_tekkie_die_teer_tref",
+            "contentHash": "0x8b5ad53e42b62ae346bd9f7af4510375dd10b05bb3e4fc6b27bd2812195ecf7a",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdixwc54215a",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xf8fa1d60b520eaf3bfbe53f880b99fda83363b6b5b8df91d7ea8d47a8d9adfa0",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_6_tussen_die_boom_en_die_bas_between_",
+        "title": "Tussen die boom en die bas. Between the tree and the bark.",
+        "content": "Tussen die boom en die bas. Between the tree and the bark.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_6_tussen_die_boom_en_die_bas_between_",
+          "contentHash": "0xcf9b5b7fc2a0af855e6b6e0f961e27299577447cfc8a745c3783c2e8bd9a5f24",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_6_tussen_die_boom_en_die_bas_between_",
+            "title": "Tussen die boom en die bas. Between the tree and the bark.",
+            "content": "Tussen die boom en die bas. Between the tree and the bark.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.170Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdinhxezeiw9",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdinhxezeiw9",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdinhxezeiw9",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_6_tussen_die_boom_en_die_bas_between_",
+            "contentHash": "0xcf9b5b7fc2a0af855e6b6e0f961e27299577447cfc8a745c3783c2e8bd9a5f24",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdinhxezeiw9",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x8763209d094efd104f09ca79277eef4dfb704e20d9373311a140a1a7f3bb0ef5",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_7_skoenmaker_se_kinders_loop_kaalvoet",
+        "title": "Skoenmaker se kinders loop kaalvoet.",
+        "content": "Skoenmaker se kinders loop kaalvoet.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_7_skoenmaker_se_kinders_loop_kaalvoet",
+          "contentHash": "0xb3f701a877cf6c838738ed7dd28570379e70f9eb8673c21461235bef97805384",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_7_skoenmaker_se_kinders_loop_kaalvoet",
+            "title": "Skoenmaker se kinders loop kaalvoet.",
+            "content": "Skoenmaker se kinders loop kaalvoet.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.173Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih5z9cotgb",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih5z9cotgb",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih5z9cotgb",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_7_skoenmaker_se_kinders_loop_kaalvoet",
+            "contentHash": "0xb3f701a877cf6c838738ed7dd28570379e70f9eb8673c21461235bef97805384",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih5z9cotgb",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xdfc30258051696129142baae270384c547d98cdb3e848f50d715dbb7a5713210",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_8_tussen_twee_vure",
+        "title": "Tussen twee vure.",
+        "content": "Tussen twee vure.",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_8_tussen_twee_vure",
+          "contentHash": "0x727f8f272c19b67afb822c30bce0bf4da31ec9cfbfbcb8aba94b8147daf35bbe",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_8_tussen_twee_vure",
+            "title": "Tussen twee vure.",
+            "content": "Tussen twee vure.",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.176Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiu66ewms8j",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiu66ewms8j",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiu66ewms8j",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_8_tussen_twee_vure",
+            "contentHash": "0x727f8f272c19b67afb822c30bce0bf4da31ec9cfbfbcb8aba94b8147daf35bbe",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiu66ewms8j",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x67f5692272d3c00aebc9bad88e90a0cc27923f13e09017288a526545478f3187",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_9_dutch_proverbs",
+        "title": "Dutch proverbs",
+        "content": "Dutch proverbs",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_9_dutch_proverbs",
+          "contentHash": "0xf1937f58e575d3335c9bb188473f67e990fc4f0c653ce2ea9ebdb87b64aaf837",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_9_dutch_proverbs",
+            "title": "Dutch proverbs",
+            "content": "Dutch proverbs",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.180Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihmo4h924a",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihmo4h924a",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihmo4h924a",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_9_dutch_proverbs",
+            "contentHash": "0xf1937f58e575d3335c9bb188473f67e990fc4f0c653ce2ea9ebdb87b64aaf837",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdihmo4h924a",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xdf6f3b3edf85eb207f7a8c78e781eef3c494114d5bccbdc503ea8ce82d82614e",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_10_flemish_proverbs",
+        "title": "Flemish proverbs",
+        "content": "Flemish proverbs",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_10_flemish_proverbs",
+          "contentHash": "0x625c88a0168eca996851a2b718ce195d8504915eda4fd46c11865187d68fa1cb",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_10_flemish_proverbs",
+            "title": "Flemish proverbs",
+            "content": "Flemish proverbs",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.182Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiz3y17j8ia",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiz3y17j8ia",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiz3y17j8ia",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_10_flemish_proverbs",
+            "contentHash": "0x625c88a0168eca996851a2b718ce195d8504915eda4fd46c11865187d68fa1cb",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiz3y17j8ia",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x20254284430a7bc89a491a004cfb5886fc7c6fe2c32761b2ead13f91914a8d00",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_11_frisian_proverbs",
+        "title": "Frisian proverbs",
+        "content": "Frisian proverbs",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_11_frisian_proverbs",
+          "contentHash": "0x4c38df65b55138c9021d91996452ba0090abbe6a3d8cd86c97cb4a04ca22e4c0",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_11_frisian_proverbs",
+            "title": "Frisian proverbs",
+            "content": "Frisian proverbs",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.183Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivgf05nnj8",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivgf05nnj8",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivgf05nnj8",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_11_frisian_proverbs",
+            "contentHash": "0x4c38df65b55138c9021d91996452ba0090abbe6a3d8cd86c97cb4a04ca22e4c0",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivgf05nnj8",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x464f9f792f8d05bf886bd9bfb7307a05b75894e529830e7f8f6e0bb5e7f9c03c",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_12_oromo_proverbs",
+        "title": "Oromo proverbs",
+        "content": "Oromo proverbs",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_12_oromo_proverbs",
+          "contentHash": "0xc603fa672f4ec64323ca0ebd32a31317f89477ea27b1d0361c952642768f7af5",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_12_oromo_proverbs",
+            "title": "Oromo proverbs",
+            "content": "Oromo proverbs",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.184Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisxc2j7fhy",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisxc2j7fhy",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisxc2j7fhy",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_12_oromo_proverbs",
+            "contentHash": "0xc603fa672f4ec64323ca0ebd32a31317f89477ea27b1d0361c952642768f7af5",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdisxc2j7fhy",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xed274936aba5a10aa10bc97126ec4eba0cf94a9b2bc33779f1d490ea47ca436c",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_afrikaans_proverbs_13_somali_proverbs",
+        "title": "Somali proverbs",
+        "content": "Somali proverbs",
+        "type": "PROVERB",
+        "language": "afrikaans / anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Afrikaans_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Afrikaans proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_afrikaans_proverbs_13_somali_proverbs",
+          "contentHash": "0x9195fc2c0d446fc48e25ea0bc26d3b8c7ce5574f59ca786f492798fe19c770aa",
+          "metadata": {
+            "id": "proverb_afrikaans_proverbs_13_somali_proverbs",
+            "title": "Somali proverbs",
+            "content": "Somali proverbs",
+            "type": "PROVERB",
+            "language": "afrikaans / anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.186Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi181uetour",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi181uetour",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi181uetour",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_afrikaans_proverbs_13_somali_proverbs",
+            "contentHash": "0x9195fc2c0d446fc48e25ea0bc26d3b8c7ce5574f59ca786f492798fe19c770aa",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi181uetour",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x73e9dcf0d0b42ffc3b4f4ca796585d618d6cdb93a74ad671eac6274cf86cdb6d",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_south_african_proverbs_0_one_does_not_cross_a_river_with",
+        "title": "One does not cross a river without getting wet. As quoted in The Heartbeat of Indigenous Africa: A Study of the Chagga E",
+        "content": "One does not cross a river without getting wet. As quoted in The Heartbeat of Indigenous Africa: A Study of the Chagga Educational System, by R. Sambuli Mosha, p. 144",
+        "type": "PROVERB",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/South_African_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "South African proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_south_african_proverbs_0_one_does_not_cross_a_river_with",
+          "contentHash": "0xc98070329218136245ef030fb0422253348e90190c43901b0fc85b27b4b8384b",
+          "metadata": {
+            "id": "proverb_south_african_proverbs_0_one_does_not_cross_a_river_with",
+            "title": "One does not cross a river without getting wet. As quoted in The Heartbeat of Indigenous Africa: A Study of the Chagga E",
+            "content": "One does not cross a river without getting wet. As quoted in The Heartbeat of Indigenous Africa: A Study of the Chagga Educational System, by R. Sambuli Mosha, p. 144",
+            "type": "PROVERB",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.187Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdie2umlquft",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdie2umlquft",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdie2umlquft",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_south_african_proverbs_0_one_does_not_cross_a_river_with",
+            "contentHash": "0xc98070329218136245ef030fb0422253348e90190c43901b0fc85b27b4b8384b",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdie2umlquft",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x4e37aab44ef04b49245b76bfc71b81b805421f62223983949329bdd974211260",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_south_african_proverbs_1_encyclopedic_article_on_south_a",
+        "title": "Encyclopedic article on South Africa on Wikipedia",
+        "content": "Encyclopedic article on South Africa on Wikipedia",
+        "type": "PROVERB",
+        "language": "anglais",
+        "origin": "Afrique",
+        "region": "Afrique Australe",
+        "country": "Afrique du Sud",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/South_African_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "South African proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_south_african_proverbs_1_encyclopedic_article_on_south_a",
+          "contentHash": "0x09020d0261d54ed6b17aa66a22206fa9f3981dd2a3f1b314349bf85e8ba862c8",
+          "metadata": {
+            "id": "proverb_south_african_proverbs_1_encyclopedic_article_on_south_a",
+            "title": "Encyclopedic article on South Africa on Wikipedia",
+            "content": "Encyclopedic article on South Africa on Wikipedia",
+            "type": "PROVERB",
+            "language": "anglais",
+            "origin": "Afrique",
+            "region": "Afrique Australe",
+            "country": "Afrique du Sud",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.188Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdith2g52tx2",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdith2g52tx2",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdith2g52tx2",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_south_african_proverbs_1_encyclopedic_article_on_south_a",
+            "contentHash": "0x09020d0261d54ed6b17aa66a22206fa9f3981dd2a3f1b314349bf85e8ba862c8",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdith2g52tx2",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x90bd8fa62f0920ccf7f8d95446f732c859848259617f0c136f3ef9cca94025e7",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+        "title": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack",
+        "content": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack crime. Now society has a cop problem.\"",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+          "contentHash": "0xc0dd07f33b2fbe426149f2cfee276654338f8746c7a82674e6b4b01ae09e33a1",
+          "metadata": {
+            "id": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+            "title": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack",
+            "content": "Nin wax cunay xishood. A man who has eaten something becomes shy. \"Society had a crime problem. It hired cops to attack crime. Now society has a cop problem.\"",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.189Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdib6km8wjdu",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdib6km8wjdu",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdib6km8wjdu",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_0_nin_wax_cunay_xishood_a_man_who_has_ea",
+            "contentHash": "0xc0dd07f33b2fbe426149f2cfee276654338f8746c7a82674e6b4b01ae09e33a1",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdib6km8wjdu",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x9e9936319e9a3de11969089f917a4ce46cfbfa5af3725251e3225d9f00dde8fc",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+        "title": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+        "content": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+          "contentHash": "0x1985ebb3a9d484db0a7f9ee40b0a588a8d865a53aa34c9b2868da300ff474636",
+          "metadata": {
+            "id": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+            "title": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+            "content": "Talo walaal diide taagoogta ayuu kajabaa. One refusing a sibling’s advice breaks his arm.",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.191Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdif168u8o9b",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdif168u8o9b",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdif168u8o9b",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_1_talo_walaal_diide_taagoogta_ayuu_kajab",
+            "contentHash": "0x1985ebb3a9d484db0a7f9ee40b0a588a8d865a53aa34c9b2868da300ff474636",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdif168u8o9b",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xba48fe67dc9526c7673a17435357c7ef9370e3470b992c0a1a41dd15f5781c4c",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_somali_proverbs_2_afrikaans_proverbs",
+        "title": "Afrikaans proverbs",
+        "content": "Afrikaans proverbs",
+        "type": "PROVERB",
+        "language": "somali / anglais",
+        "origin": "Afrique",
+        "region": "Afrique de l'Est",
+        "country": "Somalie",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Somali_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Somali proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_somali_proverbs_2_afrikaans_proverbs",
+          "contentHash": "0xe61304c1b69c5f914ec71ff2690c816a124c29fb694a0898bae58919a3147a8d",
+          "metadata": {
+            "id": "proverb_somali_proverbs_2_afrikaans_proverbs",
+            "title": "Afrikaans proverbs",
+            "content": "Afrikaans proverbs",
+            "type": "PROVERB",
+            "language": "somali / anglais",
+            "origin": "Afrique",
+            "region": "Afrique de l'Est",
+            "country": "Somalie",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.192Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3zyeo2rdt",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3zyeo2rdt",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3zyeo2rdt",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_somali_proverbs_2_afrikaans_proverbs",
+            "contentHash": "0xe61304c1b69c5f914ec71ff2690c816a124c29fb694a0898bae58919a3147a8d",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi3zyeo2rdt",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x1e529fcd74501f3b1c5a1d1a90e900bb36d29bb53f7e7b36659d767bb6fb03e0",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+        "title": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+        "content": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+          "contentHash": "0xc4cb8570aba371574c7ba333b7538750d968e74e3dddadb75d50a4a9336c74e0",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+            "title": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+            "content": "Ngozi ya chui uzuri kwa macho, ndani adui. A leopard skin is beautiful to see, but inside there is an enemy.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.197Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwijvcccpp",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwijvcccpp",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwijvcccpp",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_0_ngozi_ya_chui_uzuri_kwa_macho_ndani_a",
+            "contentHash": "0xc4cb8570aba371574c7ba333b7538750d968e74e3dddadb75d50a4a9336c74e0",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiwijvcccpp",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x7292fff40486fc70e70f09a7a6b7ff491c46ae08e4316b09ab12b5090f98a146",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+        "title": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+        "content": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+          "contentHash": "0x1fb09cc0fa956903904d9ae5d6a15a3501172038d87509c18f8b8dd924aea7d3",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+            "title": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+            "content": "Dhamiri safi ni tandiko laini. A clear conscience is a soft mat.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.198Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiuu2v25ikg",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiuu2v25ikg",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiuu2v25ikg",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_1_dhamiri_safi_ni_tandiko_laini_a_clear",
+            "contentHash": "0x1fb09cc0fa956903904d9ae5d6a15a3501172038d87509c18f8b8dd924aea7d3",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiuu2v25ikg",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x7edb2f53dcb5a6e4f2a35f839e81c4f07c6291a819fb8df4f81368a46a0e6f89",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+        "title": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+        "content": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+          "contentHash": "0x207799c5249c46b55e2b37c729941d8470c166c09dc60fa2deb1b9a4e6e0817c",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+            "title": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+            "content": "Dua la kuku halimpati mwewe. The prayer of the fowl does not bother the hawk.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.199Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi4nk3qxakg",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi4nk3qxakg",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi4nk3qxakg",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_2_dua_la_kuku_halimpati_mwewe_the_praye",
+            "contentHash": "0x207799c5249c46b55e2b37c729941d8470c166c09dc60fa2deb1b9a4e6e0817c",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi4nk3qxakg",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xba4d01f6fe150b275c5f454b827633decac68e8e026e2cf6cdbb4ad31908da46",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+        "title": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+        "content": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+          "contentHash": "0x9b5e056d308dedf0d5dd3c777dbc89acfc37ae9fd9584dcdb41bcf8629c1e4b5",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+            "title": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+            "content": "Fadhila ya punda ni mateke. The gratitude of a donkey is a kick.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.200Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdictybryaz0",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdictybryaz0",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdictybryaz0",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_3_fadhila_ya_punda_ni_mateke_the_gratit",
+            "contentHash": "0x9b5e056d308dedf0d5dd3c777dbc89acfc37ae9fd9584dcdb41bcf8629c1e4b5",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdictybryaz0",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x011cabdc52f581a9a66cfda8796f99cb235bb657de42aa1db7b77ca09c8f3da0",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+        "title": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+        "content": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+          "contentHash": "0x032a0e204c3c11833704050650e0ab06eb747c588c50df0d863d5448bd3c79a7",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+            "title": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+            "content": "Fuata nyuki ule asali. Follow bees that you may eat honey.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.201Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizr89olp6r",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizr89olp6r",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizr89olp6r",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_4_fuata_nyuki_ule_asali_follow_bees_tha",
+            "contentHash": "0x032a0e204c3c11833704050650e0ab06eb747c588c50df0d863d5448bd3c79a7",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizr89olp6r",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x7994b9211bdcf819fdd0187287aa4670f3a9910e5b424a198bdb7c976f5847db",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+        "title": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+        "content": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+        "type": "PROVERB",
+        "language": "swahili / anglais",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Afrique de l'Est",
+        "authorName": "Tradition orale",
+        "source": "Wikiquote",
+        "sourceUrl": "https://en.wikiquote.org/wiki/Swahili_proverbs",
+        "license": "CC BY-SA 4.0",
+        "metadata": {
+          "sourcePage": "Swahili proverbs",
+          "collectedAt": "2026-02-14T20:59:54.143Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+          "contentHash": "0x47734557b28f87d3e87e67dc87a26d642f7d30067d1f6b4d9c5fd8cb9a280bd7",
+          "metadata": {
+            "id": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+            "title": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+            "content": "Haraka haraka haina baraka. Hurry, hurry, has no blessings.",
+            "type": "PROVERB",
+            "language": "swahili / anglais",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Afrique de l'Est",
+            "authorName": "Tradition orale",
+            "media": [],
+            "createdAt": "2026-02-14T20:59:54.202Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiludvqb5zg",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiludvqb5zg",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiludvqb5zg",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "proverb_swahili_proverbs_5_haraka_haraka_haina_baraka_hurry_hurr",
+            "contentHash": "0x47734557b28f87d3e87e67dc87a26d642f7d30067d1f6b4d9c5fd8cb9a280bd7",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiludvqb5zg",
+            "contentType": "PROVERB",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x20927c24ce2ef13e187776c37c417458e4601b59dfb2e2050c048f7a36714dca",
+            "blockNumber": 0,
+            "timestamp": 1771102794,
+            "explorerUrl": null
+          }
+        }
+      }
+    ],
+    "music": [
+      {
+        "id": "music_bayefallchantunplugged",
+        "title": "Baye Fall Chant unplugged",
+        "content": "This is a recording of Baye Fall chanting recorded in Diourbel, Senegal on July 22, 2011. The Baye Falls are a sub-sect of the Mouride Islamic Brotherhood. This was recorded outside the compound of a Peace Corps Volunteer serving in Senegal.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Sénégal",
+        "authorName": "april1213",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/BayeFallChantUnplugged",
+        "license": "Public Domain",
+        "metadata": {
+          "archiveId": "BayeFallChantUnplugged",
+          "audioUrl": "https://archive.org/download/BayeFallChantUnplugged/BayeFallChantUnplugged.mp3",
+          "duration": "01:19",
+          "format": "VBR MP3",
+          "year": null,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "subjects": [
+            "Diourbel",
+            "Senegal",
+            "Chanting",
+            "Baye Fall",
+            "Mouride Brotherhood",
+            "Islamic Chant"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_bayefallchantunplugged",
+          "contentHash": "0x2b8524d045080c39034e752d584974d458234fb8fffc54d11543ecf791ae5fbc",
+          "metadata": {
+            "id": "music_bayefallchantunplugged",
+            "title": "Baye Fall Chant unplugged",
+            "content": "This is a recording of Baye Fall chanting recorded in Diourbel, Senegal on July 22, 2011. The Baye Falls are a sub-sect of the Mouride Islamic Brotherhood. This was recorded outside the compound of a Peace Corps Volunteer serving in Senegal.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Sénégal",
+            "authorName": "april1213",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.111Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit9e94bq55",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit9e94bq55",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit9e94bq55",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_bayefallchantunplugged",
+            "contentHash": "0x2b8524d045080c39034e752d584974d458234fb8fffc54d11543ecf791ae5fbc",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdit9e94bq55",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xed8886d2f3a4de978f02250d05e01b09b09983007e8dfc0c3c588264e6e6fbe6",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_congo_traditional",
+        "title": "Africa - Congo - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique Centrale",
+        "country": "Congo",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Congo_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Congo_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Congo_Traditional/Ba_Banzele_Congo.mp3",
+          "duration": "63.27",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Congo",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_congo_traditional",
+          "contentHash": "0x2f83c5a8a64e78d15e27bf25d57bef7bd722644fcf619a0c148b37fb96f07ca9",
+          "metadata": {
+            "id": "music_thomasladonne_congo_traditional",
+            "title": "Africa - Congo - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique Centrale",
+            "country": "Congo",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.113Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi1l8t4jm24",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi1l8t4jm24",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi1l8t4jm24",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_congo_traditional",
+            "contentHash": "0x2f83c5a8a64e78d15e27bf25d57bef7bd722644fcf619a0c148b37fb96f07ca9",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi1l8t4jm24",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xb617a4831050d67fffc006a028962a4a2b9faa83272962d0839db7761da7d833",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_burkina_faso_traditional",
+        "title": "Africa - Burkina-Faso - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Burkina Faso",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Burkina-Faso_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Burkina-Faso_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Burkina-Faso_Traditional/Bisa_Burkina-Faso.mp3",
+          "duration": "301.37",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Burkina-Faso",
+            "music"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_burkina_faso_traditional",
+          "contentHash": "0x40405e066b6f5d4f10a6a2c9d304775407b77929cd9bfbf3287fe12510a3f5be",
+          "metadata": {
+            "id": "music_thomasladonne_burkina_faso_traditional",
+            "title": "Africa - Burkina-Faso - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Burkina Faso",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.115Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizm97506k5",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizm97506k5",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizm97506k5",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_burkina_faso_traditional",
+            "contentHash": "0x40405e066b6f5d4f10a6a2c9d304775407b77929cd9bfbf3287fe12510a3f5be",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdizm97506k5",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xbc994e0f5e16c0f80062d0e5eb25945d3f616568b340c6128e415245326eccac",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_kirundienglishsillychant",
+        "title": "Kirundi/English silly chant",
+        "content": "This is for Burundis to practice speaking English and learning vocabulary. Created by Glenn Simonsen, Elias Bukuru and Kanyoni Sedekiya at Jubilee Partners, 2007",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Burundi",
+        "authorName": "Glenn Simonsen",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/KirundienglishSillyChant",
+        "license": "CC BY-NC-ND",
+        "metadata": {
+          "archiveId": "KirundienglishSillyChant",
+          "audioUrl": "https://archive.org/download/KirundienglishSillyChant/Kirundi_englishCarSong.mp3",
+          "duration": "226.69",
+          "format": "VBR MP3",
+          "year": null,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-nc-nd/3.0/",
+          "subjects": [
+            "Burundi",
+            "Kirundi",
+            "Africa",
+            "refugee"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_kirundienglishsillychant",
+          "contentHash": "0xada72fe34e5aa8339fad12c575b3010d399e9f9035f1a1d3f8d38cdc20b5e8fd",
+          "metadata": {
+            "id": "music_kirundienglishsillychant",
+            "title": "Kirundi/English silly chant",
+            "content": "This is for Burundis to practice speaking English and learning vocabulary. Created by Glenn Simonsen, Elias Bukuru and Kanyoni Sedekiya at Jubilee Partners, 2007",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Burundi",
+            "authorName": "Glenn Simonsen",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.116Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii9glx8y0i",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii9glx8y0i",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii9glx8y0i",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_kirundienglishsillychant",
+            "contentHash": "0xada72fe34e5aa8339fad12c575b3010d399e9f9035f1a1d3f8d38cdc20b5e8fd",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii9glx8y0i",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x285b53dfafc6801669deec0a931b532651d166e1a8205a0fa3f4bb097fa0c59f",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_comoros_traditional",
+        "title": "Africa - Comoros - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": "Comores",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Comoros_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Comoros_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Comoros_Traditional/Hamida_Comoros.mp3",
+          "duration": "465.11",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Comoros",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_comoros_traditional",
+          "contentHash": "0xd18dbf287a50c55afdf8778acd2374166a28bcc6981a342e96fb198a82297a06",
+          "metadata": {
+            "id": "music_thomasladonne_comoros_traditional",
+            "title": "Africa - Comoros - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": "Comores",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.118Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijeywankqb",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijeywankqb",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijeywankqb",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_comoros_traditional",
+            "contentHash": "0xd18dbf287a50c55afdf8778acd2374166a28bcc6981a342e96fb198a82297a06",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdijeywankqb",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x0acc86c3e59c9818148f8b5a1768697fa4507955daa7a6772c0bcc8c8acd1ca9",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_cameroon_traditional",
+        "title": "Africa - Cameroon - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique Centrale",
+        "country": "Cameroun",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Cameroon_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Cameroon_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Cameroon_Traditional/Bamilike_Cameroon.mp3",
+          "duration": "155.87",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Cameroon",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_cameroon_traditional",
+          "contentHash": "0x69e50e72c3005f3c0afb73e88f26ca1c506ceb05d26844f3bcb55a018d23dd55",
+          "metadata": {
+            "id": "music_thomasladonne_cameroon_traditional",
+            "title": "Africa - Cameroon - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique Centrale",
+            "country": "Cameroun",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.120Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi44oecdy7h",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi44oecdy7h",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi44oecdy7h",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_cameroon_traditional",
+            "contentHash": "0x69e50e72c3005f3c0afb73e88f26ca1c506ceb05d26844f3bcb55a018d23dd55",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi44oecdy7h",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x140e8d90ce1951b17f3ba8c9af616c19c4e2c444c3f9275e62513b7030679b9d",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_erythrea_traditional",
+        "title": "Africa - Erythrea - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Erythrea_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Erythrea_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Erythrea_Traditional/Cow_Milking_Erythrea.mp3",
+          "duration": "153.08",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Erythrea",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_erythrea_traditional",
+          "contentHash": "0xcaf1109956c74b153a1d9a4966f285250258cfab6bab3dacdd80dcdfd5ba2415",
+          "metadata": {
+            "id": "music_thomasladonne_erythrea_traditional",
+            "title": "Africa - Erythrea - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.121Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih6tw5b1yr",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih6tw5b1yr",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih6tw5b1yr",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_erythrea_traditional",
+            "contentHash": "0xcaf1109956c74b153a1d9a4966f285250258cfab6bab3dacdd80dcdfd5ba2415",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdih6tw5b1yr",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xe7a5148a24c43677d381beeed0505863af4639f4f4c730917d5ca45859524afe",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_ghana_traditional",
+        "title": "Africa - Ghana - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique de l'Ouest",
+        "country": "Ghana",
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Ghana_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Ghana_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Ghana_Traditional/Acora_Ghana.mp3",
+          "duration": "231.81",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Ghana",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_ghana_traditional",
+          "contentHash": "0xce6f7e0dd360a41a5913423d1d901d650f637644684e31a76261f8dc97315621",
+          "metadata": {
+            "id": "music_thomasladonne_ghana_traditional",
+            "title": "Africa - Ghana - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique de l'Ouest",
+            "country": "Ghana",
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.123Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivcerrvk4n",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivcerrvk4n",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivcerrvk4n",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_ghana_traditional",
+            "contentHash": "0xce6f7e0dd360a41a5913423d1d901d650f637644684e31a76261f8dc97315621",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdivcerrvk4n",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xea68425c5479389a907fe798e3310b4df24bb75c4f321c9833cf8b5034a42857",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_centralafricanrepublic_traditional",
+        "title": "Africa - Central African Republic - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_CentralAfricanRepublic_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_CentralAfricanRepublic_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_CentralAfricanRepublic_Traditional/Azende_Central_African_Republic.mp3",
+          "duration": "171.31",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Central African Republic",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_centralafricanrepublic_traditional",
+          "contentHash": "0x75bc496ecafa59471bda0ed3f204cdd724ba4fc0633229c0f9e20342765bd374",
+          "metadata": {
+            "id": "music_thomasladonne_centralafricanrepublic_traditional",
+            "title": "Africa - Central African Republic - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.124Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipswhm9k0f",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipswhm9k0f",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipswhm9k0f",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_centralafricanrepublic_traditional",
+            "contentHash": "0x75bc496ecafa59471bda0ed3f204cdd724ba4fc0633229c0f9e20342765bd374",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdipswhm9k0f",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0xa65c38e0ee3f351b8468a9665e1832fefcc5b87df0bd0b8769363ffc50252570",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_24topographie_sonore_du_quartier",
+        "title": "24 Topographie sonore du quartier : chant du petit cossyphe",
+        "content": "Recording of the atmosphere in the Nkolmbong-Nord neighborhood, Émana, Yaoundé 1, Cameroon. November 5, 2024, 6:14 a.m. Sounds captured: song of a Snowy-crowned Robin-Chat amid human activity. This bird is normally quite rare in urban areas . Equipment: iPhone 7. Average quality.",
+        "type": "MUSIC",
+        "language": "f",
+        "origin": "Afrique",
+        "region": "Afrique Centrale",
+        "country": "Cameroun",
+        "authorName": "Serge Marcel Roche",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/24topographie-sonore-du-quartier",
+        "license": "Public Domain",
+        "metadata": {
+          "archiveId": "24topographie-sonore-du-quartier",
+          "audioUrl": "https://archive.org/download/24topographie-sonore-du-quartier/05-11-24-06H14.mp3",
+          "duration": "61.18",
+          "format": "VBR MP3",
+          "year": 2026,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "subjects": [
+            "Africa",
+            "Cameroon",
+            "Yaoundé",
+            "City",
+            "Neighborhood",
+            "Sounds"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_24topographie_sonore_du_quartier",
+          "contentHash": "0x43639ad97f89c166be13051c289c7ee25301d00c0abaf286292cdc90bf2b21f9",
+          "metadata": {
+            "id": "music_24topographie_sonore_du_quartier",
+            "title": "24 Topographie sonore du quartier : chant du petit cossyphe",
+            "content": "Recording of the atmosphere in the Nkolmbong-Nord neighborhood, Émana, Yaoundé 1, Cameroon. November 5, 2024, 6:14 a.m. Sounds captured: song of a Snowy-crowned Robin-Chat amid human activity. This bird is normally quite rare in urban areas . Equipment: iPhone 7. Average quality.",
+            "type": "MUSIC",
+            "language": "f",
+            "origin": "Afrique",
+            "region": "Afrique Centrale",
+            "country": "Cameroun",
+            "authorName": "Serge Marcel Roche",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.126Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii692x5fbr",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii692x5fbr",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii692x5fbr",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_24topographie_sonore_du_quartier",
+            "contentHash": "0x43639ad97f89c166be13051c289c7ee25301d00c0abaf286292cdc90bf2b21f9",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdii692x5fbr",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x21b5dede0a9c37915f8d2bdfb6633772ae932e710195a110b54f9619e25b0600",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_gabon_traditional",
+        "title": "Africa - Gabon - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Gabon_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Gabon_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Gabon_Traditional/Bateke_Gabon.mp3",
+          "duration": "215.85",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Gabon",
+            "music",
+            "traditional"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_gabon_traditional",
+          "contentHash": "0xb6047d07fe897f9fde6481bd7c125d4dab2a857292a583b3451825b95ca1b9e5",
+          "metadata": {
+            "id": "music_thomasladonne_gabon_traditional",
+            "title": "Africa - Gabon - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.127Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdia5qji9kd4",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdia5qji9kd4",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdia5qji9kd4",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_gabon_traditional",
+            "contentHash": "0xb6047d07fe897f9fde6481bd7c125d4dab2a857292a583b3451825b95ca1b9e5",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdia5qji9kd4",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x43675e0a5949c77efab1220543d1eb13717c3062794a9bf9ea8c0b7f0a971ceb",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      },
+      {
+        "id": "music_thomasladonne_benin_traditional",
+        "title": "Africa - Benin - Traditional",
+        "content": "Enregistrement traditionnel africain libre d’accès.",
+        "type": "MUSIC",
+        "language": "français",
+        "origin": "Afrique",
+        "region": "Afrique",
+        "country": null,
+        "authorName": "Artiste traditionnel",
+        "source": "Internet Archive",
+        "sourceUrl": "https://archive.org/details/ThomasLadonne_Benin_Traditional",
+        "license": "CC BY-SA",
+        "metadata": {
+          "archiveId": "ThomasLadonne_Benin_Traditional",
+          "audioUrl": "https://archive.org/download/ThomasLadonne_Benin_Traditional/Peul_Benin_1.mp3",
+          "duration": "253.83",
+          "format": "VBR MP3",
+          "year": 2002,
+          "genre": "Traditional / Folk",
+          "instruments": [],
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/2.5/",
+          "subjects": [
+            "Africa",
+            "Benin",
+            "music"
+          ],
+          "collectedAt": "2026-02-14T21:00:01.111Z"
+        },
+        "web3": {
+          "success": true,
+          "contentId": "music_thomasladonne_benin_traditional",
+          "contentHash": "0xb6dadb2f76d834fda4e4f78744f70a96ac4acac36be629d082f146d71e38cac8",
+          "metadata": {
+            "id": "music_thomasladonne_benin_traditional",
+            "title": "Africa - Benin - Traditional",
+            "content": "Enregistrement traditionnel africain libre d’accès.",
+            "type": "MUSIC",
+            "language": "français",
+            "origin": "Afrique",
+            "region": "Afrique",
+            "country": null,
+            "authorName": "Artiste traditionnel",
+            "media": [],
+            "createdAt": "2026-02-14T21:00:01.128Z",
+            "platform": "Nkwa V"
+          },
+          "ipfs": {
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiybp1hysfg",
+            "metadataUrl": "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiybp1hysfg",
+            "metadataGatewayUrl": "https://ipfs.io/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiybp1hysfg",
+            "mediaCids": [],
+            "media": []
+          },
+          "blockchain": {
+            "success": true,
+            "demo": true,
+            "contentId": "music_thomasladonne_benin_traditional",
+            "contentHash": "0xb6dadb2f76d834fda4e4f78744f70a96ac4acac36be629d082f146d71e38cac8",
+            "metadataCid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdiybp1hysfg",
+            "contentType": "MUSIC",
+            "license": "CC-BY",
+            "contributor": "0x0000000000000000000000000000000000000000",
+            "txHash": "0x46cddc26d9cf6d095f7166f7f5e237c0652eb6f70bb8f53d248f0beb316eed3c",
+            "blockNumber": 0,
+            "timestamp": 1771102801,
+            "explorerUrl": null
+          }
+        }
+      }
+    ]
+  }
+}

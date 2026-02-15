@@ -7,6 +7,7 @@ import AdvancedSearch from '../components/AdvancedSearch';
 import InteractiveActions from '../components/InteractiveActions';
 import RecommendationEngine from '../components/RecommendationEngine';
 import { staticCulturalContent } from '../data/staticContent';
+import { API_BASE_URL } from '../config/api';
 
 export default function Museum() {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ export default function Museum() {
     { value: 'proverbe', label: t('proverbs'), color: 'var(--african-red)' },
     { value: 'devinette', label: 'Devinettes', color: 'var(--african-gold)' },
     { value: 'chant', label: t('songs'), color: 'var(--african-gold)' },
+    { value: 'danse', label: 'Danses', color: 'var(--african-earth)' },
     { value: 'artisanat', label: t('artFilter'), color: 'var(--african-yellow)' }
   ];
 
@@ -33,26 +35,26 @@ export default function Museum() {
       setLoading(true);
       setError(null);
       
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
-      
       // Chargement des contenus culturels
       
       // Charger tous les types de contenu en parallèle depuis les sources officielles
-      const [talesRes, proverbsRes, riddlesRes, musicRes, artRes] = await Promise.all([
+      const [talesRes, proverbsRes, riddlesRes, musicRes, dancesRes, artRes] = await Promise.all([
         fetch(`${API_BASE_URL}/cultural-content/tales`),
         fetch(`${API_BASE_URL}/cultural-content/proverbs`),
         fetch(`${API_BASE_URL}/cultural-content/cultural-riddles`),
         fetch(`${API_BASE_URL}/cultural-content/music`),
+        fetch(`${API_BASE_URL}/cultural-content/dances`),
         fetch(`${API_BASE_URL}/cultural-content/art`)
       ]);
 
       // Vérification des réponses API
 
-      const [talesData, proverbsData, riddlesData, musicData, artData] = await Promise.all([
+      const [talesData, proverbsData, riddlesData, musicData, dancesData, artData] = await Promise.all([
         talesRes.json(),
         proverbsRes.json(),
         riddlesRes.json(),
         musicRes.json(),
+        dancesRes.json(),
         artRes.json()
       ]);
 
@@ -67,7 +69,9 @@ export default function Museum() {
           category: 'conte',
           location: tale.region || tale.culture,
           author_name: tale.culture || 'Tradition orale',
-          source: tale.sourceUrl,
+          source: tale.source,
+          sourceUrl: tale.sourceUrl,
+          createdAt: tale.createdAt,
           timestamp: new Date().toISOString(),
           moral: tale.moral
         })),
@@ -78,7 +82,9 @@ export default function Museum() {
           category: 'proverbe',
           location: proverb.region || proverb.culture,
           author_name: proverb.culture || 'Sagesse traditionnelle',
-          source: proverb.sourceUrl,
+          source: proverb.source,
+          sourceUrl: proverb.sourceUrl,
+          createdAt: proverb.createdAt,
           timestamp: new Date().toISOString()
         })),
         ...(riddlesData.data?.riddles || []).map(riddle => ({
@@ -88,7 +94,9 @@ export default function Museum() {
           category: 'devinette',
           location: riddle.region || riddle.culture,
           author_name: riddle.culture || 'Tradition orale',
-          source: riddle.sourceUrl,
+          source: riddle.source,
+          sourceUrl: riddle.sourceUrl,
+          createdAt: riddle.createdAt,
           timestamp: new Date().toISOString()
         })),
         ...(musicData.data?.music || []).map(music => ({
@@ -99,6 +107,22 @@ export default function Museum() {
           location: music.origin,
           author_name: music.artist || 'Communauté traditionnelle',
           source: music.source,
+          sourceUrl: music.sourceUrl,
+          createdAt: music.createdAt,
+          timestamp: new Date().toISOString()
+        })),
+        ...(dancesData.data?.dances || []).map(dance => ({
+          id: `dance-${dance.id || dance.title}`,
+          title: dance.title,
+          description: dance.description,
+          category: 'danse',
+          location: dance.origin,
+          author_name: dance.artist || 'Troupe traditionnelle',
+          source: dance.source,
+          sourceUrl: dance.sourceUrl,
+          imageUrl: dance.imageUrl,
+          videoUrl: dance.videoUrl,
+          createdAt: dance.createdAt,
           timestamp: new Date().toISOString()
         })),
         ...(artData.data?.art || []).map(art => ({
@@ -109,6 +133,8 @@ export default function Museum() {
           location: art.origin,
           author_name: art.artist || 'Artisans traditionnels',
           source: art.source,
+          sourceUrl: art.sourceUrl,
+          createdAt: art.createdAt,
           timestamp: new Date().toISOString(),
           imageUrl: art.imageUrl
         }))
@@ -289,6 +315,7 @@ export default function Museum() {
                        <p>📚 {items.filter(item => item.category === 'conte').length} contes</p>
                        <p>🤔 {items.filter(item => item.category === 'devinette').length} devinettes</p>
                        <p>🎵 {items.filter(item => item.category === 'chant').length} musique</p>
+                       <p>💃 {items.filter(item => item.category === 'danse').length} danses</p>
                        <p>🎨 {items.filter(item => item.category === 'artisanat').length} art</p>
                      </div>
               <div className="items-grid">

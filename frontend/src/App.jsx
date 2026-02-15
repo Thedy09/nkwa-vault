@@ -33,13 +33,24 @@ import Logo from './components/Logo';
 // Composant principal avec authentification
 const AppContent = () => {
   const { user, isAuthenticated } = useAuth();
-  const { t } = useTranslation();
+  const { t, language, changeLanguage, getSupportedLanguages, isTranslating } = useTranslation();
   const [currentPage, setCurrentPage] = useState('home');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [accessModeSelectorOpen, setAccessModeSelectorOpen] = useState(false);
   const [web3AuthOpen, setWeb3AuthOpen] = useState(false);
   const [userAccessMode, setUserAccessMode] = useState(null);
+
+  const preferredLanguageOrder = ['fr', 'en', 'es', 'pt', 'ar', 'sw', 'yo', 'ig', 'ha', 'zu'];
+  const allLanguages = getSupportedLanguages();
+  const languageOptions = [...allLanguages].sort((a, b) => {
+    const indexA = preferredLanguageOrder.indexOf(a.code);
+    const indexB = preferredLanguageOrder.indexOf(b.code);
+    const rankA = indexA === -1 ? preferredLanguageOrder.length + 1 : indexA;
+    const rankB = indexB === -1 ? preferredLanguageOrder.length + 1 : indexB;
+    if (rankA !== rankB) return rankA - rankB;
+    return a.name.localeCompare(b.name);
+  });
 
   // Fonction pour gérer la redirection après connexion
   const handleLoginSuccess = (page) => {
@@ -70,14 +81,14 @@ const AppContent = () => {
   const menuItems = [
     { id: 'home', label: t('home'), icon: HomeIcon },
     { id: 'museum', label: t('museum'), icon: Music },
-    { id: 'virtual-museum', label: 'Musée Virtuel', icon: Star },
+    { id: 'virtual-museum', label: t('virtualMuseum'), icon: Star },
     // Web3 dashboard - only visible for Web3 users
-    ...(userAccessMode === 'web3' ? [{ id: 'web3-dashboard', label: '🌐 Web3', icon: Globe }] : []),
+    ...(userAccessMode === 'web3' ? [{ id: 'web3-dashboard', label: `🌐 ${t('web3Dashboard')}`, icon: Globe }] : []),
     { id: 'riddles', label: t('riddles'), icon: Brain },
     { id: 'upload', label: t('share'), icon: Upload },
     { id: 'about', label: t('about'), icon: Users },
     // Admin menu item - only visible for admin users
-    ...(isAuthenticated() && user?.role === 'ADMIN' ? [{ id: 'admin', label: 'Admin', icon: Users }] : [])
+    ...(isAuthenticated() && user?.role === 'ADMIN' ? [{ id: 'admin', label: t('admin'), icon: Users }] : [])
   ];
 
   const renderPage = () => {
@@ -140,23 +151,41 @@ const AppContent = () => {
           </div>
 
           {/* Auth Section */}
-          <div className="nav-auth desktop">
-            {isAuthenticated() ? (
-              <div className="user-info">
-                <User size={20} />
-                <span>{user?.firstName || 'Utilisateur'}</span>
-              </div>
-            ) : (
-              <motion.button
-                className="auth-button"
-                onClick={() => setAccessModeSelectorOpen(true)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+          <div className="nav-actions desktop">
+            <div className="language-picker">
+              <Globe size={16} />
+              <select
+                value={language}
+                onChange={(event) => changeLanguage(event.target.value)}
+                disabled={isTranslating}
+                aria-label={t('languages')}
               >
-                <LogIn size={20} />
-                {t('login')}
-              </motion.button>
-            )}
+                {languageOptions.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.flag} {lang.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="nav-auth">
+              {isAuthenticated() ? (
+                <div className="user-info">
+                  <User size={20} />
+                  <span>{user?.firstName || t('guestUser')}</span>
+                </div>
+              ) : (
+                <motion.button
+                  className="auth-button"
+                  onClick={() => setAccessModeSelectorOpen(true)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <LogIn size={20} />
+                  {t('login')}
+                </motion.button>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -197,12 +226,28 @@ const AppContent = () => {
             ))}
           </div>
 
+          <div className="sidebar-language">
+            <label htmlFor="mobile-language-select">{t('languages')}</label>
+            <select
+              id="mobile-language-select"
+              value={language}
+              onChange={(event) => changeLanguage(event.target.value)}
+              disabled={isTranslating}
+            >
+              {languageOptions.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.flag} {lang.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* Mobile Auth Section */}
           <div className="sidebar-auth">
             {isAuthenticated() ? (
               <div className="user-info">
                 <User size={20} />
-                <span>{user?.firstName || 'Utilisateur'}</span>
+                <span>{user?.firstName || t('guestUser')}</span>
               </div>
             ) : (
               <button
@@ -342,6 +387,50 @@ const AppContent = () => {
           align-items: center;
         }
 
+        .nav-actions {
+          display: flex;
+          align-items: center;
+          gap: var(--spacing-sm);
+        }
+
+        .language-picker {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          border-radius: var(--radius-sm);
+          padding: 6px 10px;
+        }
+
+        .language-picker svg {
+          color: var(--african-yellow);
+        }
+
+        .language-picker select {
+          background: transparent;
+          border: none;
+          color: white;
+          font-family: inherit;
+          font-size: 0.85rem;
+          min-width: 120px;
+          cursor: pointer;
+        }
+
+        .language-picker select:focus {
+          outline: none;
+        }
+
+        .language-picker select:disabled {
+          opacity: 0.6;
+          cursor: wait;
+        }
+
+        .language-picker option {
+          background: #1a1a1a;
+          color: white;
+        }
+
         .auth-button {
           display: flex;
           align-items: center;
@@ -435,6 +524,35 @@ const AppContent = () => {
           flex-direction: column;
           gap: var(--spacing-sm);
           margin-bottom: var(--spacing-lg);
+        }
+
+        .sidebar-language {
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          padding-top: var(--spacing-md);
+          margin-bottom: var(--spacing-md);
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .sidebar-language label {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+        }
+
+        .sidebar-language select {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: var(--radius-sm);
+          color: white;
+          padding: 10px 12px;
+          font-family: inherit;
+          font-size: 0.9rem;
+        }
+
+        .sidebar-language select:focus {
+          outline: none;
+          border-color: var(--african-yellow);
         }
 
         .sidebar-auth {

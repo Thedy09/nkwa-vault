@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ override: true });
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -23,7 +23,6 @@ const uploadRoute = require('./routes/upload');
 const riddlesRoute = require('./routes/riddles');
 const culturalContentRoute = require('./routes/culturalContent');
 const contentManagerRoute = require('./routes/contentManager');
-const web3Route = require('./routes/web3');
 const web3CoreRoute = require('./routes/web3Core');
 const museumRoute = require('./routes/museum');
 const metricsRoute = require('./routes/metrics');
@@ -57,12 +56,49 @@ app.use(compression());
 
 // Middleware de sécurité
 app.use(helmet());
+const configuredOrigins = new Set([
+  process.env.FRONTEND_URL,
+  ...(process.env.CORS_ORIGIN || '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean),
+  'http://localhost:3000',
+  'http://127.0.0.1:3000'
+].filter(Boolean));
+
+function isLocalDevOrigin(origin) {
+  try {
+    const parsed = new URL(origin);
+    const isLocalHost = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+    return parsed.protocol === 'http:' && isLocalHost;
+  } catch (_) {
+    return false;
+  }
+}
+
+function isVercelOrigin(origin) {
+  try {
+    const parsed = new URL(origin);
+    return parsed.protocol === 'https:' && parsed.hostname.endsWith('.vercel.app');
+  } catch (_) {
+    return false;
+  }
+}
+
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
+  origin: (origin, callback) => {
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    if (configuredOrigins.has(origin) || isLocalDevOrigin(origin) || isVercelOrigin(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error(`CORS origin not allowed: ${origin}`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -92,12 +128,11 @@ app.use(uploadMonitoringMiddleware);
 app.use(authMonitoringMiddleware);
 
 // Routes
-app.use('/auth', authRoute);
-app.use('/upload', uploadRoute);
-app.use('/riddles', riddlesRoute);
-app.use('/cultural-content', culturalContentRoute);
+app.use(['/auth', '/api/auth'], authRoute);
+app.use(['/upload', '/api/upload'], uploadRoute);
+app.use(['/riddles', '/api/riddles'], riddlesRoute);
+app.use(['/cultural-content', '/api/cultural-content'], culturalContentRoute);
 app.use('/api/content', contentManagerRoute);
-app.use('/api/web3', web3Route);
 app.use('/api/web3', web3CoreRoute);
 app.use('/api/museum', museumRoute);
 app.use('/api/collector', require('./routes/contentCollector'));
@@ -111,7 +146,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
 }));
 
 // Route de santé
-app.get('/health', (req, res) => {
+app.get(['/health', '/api/health'], (req, res) => {
   res.json({
     success: true,
     message: 'Nkwa V Backend is running',
@@ -127,40 +162,77 @@ app.use(notFoundHandler);
 app.use(errorMetricsMiddleware);
 app.use(errorHandler);
 
+let servicesInitializationPromise = null;
+
 // Initialisation des services
 const initializeServices = async () => {
-  try {
-    // Connexion à la base de données
-    await testConnection();
-    
-    // Initialisation des services Web3 - PILIER CENTRAL
-    await web3Config.initialize();
-    await web3Core.initialize();
-    
-    // Initialisation de Redis
-    await redisService.initialize();
-    
-    // Démarrer le système de métriques
-    metricsCollector.start();
-    
-    console.log('✅ Tous les services initialisés avec succès');
-    console.log('🌐 Web3 (pilier central) - Prêt pour la décentralisation');
-    console.log('📊 Système de monitoring activé');
-  } catch (error) {
-    console.error('❌ Erreur lors de l\'initialisation des services:', error.message);
+  if (servicesInitializationPromise) {
+    return servicesInitializationPromise;
   }
+
+  servicesInitializationPromise = (async () => {
+    try {
+      // Connexion à la base de données
+      await testConnection();
+      
+      // Initialisation des services Web3 - PILIER CENTRAL
+      await web3Config.initialize();
+      await web3Core.initialize();
+      
+      // Initialisation de Redis (optionnel)
+      const redisReady = await redisService.initialize();
+      if (!redisReady) {
+        console.log('⚠️ Redis indisponible: cache Redis désactivé pour cette session');
+      }
+      
+      // Démarrer le système de métriques uniquement hors serverless/test
+      if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
+        metricsCollector.start();
+      }
+      
+      console.log('✅ Tous les services initialisés avec succès');
+      console.log('🌐 Web3 (pilier central) - Prêt pour la décentralisation');
+      console.log('📊 Système de monitoring activé');
+    } catch (error) {
+      console.error('❌ Erreur lors de l\'initialisation des services:', error.message);
+      throw error;
+    }
+  })();
+
+  try {
+    await servicesInitializationPromise;
+  } catch (_) {
+    servicesInitializationPromise = null;
+  }
+
+  return servicesInitializationPromise;
 };
 
-// Configurer les gestionnaires d'erreurs globaux
-setupErrorHandlers();
+if (!process.env.VERCEL) {
+  // Configurer les gestionnaires d'erreurs globaux uniquement en mode serveur long-lived
+  setupErrorHandlers();
+}
 
 // Initialiser les services au démarrage
-initializeServices();
-
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log('Nkwa V Backend running on port', PORT);
-  console.log('Authentication system ready');
-  console.log('Database connection ready');
-  console.log('CORS enabled for:', process.env.FRONTEND_URL || 'http://localhost:3000');
+initializeServices().catch((error) => {
+  console.error('❌ Initialisation partielle:', error.message);
 });
+
+const shouldListen = !process.env.VERCEL && process.env.NODE_ENV !== 'test';
+if (shouldListen) {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log('Nkwa V Backend running on port', PORT);
+    console.log('Authentication system ready');
+    console.log('Database connection ready');
+    console.log('CORS enabled for local dev origins: http://localhost:* and http://127.0.0.1:*');
+    if (process.env.FRONTEND_URL) {
+      console.log('CORS enabled for configured FRONTEND_URL:', process.env.FRONTEND_URL);
+    }
+    if (process.env.CORS_ORIGIN) {
+      console.log('CORS enabled for configured CORS_ORIGIN:', process.env.CORS_ORIGIN);
+    }
+  });
+}
+
+module.exports = app;
