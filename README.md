@@ -1,6 +1,6 @@
 # 🌍 Nkwa V - Plateforme Web3 pour le Patrimoine Culturel Africain
 
-[![Deploy on Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/votre-username/nkwa-vault)
+[![Deploy on Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Thedy09/nkwa-vault)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Web3](https://img.shields.io/badge/Web3-Enabled-blue)](https://web3.foundation/)
 
@@ -67,8 +67,8 @@ Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour 
 
 ```bash
 # Cloner le repository
-git clone https://github.com/votre-username/nkwa-v.git
-cd nkwa-v
+git clone https://github.com/Thedy09/nkwa-vault.git
+cd nkwa-vault
 
 # Installer les dépendances
 npm install
@@ -129,9 +129,9 @@ DATABASE_URL="postgresql://user:password@localhost:5432/nkwa_vault"
 
 ## 🌐 **URLs de Déploiement**
 
-- **Production** : https://nkwa-v-4ghsao6sr-thedys-projects.vercel.app
-- **API Documentation** : https://nkwa-v-4ghsao6sr-thedys-projects.vercel.app/api-docs
-- **Dashboard Web3** : https://nkwa-v-4ghsao6sr-thedys-projects.vercel.app/web3-dashboard
+- **Production** : https://nkwa-vault.vercel.app
+- **API Documentation** : https://nkwa-vault.vercel.app/api-docs
+- **Dashboard Web3** : https://nkwa-vault.vercel.app (ouvrir le menu puis section Web3)
 
 ## 📖 **Guide d'Utilisation**
 
@@ -181,9 +181,9 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 
 ## 📞 **Support**
 
-- **Documentation** : [Wiki du projet](https://github.com/votre-username/nkwa-v/wiki)
-- **Issues** : [GitHub Issues](https://github.com/votre-username/nkwa-v/issues)
-- **Discussions** : [GitHub Discussions](https://github.com/votre-username/nkwa-v/discussions)
+- **Documentation** : [Wiki du projet](https://github.com/Thedy09/nkwa-vault/wiki)
+- **Issues** : [GitHub Issues](https://github.com/Thedy09/nkwa-vault/issues)
+- **Discussions** : [GitHub Discussions](https://github.com/Thedy09/nkwa-vault/discussions)
 - **Email** : support@nkwav.com
 
 

@@ -41,12 +41,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nkwa-v/nkwa-v.git"
+    "url": "https://github.com/Thedy09/nkwa-vault.git"
   },
   "bugs": {
-    "url": "https://github.com/nkwa-v/nkwa-v/issues"
+    "url": "https://github.com/Thedy09/nkwa-vault/issues"
   },
-  "homepage": "https://nkwa.africa",
+  "homepage": "https://nkwa-vault.vercel.app",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
