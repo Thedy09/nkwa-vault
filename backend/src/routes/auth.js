@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
 const { authenticateToken } = require('../middleware/auth');
@@ -43,6 +44,22 @@ const defaultDemoUsers = [
 
 function normalizeEmail(value) {
   return String(value || '').trim().toLowerCase();
+}
+
+function normalizeWalletAddress(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function isValidWalletAddress(value) {
+  return /^0x[a-f0-9]{40}$/.test(value);
+}
+
+function buildWalletEmail(walletAddress) {
+  return `wallet+${walletAddress.slice(2)}@nkwa.wallet`;
+}
+
+function buildWalletDisplayName(walletAddress) {
+  return `Wallet ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
 }
 
 function isPrismaUnavailableError(error) {
@@ -95,6 +112,7 @@ function formatUserResponse(user) {
     id: user.id,
     name: user.name,
     email: user.email,
+    walletAddress: user.walletAddress || null,
     role: user.role,
     isActive: Boolean(user.isActive),
     isVerified: Boolean(user.isVerified),
@@ -152,6 +170,33 @@ function loginDemoUser({ email, password }) {
     return { error: 'disabled' };
   }
 
+  return { user };
+}
+
+function loginOrCreateDemoWalletUser(walletAddress) {
+  ensureDemoUsersSeeded();
+  const email = buildWalletEmail(walletAddress);
+  const existing = demoUsersByEmail.get(email);
+
+  if (existing) {
+    return { user: existing };
+  }
+
+  const now = new Date().toISOString();
+  const user = {
+    id: Date.now(),
+    name: buildWalletDisplayName(walletAddress),
+    email,
+    password: crypto.randomBytes(32).toString('hex'),
+    walletAddress,
+    role: 'USER',
+    isActive: true,
+    isVerified: true,
+    createdAt: now,
+    updatedAt: now
+  };
+
+  demoUsersByEmail.set(email, user);
   return { user };
 }
 
@@ -471,6 +516,104 @@ router.post('/login', authLimiter, async (req, res) => {
     return res.status(500).json({
       success: false,
       message: 'Erreur lors de la connexion'
+    });
+  }
+});
+
+router.post('/web3-login', authLimiter, async (req, res) => {
+  const normalizedWalletAddress = normalizeWalletAddress(req.body?.walletAddress);
+
+  if (!normalizedWalletAddress || !isValidWalletAddress(normalizedWalletAddress)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Adresse wallet invalide'
+    });
+  }
+
+  try {
+    if (shouldUseDemoAuth()) {
+      const demo = loginOrCreateDemoWalletUser(normalizedWalletAddress);
+      const token = createAccessToken(demo.user);
+
+      return res.json({
+        success: true,
+        message: 'Connexion wallet réussie (mode démo)',
+        data: {
+          user: formatUserResponse(demo.user),
+          token
+        }
+      });
+    }
+
+    const walletEmail = buildWalletEmail(normalizedWalletAddress);
+    let user = await prisma.user.findUnique({
+      where: { email: walletEmail }
+    });
+
+    if (!user) {
+      const randomPassword = crypto.randomBytes(32).toString('hex');
+      const hashedPassword = await bcrypt.hash(randomPassword, 12);
+
+      user = await prisma.user.create({
+        data: {
+          email: walletEmail,
+          name: buildWalletDisplayName(normalizedWalletAddress),
+          password: hashedPassword,
+          role: 'USER',
+          isActive: true,
+          isVerified: true
+        }
+      });
+
+      await prisma.userStats.create({
+        data: {
+          userId: user.id,
+          contributions: 0,
+          views: 0,
+          likes: 0,
+          followers: 0,
+          following: 0
+        }
+      });
+    }
+
+    const token = createAccessToken(user);
+    const userWithRelations = await prisma.user.findUnique({
+      where: { id: user.id },
+      include: {
+        profile: true,
+        stats: true,
+        preferences: true
+      }
+    });
+
+    return res.json({
+      success: true,
+      message: 'Connexion wallet réussie',
+      data: {
+        user: formatUserResponse(userWithRelations || user),
+        token
+      }
+    });
+  } catch (error) {
+    if (shouldUseDemoAuth(error)) {
+      const demo = loginOrCreateDemoWalletUser(normalizedWalletAddress);
+      const token = createAccessToken(demo.user);
+
+      return res.json({
+        success: true,
+        message: 'Connexion wallet réussie (mode démo)',
+        data: {
+          user: formatUserResponse(demo.user),
+          token
+        }
+      });
+    }
+
+    console.error('Erreur connexion wallet:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la connexion wallet'
     });
   }
 });

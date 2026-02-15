@@ -6,7 +6,6 @@ import {
   CheckCircle, 
   AlertCircle, 
   Loader,
-  ExternalLink,
   Copy,
   Eye,
   EyeOff
@@ -20,6 +19,7 @@ const Web3Auth = ({ isOpen, onAuthSuccess, onClose }) => {
   const [error, setError] = useState('');
   const [showPrivateKey, setShowPrivateKey] = useState(false);
   const [privateKey, setPrivateKey] = useState('');
+  const [signingMessage, setSigningMessage] = useState('');
 
   useEffect(() => {
     if (!isOpen) {
@@ -30,21 +30,41 @@ const Web3Auth = ({ isOpen, onAuthSuccess, onClose }) => {
       setError('');
       setShowPrivateKey(false);
       setPrivateKey('');
+      setSigningMessage('');
     }
   }, [isOpen]);
 
-  // Simuler la connexion à un wallet (dans un vrai projet, utiliser Web3Modal ou WalletConnect)
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const generateHexString = (length) => {
+    let value = '';
+    while (value.length < length) {
+      value += Math.floor(Math.random() * 0xffffffff)
+        .toString(16)
+        .padStart(8, '0');
+    }
+    return value.slice(0, length);
+  };
+
+  const generateMockWalletAddress = () => `0x${generateHexString(40)}`;
+  const generateMockSignature = () => `0x${generateHexString(130)}`;
+
   const connectWallet = async () => {
     setIsConnecting(true);
     setError('');
 
     try {
-      // Simulation de connexion wallet
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Adresse simulée pour la démo
-      const mockAddress = '0x' + Math.random().toString(16).substr(2, 40);
-      setWalletAddress(mockAddress);
+      if (window?.ethereum?.request) {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        if (accounts?.[0]) {
+          setWalletAddress(String(accounts[0]).toLowerCase());
+          setStep(2);
+          return;
+        }
+      }
+
+      await wait(800);
+      setWalletAddress(generateMockWalletAddress());
       setStep(2);
     } catch (err) {
       setError('Erreur de connexion au wallet');
@@ -53,48 +73,54 @@ const Web3Auth = ({ isOpen, onAuthSuccess, onClose }) => {
     }
   };
 
-  // Générer une signature pour l'authentification
   const generateSignature = async () => {
     setIsConnecting(true);
     setError('');
 
     try {
-      // Simulation de génération de signature
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      const mockSignature = '0x' + Math.random().toString(16).substr(2, 64);
-      setSignature(mockSignature);
+      const message = `Connexion Nkwa V - ${new Date().toISOString()}`;
+      setSigningMessage(message);
+
+      if (window?.ethereum?.request && walletAddress) {
+        const walletSignature = await window.ethereum.request({
+          method: 'personal_sign',
+          params: [message, walletAddress]
+        });
+        setSignature(walletSignature);
+        setStep(3);
+        return;
+      }
+
+      await wait(600);
+      setSignature(generateMockSignature());
       setStep(3);
     } catch (err) {
-      setError('Erreur de génération de signature');
+      if (String(err?.message || '').toLowerCase().includes('denied')) {
+        setError('Signature refusée par le wallet');
+      } else {
+        setError('Erreur de génération de signature');
+      }
     } finally {
       setIsConnecting(false);
     }
   };
 
-  // Finaliser l'authentification Web3
   const finalizeAuth = async () => {
     setIsConnecting(true);
     setError('');
 
     try {
-      // Simulation d'authentification avec le backend
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simuler la création d'un compte utilisateur Web3
       const userData = {
-        id: 'web3_user_' + Date.now(),
         walletAddress,
         signature,
+        signingMessage,
         authMethod: 'web3',
-        isVerified: true,
-        role: 'CONTRIBUTOR'
       };
 
-      // Sauvegarder en localStorage pour la démo
-      localStorage.setItem('web3_user', JSON.stringify(userData));
-      
-      onAuthSuccess(userData);
+      const result = await onAuthSuccess(userData);
+      if (result && result.success === false) {
+        setError(result.message || 'Erreur d\'authentification Web3');
+      }
     } catch (err) {
       setError('Erreur d\'authentification Web3');
     } finally {
@@ -102,14 +128,12 @@ const Web3Auth = ({ isOpen, onAuthSuccess, onClose }) => {
     }
   };
 
-  // Copier l'adresse du wallet
   const copyAddress = () => {
     navigator.clipboard.writeText(walletAddress);
   };
 
-  // Générer une clé privée pour la démo
   const generatePrivateKey = () => {
-    const mockPrivateKey = '0x' + Math.random().toString(16).substr(2, 64);
+    const mockPrivateKey = `0x${generateHexString(64)}`;
     setPrivateKey(mockPrivateKey);
   };
 

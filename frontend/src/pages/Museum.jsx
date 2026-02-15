@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from '../contexts/TranslationContext';
-import { useNotifications } from '../components/NotificationSystem';
-import { Search, Music, Play, Pause, MapPin, User, Calendar } from 'lucide-react';
-import AdvancedSearch from '../components/AdvancedSearch';
-import InteractiveActions from '../components/InteractiveActions';
-import RecommendationEngine from '../components/RecommendationEngine';
+import { Search, Music, Play, Pause, MapPin, User, Calendar, X, Eye, ExternalLink } from 'lucide-react';
 import { staticCulturalContent } from '../data/staticContent';
 import { API_BASE_URL } from '../config/api';
 
@@ -18,6 +14,7 @@ export default function Museum() {
   const [playingAudio, setPlayingAudio] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
 
   const categories = [
     { value: 'all', label: t('all'), color: 'var(--african-yellow)' },
@@ -229,6 +226,34 @@ export default function Museum() {
     return new Date(timestamp).toLocaleDateString('fr-FR');
   };
 
+  const getItemMediaUrl = (item) => {
+    if (item.image || item.imageUrl) return item.image || item.imageUrl;
+    if (item.video || item.videoUrl) return item.video || item.videoUrl;
+    if (item.audio || item.audioUrl) return item.audio || item.audioUrl;
+    if (item.ipfs_cid) return `https://ipfs.io/ipfs/${item.ipfs_cid}`;
+    return null;
+  };
+
+  const getMediaType = (item) => {
+    const mediaUrl = getItemMediaUrl(item);
+    if (!mediaUrl) return 'text';
+
+    const normalizedUrl = mediaUrl.toLowerCase();
+    if (item.image || item.imageUrl || /\.(png|jpe?g|webp|gif|svg)($|\?)/.test(normalizedUrl)) return 'image';
+    if (item.video || item.videoUrl || /\.(mp4|webm|ogg|mov|m3u8)($|\?)/.test(normalizedUrl)) return 'video';
+    if (item.audio || item.audioUrl || item.ipfs_cid || /\.(mp3|wav|ogg|aac|m4a|flac)($|\?)/.test(normalizedUrl)) return 'audio';
+    if (/\.pdf($|\?)/.test(normalizedUrl)) return 'pdf';
+    return 'text';
+  };
+
+  const openItemPreview = (item) => {
+    setActiveItem(item);
+  };
+
+  const closeItemPreview = () => {
+    setActiveItem(null);
+  };
+
   return (
     <div className="museum">
       {/* Header */}
@@ -323,6 +348,7 @@ export default function Museum() {
                   <motion.div
                     key={item.id}
                     className="museum-item"
+                    onClick={() => openItemPreview(item)}
                     initial={{ opacity: 0, y: 50, rotateX: -10 }}
                     animate={{ opacity: 1, y: 0, rotateX: 0 }}
                     transition={{ 
@@ -382,12 +408,21 @@ export default function Museum() {
                         </div>
                         {item.source && (
                           <div className="meta-item">
-                            <a href={item.sourceUrl || item.source} target="_blank" rel="noopener noreferrer" className="source-link">
-                              📚 {item.source}
-                            </a>
+                            <span className="source-label">📚 {item.source}</span>
                           </div>
                         )}
                       </div>
+
+                      <button
+                        className="open-item-btn"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          openItemPreview(item);
+                        }}
+                      >
+                        <Eye size={16} />
+                        Ouvrir sur la plateforme
+                      </button>
                     </div>
 
                     {item.ipfs_cid && (
@@ -395,7 +430,10 @@ export default function Museum() {
                         <div className="audio-player">
                           <motion.button
                             className="play-button"
-                            onClick={() => toggleAudio(item.id)}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              toggleAudio(item.id);
+                            }}
                             whileHover={{ 
                               scale: 1.1,
                               boxShadow: "0 10px 25px rgba(255, 215, 0, 0.4)"
@@ -452,6 +490,91 @@ export default function Museum() {
           )}
         </div>
       </motion.div>
+
+      <AnimatePresence>
+        {activeItem && (
+          <motion.div
+            className="content-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeItemPreview}
+          >
+            <motion.div
+              className="content-modal"
+              initial={{ scale: 0.92, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ duration: 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="content-modal-header">
+                <h3>{activeItem.title}</h3>
+                <button className="close-preview-btn" onClick={closeItemPreview}>
+                  <X size={18} />
+                </button>
+              </div>
+
+              <div className="content-modal-body">
+                {(() => {
+                  const mediaType = getMediaType(activeItem);
+                  const mediaUrl = getItemMediaUrl(activeItem);
+
+                  if (mediaType === 'image' && mediaUrl) {
+                    return <img src={mediaUrl} alt={activeItem.title} className="modal-media-image" />;
+                  }
+                  if (mediaType === 'video' && mediaUrl) {
+                    return <video src={mediaUrl} controls className="modal-media-video" />;
+                  }
+                  if (mediaType === 'audio' && mediaUrl) {
+                    return <audio src={mediaUrl} controls className="modal-media-audio" />;
+                  }
+                  if (mediaType === 'pdf' && mediaUrl) {
+                    return <iframe title={activeItem.title} src={mediaUrl} className="modal-media-pdf" />;
+                  }
+
+                  return (
+                    <div className="modal-text-content">
+                      <p>{activeItem.description || 'Contenu textuel'}</p>
+                    </div>
+                  );
+                })()}
+
+                <div className="modal-meta">
+                  <div className="modal-meta-row">
+                    <MapPin size={16} />
+                    <span>{activeItem.origin || activeItem.location || 'Afrique'}</span>
+                  </div>
+                  <div className="modal-meta-row">
+                    <User size={16} />
+                    <span>{activeItem.artist || activeItem.author_name || 'Tradition orale'}</span>
+                  </div>
+                  <div className="modal-meta-row">
+                    <Calendar size={16} />
+                    <span>{formatDate(activeItem.createdAt || activeItem.timestamp)}</span>
+                  </div>
+                  {activeItem.source && (
+                    <div className="modal-meta-row">
+                      <span className="modal-source-chip">📚 {activeItem.source}</span>
+                    </div>
+                  )}
+                  {activeItem.sourceUrl && (
+                    <a
+                      href={activeItem.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="source-external-btn"
+                    >
+                      <ExternalLink size={16} />
+                      Source originale
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style jsx>{`
         .museum {
@@ -557,6 +680,8 @@ export default function Museum() {
           padding: var(--spacing-lg);
           transition: all 0.3s ease;
           cursor: pointer;
+          user-select: none;
+          -webkit-user-select: none;
         }
 
         .museum-item:hover {
@@ -625,21 +750,36 @@ export default function Museum() {
           opacity: 0.7;
         }
 
-        .source-link {
+        .source-label {
           color: var(--african-yellow);
-          text-decoration: none;
           font-weight: 500;
-          transition: all 0.3s ease;
           background: rgba(255, 215, 0, 0.1);
           padding: 4px 8px;
           border-radius: 4px;
           font-size: 0.9em;
         }
 
-        .source-link:hover {
-          color: var(--african-gold);
+        .open-item-btn {
+          width: 100%;
+          margin-top: var(--spacing-sm);
+          border: 1px solid rgba(255, 215, 0, 0.4);
+          background: rgba(255, 215, 0, 0.08);
+          color: var(--african-yellow);
+          padding: 10px 12px;
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          font-family: inherit;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          transition: all 0.2s ease;
+        }
+
+        .open-item-btn:hover {
           background: rgba(255, 215, 0, 0.2);
-          text-decoration: none;
+          border-color: var(--african-yellow);
         }
 
         .item-media {
@@ -731,6 +871,135 @@ export default function Museum() {
         .retry-button:hover {
           transform: translateY(-2px);
           box-shadow: var(--shadow-lg);
+        }
+
+        .content-modal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 2100;
+          background: rgba(0, 0, 0, 0.78);
+          backdrop-filter: blur(5px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px;
+        }
+
+        .content-modal {
+          width: min(900px, 100%);
+          max-height: 88vh;
+          overflow: auto;
+          border-radius: 16px;
+          border: 1px solid rgba(255, 215, 0, 0.25);
+          background: linear-gradient(180deg, rgba(30, 30, 30, 0.98), rgba(20, 20, 20, 0.98));
+        }
+
+        .content-modal-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 16px 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .content-modal-header h3 {
+          margin: 0;
+          color: var(--african-yellow);
+          font-size: 1.2rem;
+        }
+
+        .close-preview-btn {
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: transparent;
+          color: #fff;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        .content-modal-body {
+          padding: 16px 20px 22px;
+          display: grid;
+          gap: 16px;
+        }
+
+        .modal-media-image,
+        .modal-media-video,
+        .modal-media-pdf {
+          width: 100%;
+          max-height: 52vh;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: rgba(0, 0, 0, 0.2);
+          object-fit: contain;
+        }
+
+        .modal-media-audio {
+          width: 100%;
+        }
+
+        .modal-text-content {
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: rgba(255, 255, 255, 0.04);
+          padding: 14px;
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.6;
+          user-select: text;
+          -webkit-user-select: text;
+        }
+
+        .modal-meta {
+          display: grid;
+          gap: 8px;
+          color: rgba(255, 255, 255, 0.86);
+          user-select: text;
+          -webkit-user-select: text;
+        }
+
+        .modal-meta-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.95rem;
+        }
+
+        .modal-source-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(255, 215, 0, 0.12);
+          color: var(--african-yellow);
+          border: 1px solid rgba(255, 215, 0, 0.35);
+          padding: 6px 10px;
+          border-radius: 999px;
+          font-size: 0.85rem;
+        }
+
+        .source-external-btn {
+          margin-top: 4px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          width: fit-content;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          color: #fff;
+          padding: 8px 12px;
+          border-radius: 10px;
+          text-decoration: none;
+          font-size: 0.9rem;
+          transition: all 0.2s ease;
+        }
+
+        .source-external-btn:hover {
+          border-color: var(--african-yellow);
+          color: var(--african-yellow);
+          background: rgba(255, 215, 0, 0.08);
         }
 
         .data-info {

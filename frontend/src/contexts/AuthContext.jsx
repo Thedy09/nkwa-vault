@@ -169,6 +169,49 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithWallet = async (walletAddress, signature) => {
+    if (loading || checkingAuth) return { success: false, message: 'Connexion en cours...' };
+
+    try {
+      setLoading(true);
+
+      const response = await axios.post(`${API_BASE_URL}/auth/web3-login`, {
+        walletAddress,
+        signature
+      });
+
+      if (response.data.success) {
+        const { user: userData, token: authToken } = response.data.data;
+
+        Cookies.set('acv_token', authToken, {
+          expires: 7,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax'
+        });
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+
+        setUser(userData);
+        setToken(authToken);
+
+        return { success: true, user: userData, redirectToAdmin: userData.role === 'ADMIN' };
+      }
+
+      return {
+        success: false,
+        message: response.data.message || 'Connexion wallet échouée'
+      };
+    } catch (error) {
+      console.error('Erreur connexion wallet:', error);
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Erreur de connexion wallet'
+      };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     // Supprimer le token des cookies
     Cookies.remove('acv_token');
@@ -200,6 +243,7 @@ export const AuthProvider = ({ children }) => {
     loading,
     token,
     login,
+    loginWithWallet,
     register,
     logout,
     isAuthenticated,

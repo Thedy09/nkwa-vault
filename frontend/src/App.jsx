@@ -11,6 +11,8 @@ import About from './pages/About';
 import Riddles from './pages/Riddles';
 import AdminDashboard from './pages/AdminDashboard';
 import AuthModal from './components/AuthModal';
+import Web3Auth from './components/Web3Auth';
+import AccessModeSelector from './components/AccessModeSelector';
 import Web3Status from './components/Web3Status';
 import { 
   Home as HomeIcon, 
@@ -29,11 +31,13 @@ import Logo from './components/Logo';
 
 // Composant principal avec authentification
 const AppContent = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, loginWithWallet } = useAuth();
   const { t, language, changeLanguage, getSupportedLanguages, isTranslating } = useTranslation();
   const [currentPage, setCurrentPage] = useState('home');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [accessModeSelectorOpen, setAccessModeSelectorOpen] = useState(false);
+  const [web3AuthOpen, setWeb3AuthOpen] = useState(false);
 
   const preferredLanguageOrder = ['fr', 'en', 'es', 'pt', 'ar', 'sw', 'yo', 'ig', 'ha', 'zu'];
   const allLanguages = getSupportedLanguages();
@@ -50,6 +54,25 @@ const AppContent = () => {
   const handleLoginSuccess = (page) => {
     setCurrentPage(page);
     setSidebarOpen(false);
+  };
+
+  const handleAccessModeSelect = (mode) => {
+    setAccessModeSelectorOpen(false);
+    if (mode === 'web3') {
+      setWeb3AuthOpen(true);
+      return;
+    }
+    setAuthModalOpen(true);
+  };
+
+  const handleWeb3AuthSuccess = async ({ walletAddress, signature }) => {
+    const result = await loginWithWallet(walletAddress, signature);
+    if (result.success) {
+      setWeb3AuthOpen(false);
+      setSidebarOpen(false);
+      return { success: true };
+    }
+    return result;
   };
 
   const menuItems = [
@@ -142,12 +165,12 @@ const AppContent = () => {
               {isAuthenticated() ? (
                 <div className="user-info">
                   <User size={20} />
-                  <span>{user?.firstName || t('guestUser')}</span>
+                  <span>{user?.name || user?.firstName || t('guestUser')}</span>
                 </div>
               ) : (
                 <motion.button
                   className="auth-button"
-                  onClick={() => setAuthModalOpen(true)}
+                  onClick={() => setAccessModeSelectorOpen(true)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -217,13 +240,13 @@ const AppContent = () => {
             {isAuthenticated() ? (
               <div className="user-info">
                 <User size={20} />
-                <span>{user?.firstName || t('guestUser')}</span>
+                <span>{user?.name || user?.firstName || t('guestUser')}</span>
               </div>
             ) : (
               <button
                 className="sidebar-auth-button"
                 onClick={() => {
-                  setAuthModalOpen(true);
+                  setAccessModeSelectorOpen(true);
                   setSidebarOpen(false);
                 }}
               >
@@ -292,11 +315,25 @@ const AppContent = () => {
         </div>
       </motion.footer>
 
+            {/* Choix du mode de connexion */}
+            <AccessModeSelector
+              isOpen={accessModeSelectorOpen}
+              onModeSelect={handleAccessModeSelect}
+              onClose={() => setAccessModeSelectorOpen(false)}
+            />
+
             {/* Auth Modal */}
             <AuthModal
               isOpen={authModalOpen}
               onClose={() => setAuthModalOpen(false)}
               onLoginSuccess={handleLoginSuccess}
+            />
+
+            {/* Wallet Auth */}
+            <Web3Auth
+              isOpen={web3AuthOpen}
+              onClose={() => setWeb3AuthOpen(false)}
+              onAuthSuccess={handleWeb3AuthSuccess}
             />
 
       <style jsx>{`
