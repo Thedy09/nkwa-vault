@@ -64,10 +64,9 @@ describe('VirtualMuseum Component', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Musée Virtuel Africain')).toBeInTheDocument();
+      expect(screen.getByText('Test Art 1')).toBeInTheDocument();
+      expect(screen.getByText('Test Art 2')).toBeInTheDocument();
     });
-
-    expect(screen.getByText('Test Art 1')).toBeInTheDocument();
-    expect(screen.getByText('Test Art 2')).toBeInTheDocument();
   });
 
   it('handles search functionality', async () => {
@@ -134,12 +133,11 @@ describe('VirtualMuseum Component', () => {
       expect(screen.getByText('Musée Virtuel Africain')).toBeInTheDocument();
     });
 
-    // Tester le toggle de vue
-    const listViewButton = screen.getByRole('button', { name: /list/i });
-    fireEvent.click(listViewButton);
+    const viewButtons = document.querySelectorAll('.view-btn');
+    expect(viewButtons.length).toBeGreaterThan(0);
+    fireEvent.click(viewButtons[1]);
 
-    // Vérifier que la classe de vue a changé
-    const gallery = screen.getByRole('main').querySelector('.museum-gallery');
+    const gallery = document.querySelector('.museum-gallery');
     expect(gallery).toHaveClass('list');
   });
 

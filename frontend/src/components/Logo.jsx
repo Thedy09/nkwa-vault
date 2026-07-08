@@ -23,7 +23,7 @@ const Logo = ({ size = 40, animated = true, className = "" }) => {
   };
 
   const LogoContent = () => (
-    <div className={`logo-container ${className}`} style={{ width: size, height: size }}>
+    <div className={`logo-container ${className}`} style={{ width: size, height: size }} data-testid="logo">
       <svg 
         width={size} 
         height={size} 

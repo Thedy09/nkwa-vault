@@ -9,6 +9,7 @@ const {
   cacheInvalidationMiddleware,
   invalidateMuseumCache
 } = require('../middleware/cache');
+const { authenticateToken, authorize } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -229,7 +230,7 @@ router.get('/object/:id', async (req, res) => {
 });
 
 // POST /api/museum/nft - Créer un nouveau NFT
-router.post('/nft', upload.single('image'), cacheInvalidationMiddleware(invalidateMuseumCache), async (req, res) => {
+router.post('/nft', authenticateToken, authorize('ADMIN'), upload.single('image'), cacheInvalidationMiddleware(invalidateMuseumCache), async (req, res) => {
   try {
     const { name, description, culture, country, tags, source, license } = req.body;
     const imageFile = req.file;
@@ -346,7 +347,7 @@ router.get('/tags', async (req, res) => {
 });
 
 // POST /api/museum/refresh - Rafraîchir la collection
-router.post('/refresh', async (req, res) => {
+router.post('/refresh', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     await museumCollectionService.refreshCollection();
     

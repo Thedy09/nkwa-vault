@@ -10,6 +10,7 @@ const {
   invalidateSearchCache
 } = require('../middleware/cache');
 const { logInfo, logError } = require('../utils/logger');
+const { authenticateToken, authorize } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -116,7 +117,7 @@ router.get('/status', async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/clear', async (req, res) => {
+router.post('/clear', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     const deleted = await invalidateCache('*');
     
@@ -162,7 +163,7 @@ router.post('/clear', async (req, res) => {
  *                   type: integer
  *                   example: 25
  */
-router.post('/clear/museum', async (req, res) => {
+router.post('/clear/museum', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     const deleted = await invalidateMuseumCache();
     
@@ -208,7 +209,7 @@ router.post('/clear/museum', async (req, res) => {
  *                   type: integer
  *                   example: 30
  */
-router.post('/clear/cultural-content', async (req, res) => {
+router.post('/clear/cultural-content', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     const deleted = await invalidateCulturalContentCache();
     
@@ -254,7 +255,7 @@ router.post('/clear/cultural-content', async (req, res) => {
  *                   type: integer
  *                   example: 20
  */
-router.post('/clear/riddles', async (req, res) => {
+router.post('/clear/riddles', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     const deleted = await invalidateRiddlesCache();
     
@@ -300,7 +301,7 @@ router.post('/clear/riddles', async (req, res) => {
  *                   type: integer
  *                   example: 10
  */
-router.post('/clear/stats', async (req, res) => {
+router.post('/clear/stats', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     const deleted = await invalidateStatsCache();
     
@@ -346,7 +347,7 @@ router.post('/clear/stats', async (req, res) => {
  *                   type: integer
  *                   example: 15
  */
-router.post('/clear/search', async (req, res) => {
+router.post('/clear/search', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     const deleted = await invalidateSearchCache();
     

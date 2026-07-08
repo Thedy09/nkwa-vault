@@ -90,7 +90,7 @@ npm run dev
 
 ```bash
 # Déploiement automatique
-./deploy-vercel.sh
+./deploy.sh
 
 # Ou manuellement
 vercel --prod

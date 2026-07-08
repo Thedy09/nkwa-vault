@@ -3,6 +3,7 @@ const router = express.Router();
 const contentCollector = require('../services/contentCollectorService');
 const { asyncErrorHandler } = require('../utils/errorHandler');
 const { logInfo } = require('../utils/logger');
+const { authenticateToken, authorize } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -96,8 +97,8 @@ const collectChantsHandler = async (req, res) => {
  *       500:
  *         description: Erreur serveur
  */
-router.post('/stories', asyncErrorHandler(collectTalesHandler));
-router.post('/tales', asyncErrorHandler(collectTalesHandler));
+router.post('/stories', authenticateToken, authorize('ADMIN'), asyncErrorHandler(collectTalesHandler));
+router.post('/tales', authenticateToken, authorize('ADMIN'), asyncErrorHandler(collectTalesHandler));
 
 /**
  * @swagger
@@ -116,7 +117,7 @@ router.post('/tales', asyncErrorHandler(collectTalesHandler));
  *       200:
  *         description: Proverbes collectés avec succès
  */
-router.post('/proverbs', asyncErrorHandler(async (req, res) => {
+router.post('/proverbs', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const { limit = 50 } = req.query;
 
   logInfo('Starting African proverbs collection', { limit });
@@ -147,8 +148,8 @@ router.post('/proverbs', asyncErrorHandler(async (req, res) => {
  *       200:
  *         description: Œuvres d'art collectées avec succès
  */
-router.post('/artworks', asyncErrorHandler(collectArtHandler));
-router.post('/art', asyncErrorHandler(collectArtHandler));
+router.post('/artworks', authenticateToken, authorize('ADMIN'), asyncErrorHandler(collectArtHandler));
+router.post('/art', authenticateToken, authorize('ADMIN'), asyncErrorHandler(collectArtHandler));
 
 /**
  * @swagger
@@ -167,8 +168,8 @@ router.post('/art', asyncErrorHandler(collectArtHandler));
  *       200:
  *         description: Musique traditionnelle collectée avec succès
  */
-router.post('/music', asyncErrorHandler(collectChantsHandler));
-router.post('/chants', asyncErrorHandler(collectChantsHandler));
+router.post('/music', authenticateToken, authorize('ADMIN'), asyncErrorHandler(collectChantsHandler));
+router.post('/chants', authenticateToken, authorize('ADMIN'), asyncErrorHandler(collectChantsHandler));
 
 /**
  * @swagger
@@ -187,7 +188,7 @@ router.post('/chants', asyncErrorHandler(collectChantsHandler));
  *       200:
  *         description: Danses traditionnelles collectées avec succès
  */
-router.post('/dances', asyncErrorHandler(async (req, res) => {
+router.post('/dances', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const { limit = 20 } = req.query;
 
   logInfo('Starting traditional dance collection', { limit });
@@ -224,7 +225,7 @@ router.post('/dances', asyncErrorHandler(async (req, res) => {
  *       200:
  *         description: Images collectées avec succès
  */
-router.post('/images', asyncErrorHandler(async (req, res) => {
+router.post('/images', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const { category = 'Africa', limit = 40 } = req.query;
   
   logInfo('Starting Wikimedia images collection', { category, limit });
@@ -255,7 +256,7 @@ router.post('/images', asyncErrorHandler(async (req, res) => {
  *       200:
  *         description: Patrimoine immatériel collecté avec succès
  */
-router.post('/heritage', asyncErrorHandler(async (req, res) => {
+router.post('/heritage', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const { limit = 20 } = req.query;
   
   logInfo('Starting UNESCO heritage collection', { limit });
@@ -305,7 +306,7 @@ router.post('/heritage', asyncErrorHandler(async (req, res) => {
  *       500:
  *         description: Erreur serveur
  */
-router.post('/all', asyncErrorHandler(async (req, res) => {
+router.post('/all', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   logInfo('Starting massive content collection from all sources');
   
   const result = await contentCollector.collectAllContentTypes();

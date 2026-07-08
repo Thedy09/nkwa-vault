@@ -1,29 +1,14 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
+const { prisma } = require('../config/database');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
+const { authenticateToken, authorize } = require('../middleware/auth');
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
-// Configuration multer pour l'upload de fichiers
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, '../../uploads');
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-    cb(null, uploadPath);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
+// Configuration multer pour l'upload de fichiers (memoryStorage pour compatibilité serverless)
 const upload = multer({ 
-  storage: storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
   fileFilter: (req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif|mp3|mp4|wav|webm/;
@@ -37,24 +22,6 @@ const upload = multer({
     }
   }
 });
-
-// Middleware d'authentification
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ message: 'Token d\'accès requis' });
-  }
-
-  // Vérification basique du token (à améliorer avec JWT)
-  if (token === 'admin-token') {
-    req.user = { id: 1, role: 'ADMIN' };
-    next();
-  } else {
-    res.status(403).json({ message: 'Token invalide' });
-  }
-};
 
 // GET - Récupérer tout le contenu avec pagination et filtres
 router.get('/', async (req, res) => {
@@ -174,7 +141,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST - Créer un nouveau contenu
-router.post('/', authenticateToken, upload.fields([
+router.post('/', authenticateToken, authorize('ADMIN'), upload.fields([
   { name: 'image', maxCount: 1 },
   { name: 'audio', maxCount: 1 },
   { name: 'video', maxCount: 1 }
@@ -245,7 +212,7 @@ router.post('/', authenticateToken, upload.fields([
 });
 
 // PUT - Mettre à jour un contenu
-router.put('/:id', authenticateToken, upload.fields([
+router.put('/:id', authenticateToken, authorize('ADMIN'), upload.fields([
   { name: 'image', maxCount: 1 },
   { name: 'audio', maxCount: 1 },
   { name: 'video', maxCount: 1 }
@@ -294,7 +261,7 @@ router.put('/:id', authenticateToken, upload.fields([
 });
 
 // DELETE - Supprimer un contenu
-router.delete('/:id', authenticateToken, async (req, res) => {
+router.delete('/:id', authenticateToken, authorize('ADMIN'), async (req, res) => {
   try {
     const itemId = parseInt(req.params.id);
     

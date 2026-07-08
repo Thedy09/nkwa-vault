@@ -1,5 +1,6 @@
 const { logError, logWarning } = require('./logger');
 const metricsCollector = require('./metrics');
+const { redactSensitiveData } = require('./sanitize');
 
 // Classes d'erreurs personnalisées
 class AppError extends Error {
@@ -120,7 +121,7 @@ const errorHandler = (err, req, res, next) => {
     url: req.url,
     userAgent: req.get('User-Agent'),
     ip: req.ip || req.connection.remoteAddress,
-    body: req.body,
+    body: redactSensitiveData(req.body),
     params: req.params,
     query: req.query
   });
@@ -312,11 +313,23 @@ const createCacheError = (message = 'Erreur de cache') => {
 };
 
 // Configuration des gestionnaires d'erreurs globaux
-const setupErrorHandlers = () => {
+const setupErrorHandlers = (shutdown) => {
   process.on('unhandledRejection', handleUnhandledRejection);
   process.on('uncaughtException', handleUncaughtException);
-  process.on('SIGTERM', () => handleSignal('SIGTERM'));
-  process.on('SIGINT', () => handleSignal('SIGINT'));
+  process.on('SIGTERM', () => {
+    if (typeof shutdown === 'function') {
+      shutdown('SIGTERM');
+      return;
+    }
+    handleSignal('SIGTERM');
+  });
+  process.on('SIGINT', () => {
+    if (typeof shutdown === 'function') {
+      shutdown('SIGINT');
+      return;
+    }
+    handleSignal('SIGINT');
+  });
 };
 
 module.exports = {

@@ -23,7 +23,7 @@ const options = {
         description: 'Serveur de développement'
       },
       {
-        url: 'https://acv-project-starter.vercel.app',
+        url: 'https://nkwa-vault.vercel.app',
         description: 'Serveur de production'
       }
     ],

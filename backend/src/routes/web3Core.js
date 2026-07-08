@@ -3,6 +3,7 @@ const router = express.Router();
 const web3Core = require('../services/web3Core');
 const { logInfo, logError } = require('../utils/logger');
 const { asyncErrorHandler } = require('../utils/errorHandler');
+const { authenticateToken, authorize } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -196,7 +197,7 @@ router.get('/stats', asyncErrorHandler(async (req, res) => {
  *       503:
  *         description: Services Web3 non disponibles
  */
-router.post('/content', asyncErrorHandler(async (req, res) => {
+router.post('/content', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const { title, content, type, language, origin, region, country, authorName } = req.body;
   const mediaFiles = req.files || [];
 
@@ -302,7 +303,7 @@ router.post('/content', asyncErrorHandler(async (req, res) => {
  *       503:
  *         description: Services Web3 non disponibles
  */
-router.post('/certify/:contentId', asyncErrorHandler(async (req, res) => {
+router.post('/certify/:contentId', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const { contentId } = req.params;
   const { title, authorName, type, origin } = req.body;
 
@@ -474,7 +475,7 @@ router.get('/verify/:contentId', asyncErrorHandler(async (req, res) => {
  *       503:
  *         description: Services Web3 non disponibles
  */
-router.post('/rewards', asyncErrorHandler(async (req, res) => {
+router.post('/rewards', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const { userId, rewardType, amount, metadata = {} } = req.body;
 
   if (!userId || !rewardType || !amount) {
@@ -532,7 +533,7 @@ router.post('/rewards', asyncErrorHandler(async (req, res) => {
  *       503:
  *         description: Services Web3 non disponibles
  */
-router.post('/rewards/setup', asyncErrorHandler(async (req, res) => {
+router.post('/rewards/setup', authenticateToken, authorize('ADMIN'), asyncErrorHandler(async (req, res) => {
   const result = await web3Core.createRewardSystem();
 
   logInfo('Web3 reward system setup', { 

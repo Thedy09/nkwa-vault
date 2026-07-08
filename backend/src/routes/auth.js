@@ -5,8 +5,9 @@ const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
 const { authenticateToken } = require('../middleware/auth');
 const { prisma } = require('../config/database');
+const { getJwtSecret, isDemoAuthAllowed } = require('../config/security');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-here';
+const JWT_SECRET = getJwtSecret();
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 
 const router = express.Router();
@@ -74,6 +75,10 @@ function isPrismaUnavailableError(error) {
 }
 
 function shouldUseDemoAuth(error = null) {
+  if (!isDemoAuthAllowed()) {
+    return false;
+  }
+
   const forcedDemoMode = String(process.env.AUTH_DEMO_MODE || '').toLowerCase() === 'true';
   const missingDatabaseUrl = !process.env.DATABASE_URL;
   return forcedDemoMode || missingDatabaseUrl || isPrismaUnavailableError(error);
