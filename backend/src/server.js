@@ -9,6 +9,7 @@ const swaggerSpecs = require('./config/swagger');
 
 // Database
 const { prisma, testConnection, getConnectionStatus } = require('./config/database');
+const { getSupabaseConfig } = require('./config/supabase');
 
 // Web3 Configuration - PILIER CENTRAL
 const web3Config = require('./config/web3');
@@ -158,9 +159,11 @@ app.get(['/health', '/api/health'], (req, res) => {
 // Santé base de données (Supabase / PostgreSQL)
 app.get(['/health/db', '/api/health/db'], async (req, res) => {
   const status = await getConnectionStatus();
+  const supabase = getSupabaseConfig();
   res.status(status.connected ? 200 : 503).json({
     success: status.connected,
     ...status,
+    supabase,
     timestamp: new Date().toISOString()
   });
 });

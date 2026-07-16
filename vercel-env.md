@@ -14,15 +14,20 @@ EVM_REGISTRY_CONTRACT=0xYourCulturalRegistryAddress
 
 ## Variables Base de données (Supabase)
 
-Créez un projet sur [supabase.com](https://supabase.com) puis copiez les chaînes dans
-**Project Settings → Database → Connection string** :
+Projet : [`umbzegdpebbfatrwozvp`](https://supabase.com/dashboard/project/umbzegdpebbfatrwozvp)  
+MCP Cursor : `.cursor/mcp.json` (scope `project_ref=umbzegdpebbfatrwozvp`)
+
+Copiez les chaînes dans **Project Settings → Database → Connection string** :
 
 ```bash
+SUPABASE_PROJECT_REF=umbzegdpebbfatrwozvp
+SUPABASE_URL=https://umbzegdpebbfatrwozvp.supabase.co
+
 # Runtime (Transaction pooler, port 6543) — obligatoire sur Vercel
-DATABASE_URL=postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1
+DATABASE_URL=postgresql://postgres.umbzegdpebbfatrwozvp:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1
 
 # Migrations Prisma (Direct, port 5432) — obligatoire pour `npm run db:deploy`
-DIRECT_URL=postgresql://postgres:[PASSWORD]@db.[REF].supabase.co:5432/postgres
+DIRECT_URL=postgresql://postgres:[PASSWORD]@db.umbzegdpebbfatrwozvp.supabase.co:5432/postgres
 ```
 
 Après avoir défini les variables :
