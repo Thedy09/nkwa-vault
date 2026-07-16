@@ -17,9 +17,11 @@
     "clean": "rm -rf node_modules backend/node_modules frontend/node_modules",
     "setup": "npm run install:all && npm run build",
     "db:migrate": "cd backend && npx prisma migrate dev",
+    "db:deploy": "cd backend && npx prisma migrate deploy",
     "db:generate": "cd backend && npx prisma generate",
     "db:reset": "cd backend && npx prisma migrate reset",
     "db:studio": "cd backend && npx prisma studio",
+    "db:check": "cd backend && npm run db:check",
     "postinstall": "cd backend && npx prisma@6.16.2 generate"
   },
   "keywords": [

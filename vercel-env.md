@@ -12,10 +12,27 @@ EVM_RELAYER_PRIVATE_KEY=0x...
 EVM_REGISTRY_CONTRACT=0xYourCulturalRegistryAddress
 ```
 
-## Variables Base de données
+## Variables Base de données (Supabase)
+
+Créez un projet sur [supabase.com](https://supabase.com) puis copiez les chaînes dans
+**Project Settings → Database → Connection string** :
+
 ```bash
-DATABASE_URL=postgresql://username:password@host:5432/database
+# Runtime (Transaction pooler, port 6543) — obligatoire sur Vercel
+DATABASE_URL=postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1
+
+# Migrations Prisma (Direct, port 5432) — obligatoire pour `npm run db:deploy`
+DIRECT_URL=postgresql://postgres:[PASSWORD]@db.[REF].supabase.co:5432/postgres
 ```
+
+Après avoir défini les variables :
+
+```bash
+npm run db:deploy   # applique les migrations Prisma sur Supabase
+npm run db:check    # vérifie la connexion
+```
+
+En production, contrôlez aussi : `https://<votre-app>/api/health/db`
 
 ## Variables Optionnelles
 ```bash
@@ -40,6 +57,10 @@ IPFS_PROJECT_SECRET=...
 
 # CORS
 CORS_ORIGIN=https://your-domain.vercel.app
+
+# Client Supabase (optionnel)
+SUPABASE_URL=https://[REF].supabase.co
+SUPABASE_ANON_KEY=...
 ```
 
 ## Comment configurer dans Vercel
@@ -47,15 +68,9 @@ CORS_ORIGIN=https://your-domain.vercel.app
 1. Allez sur [vercel.com](https://vercel.com)
 2. Sélectionnez votre projet
 3. Allez dans Settings > Environment Variables
-4. Ajoutez chaque variable avec sa valeur
+4. Ajoutez `DATABASE_URL` et `DIRECT_URL` (Production + Preview)
 5. Redéployez le projet
-
-## Configuration de base de données recommandée
-
-Pour un déploiement rapide, utilisez :
-- **Neon** : https://neon.tech (PostgreSQL gratuit)
-- **PlanetScale** : https://planetscale.com (MySQL)
-- **Supabase** : https://supabase.com (PostgreSQL + plus)
+6. Lancez `npm run db:deploy` une fois avec `DIRECT_URL` exporté en local
 
 ## Configuration Web3 recommandée
 

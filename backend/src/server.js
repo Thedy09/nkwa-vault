@@ -8,7 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./config/swagger');
 
 // Database
-const { prisma, testConnection } = require('./config/database');
+const { prisma, testConnection, getConnectionStatus } = require('./config/database');
 
 // Web3 Configuration - PILIER CENTRAL
 const web3Config = require('./config/web3');
@@ -152,6 +152,16 @@ app.get(['/health', '/api/health'], (req, res) => {
     message: 'Nkwa V Backend is running',
     timestamp: new Date().toISOString(),
     version: '1.0.0'
+  });
+});
+
+// Santé base de données (Supabase / PostgreSQL)
+app.get(['/health/db', '/api/health/db'], async (req, res) => {
+  const status = await getConnectionStatus();
+  res.status(status.connected ? 200 : 503).json({
+    success: status.connected,
+    ...status,
+    timestamp: new Date().toISOString()
   });
 });
 
