@@ -10,10 +10,12 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
     "db:migrate": "npx prisma migrate dev",
+    "db:deploy": "npx prisma migrate deploy",
     "db:generate": "npx prisma generate",
     "db:reset": "npx prisma migrate reset",
     "db:seed": "npx prisma db seed",
     "db:studio": "npx prisma studio",
+    "db:check": "node scripts/check-db.js",
     "setup:logs": "node scripts/setup-logs.js",
     "collect:open": "node scripts/collect-open-content.js",
     "import:open": "node scripts/import-open-content-to-postgres.js"

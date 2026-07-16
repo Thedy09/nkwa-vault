@@ -58,7 +58,7 @@ Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour 
 
 ### **Prérequis**
 - Node.js 18+
-- PostgreSQL 13+
+- Projet [Supabase](https://supabase.com) (PostgreSQL) ou PostgreSQL 13+
 - Redis (optionnel)
 - RPC EVM + clé relayer (pour Web3)
 - Provider IPFS (endpoint RPC ou credentials Infura)
@@ -73,14 +73,15 @@ cd nkwa-vault
 # Installer les dépendances
 npm install
 
-# Configuration de la base de données
-cd backend
-npx prisma generate
-npx prisma migrate deploy
-
-# Configuration des variables d'environnement
+# Variables d'environnement (DATABASE_URL + DIRECT_URL Supabase)
 cp .env.example .env
-# Éditer .env avec vos clés
+cp backend/env.example backend/.env
+# Éditer .env / backend/.env avec vos chaînes Supabase
+
+# Schéma Prisma
+npm run db:generate
+npm run db:deploy
+npm run db:check
 
 # Démarrer l'application
 npm run dev

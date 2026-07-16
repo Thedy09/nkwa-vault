@@ -1,6 +1,7 @@
 // Configuration globale pour les tests
 process.env.NODE_ENV = 'test';
 process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgresql://test:test@localhost:5432/nkwa_vault_test';
+process.env.DIRECT_URL = process.env.DIRECT_URL || process.env.DATABASE_URL;
 process.env.JWT_SECRET = 'test-jwt-secret';
 process.env.EVM_NETWORK = 'testnet';
 process.env.EVM_CHAIN_ID = '84532';

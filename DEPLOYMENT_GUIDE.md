@@ -13,12 +13,22 @@ EVM_RELAYER_PRIVATE_KEY=0x...
 EVM_REGISTRY_CONTRACT=0xYourCulturalRegistryAddress
 ```
 
-### Données et API
+### Données et API (Supabase PostgreSQL)
 
 ```bash
-DATABASE_URL=postgresql://username:password@host:5432/database
+# Transaction pooler (runtime Vercel)
+DATABASE_URL=postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1
+# Direct connection (migrations Prisma)
+DIRECT_URL=postgresql://postgres:[PASSWORD]@db.[REF].supabase.co:5432/postgres
 JWT_SECRET=your_jwt_secret_key_here
 FRONTEND_URL=https://your-domain.example
+```
+
+Puis appliquez le schéma :
+
+```bash
+npm run db:deploy
+npm run db:check
 ```
 
 ### IPFS (au moins une option)
@@ -49,12 +59,13 @@ vercel --prod
 
 ## 4. Vérifications après déploiement
 
-1. Ouvrir `https://<votre-app>/api/web3/status`
-2. Vérifier:
+1. Ouvrir `https://<votre-app>/api/health/db` → `connected: true`, `provider: "supabase"`
+2. Ouvrir `https://<votre-app>/api/web3/status`
+3. Vérifier:
    - `blockchain.initialized: true`
    - `blockchain.contractAddress` renseigné
    - `ipfs.initialized: true` (ou mode démo si non configuré)
-3. Publier un contenu test et vérifier un `txHash` de certification
+4. Publier un contenu test et vérifier un `txHash` de certification
 
 ## 5. Accessibilité pour les non-crypto
 
