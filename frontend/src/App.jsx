@@ -3,41 +3,24 @@ import { motion } from 'framer-motion';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { TranslationProvider, useTranslation } from './contexts/TranslationContext';
 import { NotificationProvider } from './components/NotificationSystem';
-import Home from './pages/Home';
-import UploadForm from './components/UploadForm';
-import Museum from './pages/Museum';
-import VirtualMuseum from './pages/VirtualMuseum';
-import About from './pages/About';
-import Riddles from './pages/Riddles';
-import AdminDashboard from './pages/AdminDashboard';
+import SocialApp from './pages/SocialApp';
 import AuthModal from './components/AuthModal';
-import Web3Auth from './components/Web3Auth';
-import AccessModeSelector from './components/AccessModeSelector';
-import Web3Status from './components/Web3Status';
 import { 
-  Home as HomeIcon, 
-  Upload, 
-  Music, 
   Menu, 
   X, 
   LogIn, 
+  LogOut,
   User, 
-  Users, 
-  Brain, 
-  Star,
   Globe
 } from 'lucide-react';
 import Logo from './components/Logo';
 
 // Composant principal avec authentification
 const AppContent = () => {
-  const { user, isAuthenticated, loginWithWallet } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const { t, language, changeLanguage, getSupportedLanguages, isTranslating } = useTranslation();
-  const [currentPage, setCurrentPage] = useState('home');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [accessModeSelectorOpen, setAccessModeSelectorOpen] = useState(false);
-  const [web3AuthOpen, setWeb3AuthOpen] = useState(false);
 
   const preferredLanguageOrder = ['fr', 'en', 'es', 'pt', 'ar', 'sw', 'yo', 'ig', 'ha', 'zu'];
   const allLanguages = getSupportedLanguages();
@@ -50,68 +33,9 @@ const AppContent = () => {
     return a.name.localeCompare(b.name);
   });
 
-  // Fonction pour gérer la redirection après connexion
-  const handleLoginSuccess = (page) => {
-    setCurrentPage(page);
-    setSidebarOpen(false);
-  };
-
-  const handleAccessModeSelect = (mode) => {
-    setAccessModeSelectorOpen(false);
-    if (mode === 'web3') {
-      setWeb3AuthOpen(true);
-      return;
-    }
+  const openAuth = () => {
     setAuthModalOpen(true);
-  };
-
-  const handleWeb3AuthSuccess = async ({ walletAddress, signature }) => {
-    const result = await loginWithWallet(walletAddress, signature);
-    if (result.success) {
-      setWeb3AuthOpen(false);
-      setSidebarOpen(false);
-      return { success: true };
-    }
-    return result;
-  };
-
-  const menuItems = [
-    { id: 'home', label: t('home'), icon: HomeIcon },
-    { id: 'museum', label: t('museum'), icon: Music },
-    { id: 'virtual-museum', label: t('virtualMuseum'), icon: Star },
-    { id: 'riddles', label: t('riddles'), icon: Brain },
-    { id: 'upload', label: t('share'), icon: Upload },
-    { id: 'about', label: t('about'), icon: Users },
-    // Admin menu item - only visible for admin users
-    ...(isAuthenticated() && user?.role === 'ADMIN' ? [{ id: 'admin', label: t('admin'), icon: Users }] : [])
-  ];
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <Home />;
-      case 'museum':
-        return <Museum />;
-      case 'virtual-museum':
-        return <VirtualMuseum />;
-      case 'riddles':
-        return <Riddles />;
-      case 'upload':
-        return <UploadForm userId={1} />;
-      case 'about':
-        return <About />;
-      case 'admin':
-        // Vérifier que l'utilisateur est admin
-        if (isAuthenticated() && user?.role === 'ADMIN') {
-          return <AdminDashboard />;
-        } else {
-          // Rediriger vers la page d'accueil si pas admin
-          setCurrentPage('home');
-          return <Home />;
-        }
-      default:
-        return <Home />;
-    }
+    setSidebarOpen(false);
   };
 
   return (
@@ -130,19 +54,6 @@ const AppContent = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="nav-links desktop">
-            {menuItems.map(page => (
-              <button
-                key={page.id}
-                className={`nav-link ${currentPage === page.id ? 'active' : ''}`}
-                onClick={() => setCurrentPage(page.id)}
-              >
-                <page.icon size={20} />
-                {page.label}
-              </button>
-            ))}
-          </div>
-
           {/* Auth Section */}
           <div className="nav-actions desktop">
             <div className="language-picker">
@@ -165,12 +76,15 @@ const AppContent = () => {
               {isAuthenticated() ? (
                 <div className="user-info">
                   <User size={20} />
-                  <span>{user?.name || user?.firstName || t('guestUser')}</span>
+                  <span>{user?.name || user?.username || t('guestUser')}</span>
+                  <button className="logout-button" type="button" onClick={logout} aria-label="Se déconnecter">
+                    <LogOut size={16} />
+                  </button>
                 </div>
               ) : (
                 <motion.button
                   className="auth-button"
-                  onClick={() => setAccessModeSelectorOpen(true)}
+                  onClick={openAuth}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -203,22 +117,6 @@ const AppContent = () => {
             <Logo size={32} animated={false} />
             <span>Nkwa V</span>
           </div>
-          <div className="sidebar-links">
-            {menuItems.map(page => (
-              <button
-                key={page.id}
-                className={`sidebar-link ${currentPage === page.id ? 'active' : ''}`}
-                onClick={() => {
-                  setCurrentPage(page.id);
-                  setSidebarOpen(false);
-                }}
-              >
-                <page.icon size={20} />
-                {page.label}
-              </button>
-            ))}
-          </div>
-
           <div className="sidebar-language">
             <label htmlFor="mobile-language-select">{t('languages')}</label>
             <select
@@ -240,15 +138,15 @@ const AppContent = () => {
             {isAuthenticated() ? (
               <div className="user-info">
                 <User size={20} />
-                <span>{user?.name || user?.firstName || t('guestUser')}</span>
+                <span>{user?.name || user?.username || t('guestUser')}</span>
+                <button className="logout-button" type="button" onClick={logout}>
+                  <LogOut size={16} />
+                </button>
               </div>
             ) : (
               <button
                 className="sidebar-auth-button"
-                onClick={() => {
-                  setAccessModeSelectorOpen(true);
-                  setSidebarOpen(false);
-                }}
+                onClick={openAuth}
               >
                 <LogIn size={20} />
                 {t('login')}
@@ -272,19 +170,12 @@ const AppContent = () => {
       {/* Main Content */}
       <motion.main 
         className="main-content"
-        key={currentPage}
+        key={user?.id || 'guest'}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
       >
-        {currentPage === 'home' ? (
-          <div>
-            <Home onNavigate={setCurrentPage} />
-            <Web3Status />
-          </div>
-        ) : (
-          renderPage()
-        )}
+        <SocialApp onRequireAuth={openAuth} />
       </motion.main>
 
       {/* Footer */}
@@ -303,11 +194,6 @@ const AppContent = () => {
             <p className="footer-description">
               {t('footerDesc')}
             </p>
-            <div className="footer-links">
-              <button onClick={() => setCurrentPage('home')}>{t('home')}</button>
-              <button onClick={() => setCurrentPage('museum')}>{t('museum')}</button>
-              <button onClick={() => setCurrentPage('upload')}>{t('share')}</button>
-            </div>
           </div>
           <div className="footer-bottom">
             <p>&copy; 2024 Nkwa V. {t('allRightsReserved')}.</p>
@@ -315,25 +201,9 @@ const AppContent = () => {
         </div>
       </motion.footer>
 
-            {/* Choix du mode de connexion */}
-            <AccessModeSelector
-              isOpen={accessModeSelectorOpen}
-              onModeSelect={handleAccessModeSelect}
-              onClose={() => setAccessModeSelectorOpen(false)}
-            />
-
-            {/* Auth Modal */}
             <AuthModal
               isOpen={authModalOpen}
               onClose={() => setAuthModalOpen(false)}
-              onLoginSuccess={handleLoginSuccess}
-            />
-
-            {/* Wallet Auth */}
-            <Web3Auth
-              isOpen={web3AuthOpen}
-              onClose={() => setWeb3AuthOpen(false)}
-              onAuthSuccess={handleWeb3AuthSuccess}
             />
 
       <style jsx>{`
@@ -451,6 +321,16 @@ const AppContent = () => {
           padding: var(--spacing-sm) var(--spacing-md);
           color: var(--african-yellow);
           font-weight: 500;
+        }
+
+        .logout-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 0;
+          background: transparent;
+          color: inherit;
+          cursor: pointer;
         }
 
         .nav-link {

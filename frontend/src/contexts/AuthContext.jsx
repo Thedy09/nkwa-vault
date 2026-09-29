@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     
     setCheckingAuth(true);
     try {
-      const response = await axios.get(`${API_BASE_URL}/auth/me`);
+      const response = await axios.get(`${API_BASE_URL}/api/social/auth/me`);
       if (response.data.success) {
         setUser(response.data.data.user);
       } else {
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       // Tentative de connexion
       
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+      const response = await axios.post(`${API_BASE_URL}/api/social/auth/login`, {
         email,
         password
       });
@@ -123,7 +123,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       // Tentative d'inscription
       
-      const response = await axios.post(`${API_BASE_URL}/auth/register`, {
+      const response = await axios.post(`${API_BASE_URL}/api/social/auth/register`, {
         email,
         password,
         name
@@ -238,6 +238,10 @@ export const AuthProvider = ({ children }) => {
     return user?.role === 'MODERATOR' || user?.role === 'ADMIN';
   };
 
+  const updateUser = (nextUser) => {
+    setUser(nextUser);
+  };
+
   const value = {
     user,
     loading,
@@ -246,6 +250,7 @@ export const AuthProvider = ({ children }) => {
     loginWithWallet,
     register,
     logout,
+    updateUser,
     isAuthenticated,
     isAdmin,
     isModerator,

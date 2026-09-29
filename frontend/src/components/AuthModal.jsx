@@ -149,7 +149,8 @@ const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="auth-form">
+            <p className="demo-account">Compte déjà dans le réseau : demo@nkwa.africa · demo123</p>
+          <form onSubmit={handleSubmit} className="auth-form">
               {!isLogin && (
                 <div className="input-group">
                   <label htmlFor="name">Nom complet *</label>
@@ -351,6 +352,13 @@ const styles = `
   .close-btn:hover {
     background: rgba(255, 255, 255, 0.1);
     color: var(--african-yellow);
+  }
+
+  .demo-account {
+    margin: 0;
+    padding: 0 var(--spacing-lg);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
   }
 
   .auth-form {

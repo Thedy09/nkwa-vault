@@ -5,7 +5,7 @@ class RedisService {
   constructor() {
     this.client = null;
     this.isConnected = false;
-    this.enabled = String(process.env.REDIS_ENABLED ?? 'true').toLowerCase() !== 'false';
+    this.enabled = String(process.env.REDIS_ENABLED || 'false').toLowerCase() === 'true';
     this.connectionWarningShown = false;
   }
 
