@@ -102,9 +102,28 @@ router.get('/feed', optionalAuth, asyncHandler(async (req, res) => {
     mode,
     limit,
     offset,
-    category: req.query.category || null
+    category: req.query.category || null,
+    games: String(req.query.games || '') === '1'
   });
   sendData(res, { posts, limit, offset });
+}));
+
+router.get('/wisdom/score', authenticateToken, asyncHandler(async (req, res) => {
+  sendData(res, social.wisdomScore(req.user.id));
+}));
+
+router.get('/wisdom', optionalAuth, asyncHandler(async (req, res) => {
+  const { limit, offset } = parsePage(req);
+  const viewerId = req.user?.id || null;
+  sendData(res, {
+    posts: social.listPosts({
+      viewerId,
+      limit,
+      offset,
+      games: true
+    }),
+    score: social.wisdomScore(viewerId)
+  });
 }));
 
 router.get('/explore', optionalAuth, asyncHandler(async (req, res) => {
@@ -124,6 +143,31 @@ router.get('/explore', optionalAuth, asyncHandler(async (req, res) => {
 
 router.get('/community', optionalAuth, asyncHandler(async (req, res) => {
   sendData(res, social.community(req.user?.id || null));
+}));
+
+router.get('/posts/:id/game', optionalAuth, asyncHandler(async (req, res) => {
+  const game = social.getGameByPostId(req.params.id, req.user?.id || null);
+  if (!game) {
+    res.status(404).json({ success: false, message: 'Jeu introuvable' });
+    return;
+  }
+  sendData(res, { game });
+}));
+
+router.post('/posts/:id/game/attempt', authenticateToken, asyncHandler(async (req, res) => {
+  const result = social.submitWisdomAttempt(req.user.id, req.params.id, {
+    answer: req.body?.answer,
+    reveal: Boolean(req.body?.reveal)
+  });
+  if (!result.accepted) {
+    res.status(422).json({
+      success: false,
+      message: 'Ce n\'est pas la bonne réponse',
+      data: result
+    });
+    return;
+  }
+  sendData(res, result, result.correct ? 'Bonne réponse' : 'Réponse révélée');
 }));
 
 router.get('/posts/:id', optionalAuth, asyncHandler(async (req, res) => {

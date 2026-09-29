@@ -12,8 +12,14 @@ export const CATEGORIES = [
   { id: 'devinette', label: 'Devinette' }
 ];
 
+const HERITAGE = new Set(['conte', 'proverbe', 'musique', 'art', 'devinette']);
+
 export function categoryLabel(id) {
   return CATEGORIES.find((item) => item.id === id)?.label || 'Publication';
+}
+
+export function isHeritageArticle(post) {
+  return Boolean(post?.sourceUrl) && !post.videoUrl && !post.audioUrl && HERITAGE.has(post.category);
 }
 
 export function mediaUrl(url) {
@@ -45,8 +51,20 @@ export async function getReels() {
   return response.data.data;
 }
 
-export async function getFeed({ mode = 'discover', offset = 0, category } = {}) {
-  const response = await axios.get(`${root}/feed`, { params: { mode, offset, limit: 20, category } });
+export async function getFeed({ mode = 'discover', offset = 0, category, games = false } = {}) {
+  const response = await axios.get(`${root}/feed`, {
+    params: { mode, offset, limit: 20, category, games: games ? '1' : undefined }
+  });
+  return response.data.data;
+}
+
+export async function getWisdomScore() {
+  const response = await axios.get(`${root}/wisdom/score`);
+  return response.data.data;
+}
+
+export async function attemptWisdom(postId, payload) {
+  const response = await axios.post(`${root}/posts/${postId}/game/attempt`, payload);
   return response.data.data;
 }
 

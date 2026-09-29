@@ -98,6 +98,64 @@ describe('Réseau social', () => {
     expect(duplicate.status).toBe(409);
   });
 
+  test('joue un jeu de sagesse sans divulguer la réponse avant l\'essai', async () => {
+    const listed = await request(app).get('/api/social/wisdom');
+    expect(listed.status).toBe(200);
+    const post = listed.body.data.posts.find((item) => item.game?.key === 'wolof-peigne');
+    expect(post).toBeTruthy();
+    expect(post.game.answer).toBeNull();
+    expect(post.game.explanation).toBeNull();
+    expect(post.game.prompt).toContain('bëñ');
+    expect(post.game.choices.length).toBeGreaterThan(1);
+    expect(post.body.toLowerCase()).not.toContain('peigne');
+
+    const hidden = await request(app).get(`/api/social/posts/${post.id}/game`);
+    expect(hidden.status).toBe(200);
+    expect(hidden.body.data.game.answer).toBeNull();
+    expect(hidden.body.data.game.explanation).toBeNull();
+    expect(hidden.body.data.game.hint).toBeTruthy();
+
+    const login = await request(app)
+      .post('/api/social/auth/login')
+      .send({ email: 'demo@nkwa.africa', password: 'demo123' });
+    const auth = { Authorization: `Bearer ${login.body.data.token}` };
+
+    const before = await request(app).get('/api/social/wisdom/score').set(auth);
+    expect(before.status).toBe(200);
+    const beforeCorrect = before.body.data.correct;
+
+    const wrong = await request(app)
+      .post(`/api/social/posts/${post.id}/game/attempt`)
+      .set(auth)
+      .send({ answer: 'Un crocodile' });
+    expect(wrong.status).toBe(422);
+    expect(wrong.body.success).toBe(false);
+    expect(wrong.body.data.correct).toBe(false);
+    expect(wrong.body.data.game.answer).toBeNull();
+    expect(JSON.stringify(wrong.body.data.game.explanation)).not.toMatch(/peigne/i);
+
+    const stalled = await request(app).get('/api/social/wisdom/score').set(auth);
+    expect(stalled.body.data.correct).toBe(beforeCorrect);
+
+    const right = await request(app)
+      .post(`/api/social/posts/${post.id}/game/attempt`)
+      .set(auth)
+      .send({ answer: 'Un peigne' });
+    expect(right.status).toBe(200);
+    expect(right.body.data.correct).toBe(true);
+    expect(right.body.data.accepted).toBe(true);
+    expect(right.body.data.game.answer).toMatch(/peigne/i);
+    expect(right.body.data.game.explanation).toBeTruthy();
+    expect(right.body.data.score.correct).toBe(beforeCorrect + 1);
+    expect(right.body.data.score.streak).toBeGreaterThan(0);
+
+    const after = await request(app).get('/api/social/wisdom/score').set(auth);
+    expect(after.body.data.correct).toBe(beforeCorrect + 1);
+
+    const unlocked = await request(app).get(`/api/social/posts/${post.id}/game`).set(auth);
+    expect(unlocked.body.data.game.answer).toMatch(/peigne/i);
+  });
+
   test('sert les chants et les vidéos comme des reels', async () => {
     const reels = await request(app).get('/api/social/reels');
     expect(reels.status).toBe(200);

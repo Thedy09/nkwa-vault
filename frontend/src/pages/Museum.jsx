@@ -36,7 +36,7 @@ function archiveReel(item) {
   };
 }
 
-export default function Museum() {
+export default function Museum({ onOpenArticle }) {
   const { t } = useTranslation();
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -87,6 +87,9 @@ export default function Museum() {
           videoUrl: post.videoUrl || null,
           audioUrl: post.audioUrl || null,
           posterUrl: post.posterUrl || post.imageUrl || null,
+          sourceUrl: post.sourceUrl || null,
+          sourceTitle: post.sourceTitle || '',
+          categoryRaw: post.category,
           credit: post.sourceTitle || '',
           createdAt: post.createdAt,
           timestamp: post.createdAt
@@ -224,10 +227,40 @@ export default function Museum() {
                     layout
                     role="button"
                     tabIndex={0}
-                    onClick={() => setActiveReel(index)}
+                    onClick={() => {
+                      const isArticle = item.sourceUrl && !item.videoUrl && !item.audioUrl;
+                      if (isArticle && onOpenArticle) {
+                        onOpenArticle({
+                          id: item.id,
+                          title: item.title,
+                          body: item.description,
+                          origin: item.location,
+                          category: item.categoryRaw || item.category,
+                          sourceTitle: item.sourceTitle,
+                          sourceUrl: item.sourceUrl,
+                          authorName: item.author_name
+                        });
+                        return;
+                      }
+                      setActiveReel(index);
+                    }}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
+                        const isArticle = item.sourceUrl && !item.videoUrl && !item.audioUrl;
+                        if (isArticle && onOpenArticle) {
+                          onOpenArticle({
+                            id: item.id,
+                            title: item.title,
+                            body: item.description,
+                            origin: item.location,
+                            category: item.categoryRaw || item.category,
+                            sourceTitle: item.sourceTitle,
+                            sourceUrl: item.sourceUrl,
+                            authorName: item.author_name
+                          });
+                          return;
+                        }
                         setActiveReel(index);
                       }
                     }}

@@ -9,6 +9,7 @@ import {
   deletePost,
   errorMessage,
   getComments,
+  isHeritageArticle,
   likePost,
   mediaUrl,
   timeAgo,
@@ -16,8 +17,15 @@ import {
   unlikePost
 } from '../../social/api';
 import { reelKind, reelLabel } from '../../social/reels';
+import WisdomGame from './WisdomGame';
 
-export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOpenReel, onRequireAuth }) {
+function articlePreview(body) {
+  const text = String(body || '');
+  const first = text.split('\n').find((line) => line.trim()) || text;
+  return first.length > 180 ? `${first.slice(0, 170).trim()}…` : first;
+}
+
+export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWisdomScore }) {
   const { user, isAuthenticated } = useAuth();
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState([]);
@@ -110,9 +118,10 @@ export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOp
   const canDelete = user && (user.id === post.author.id || user.role === 'ADMIN');
   const kind = reelKind(post);
   const poster = mediaUrl(post.posterUrl || post.imageUrl);
+  const article = isHeritageArticle(post);
 
   return (
-    <article className="post-card">
+    <article className="post-card" data-testid={post.game ? 'wisdom-post' : article ? 'heritage-article' : 'post'}>
       <header className="post-top">
         <button className="person-btn" onClick={() => onOpenProfile(post.author.username)} type="button">
           <img className="avatar" src={mediaUrl(post.author.avatar)} alt="" />
@@ -135,13 +144,20 @@ export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOp
         {post.origin ? <span className="chip">{post.origin}</span> : null}
       </div>
 
-      <p className="post-body">{post.body}</p>
-      {post.sourceUrl ? (
-        <p className="source-line">
-          <a href={post.sourceUrl} target="_blank" rel="noreferrer noopener">
-            {post.sourceTitle || 'Lire la source'}
-          </a>
-        </p>
+      <p className="post-body">{article ? articlePreview(post.body) : post.body}</p>
+      {article ? (
+        <button
+          className="article-open"
+          type="button"
+          data-testid="article-open"
+          onClick={() => onOpenArticle?.(post)}
+        >
+          Lire l&apos;article
+        </button>
+      ) : null}
+      {post.sourceTitle ? <p className="source-line">{post.sourceTitle}</p> : null}
+      {post.game ? (
+        <WisdomGame game={post.game} onRequireAuth={onRequireAuth} onScore={onWisdomScore} />
       ) : null}
       {kind ? (
         <button className={`reel-tile reel-tile-${kind}`} type="button" onClick={() => onOpenReel?.(post)}>

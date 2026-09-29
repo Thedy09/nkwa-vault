@@ -12,6 +12,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Composer from '../components/social/Composer';
 import PostCard from '../components/social/PostCard';
 import ReelViewer from '../components/social/ReelViewer';
+import ArticleReader from '../components/social/ArticleReader';
 import Museum from './Museum';
 import {
   categoryLabel,
@@ -27,6 +28,7 @@ import {
   getProfile,
   getRelations,
   getThread,
+  getWisdomScore,
   markNotificationsRead,
   mediaUrl,
   sendMessage,
@@ -71,6 +73,8 @@ export default function SocialApp({ onRequireAuth }) {
   const [inbox, setInbox] = useState({ notifications: 0, messages: 0, members: 0, posts: 0 });
   const [community, setCommunity] = useState({ suggestions: [], trending: [], members: 0, posts: 0 });
   const [reel, setReel] = useState(null);
+  const [article, setArticle] = useState(null);
+  const [wisdomScore, setWisdomScore] = useState(null);
 
   const refreshInbox = useCallback(async () => {
     if (!user) return;
@@ -145,13 +149,24 @@ export default function SocialApp({ onRequireAuth }) {
           <Feed
             onOpenProfile={openProfile}
             onOpenReel={openReel}
+            onOpenArticle={setArticle}
             onRequireAuth={onRequireAuth}
             community={community}
             onFollowed={refreshCommunity}
+            wisdomScore={wisdomScore}
+            onWisdomScore={setWisdomScore}
           />
         )}
-        {view === 'explore' && <Explore onOpenProfile={openProfile} onOpenReel={openReel} onRequireAuth={onRequireAuth} />}
-        {view === 'archives' && <Museum />}
+        {view === 'explore' && (
+          <Explore
+            onOpenProfile={openProfile}
+            onOpenReel={openReel}
+            onOpenArticle={setArticle}
+            onRequireAuth={onRequireAuth}
+            onWisdomScore={setWisdomScore}
+          />
+        )}
+        {view === 'archives' && <Museum onOpenArticle={setArticle} />}
         {view === 'notifications' && <Notifications onOpenProfile={openProfile} onRead={refreshInbox} />}
         {view === 'messages' && (
           <Messages
@@ -160,15 +175,25 @@ export default function SocialApp({ onRequireAuth }) {
             onChange={refreshInbox}
           />
         )}
-        {view === 'saved' && <Saved onOpenProfile={openProfile} onOpenReel={openReel} onRequireAuth={onRequireAuth} />}
+        {view === 'saved' && (
+          <Saved
+            onOpenProfile={openProfile}
+            onOpenReel={openReel}
+            onOpenArticle={setArticle}
+            onRequireAuth={onRequireAuth}
+            onWisdomScore={setWisdomScore}
+          />
+        )}
         {view === 'profile' && (
           <Profile
             username={profileName || user?.username}
             onOpenProfile={openProfile}
             onOpenReel={openReel}
+            onOpenArticle={setArticle}
             onMessage={openMessages}
             onRequireAuth={onRequireAuth}
             onUpdated={updateUser}
+            onWisdomScore={setWisdomScore}
           />
         )}
       </section>
@@ -202,6 +227,7 @@ export default function SocialApp({ onRequireAuth }) {
           }}
         />
       ) : null}
+      {article ? <ArticleReader article={article} onClose={() => setArticle(null)} /> : null}
     </div>
   );
 }
@@ -250,9 +276,10 @@ function Rail({ community, onOpenProfile, onFollowed, onRequireAuth }) {
   );
 }
 
-function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed }) {
-  const { isAuthenticated } = useAuth();
+function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, community, onFollowed, wisdomScore, onWisdomScore }) {
+  const { isAuthenticated, user } = useAuth();
   const [mode, setMode] = useState(isAuthenticated() ? 'following' : 'discover');
+  const [gamesOnly, setGamesOnly] = useState(false);
   const [posts, setPosts] = useState([]);
   const [reels, setReels] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -263,7 +290,7 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed 
     setLoading(true);
     setError('');
     try {
-      const data = await getFeed({ mode, offset: nextOffset });
+      const data = await getFeed({ mode, offset: nextOffset, games: gamesOnly });
       setPosts((current) => replace ? data.posts : [...current, ...data.posts]);
       setOffset(nextOffset);
     } catch (err) {
@@ -271,7 +298,7 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed 
     } finally {
       setLoading(false);
     }
-  }, [mode]);
+  }, [mode, gamesOnly]);
 
   useEffect(() => {
     load(0, true);
@@ -280,6 +307,11 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed 
   useEffect(() => {
     getReels().then((data) => setReels(data.posts || [])).catch(() => setReels([]));
   }, [posts.length]);
+
+  useEffect(() => {
+    if (!user) return;
+    getWisdomScore().then(onWisdomScore).catch(() => {});
+  }, [user, onWisdomScore]);
 
   const patch = (next) => setPosts((current) => current.map((item) => item.id === next.id ? next : item));
 
@@ -294,14 +326,27 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed 
   return (
     <>
       <div className="chip-row">
-        <button className={`chip ${mode === 'discover' ? 'active' : ''}`} type="button" onClick={() => setMode('discover')}>Pour vous</button>
+        <button className={`chip ${mode === 'discover' && !gamesOnly ? 'active' : ''}`} type="button" onClick={() => { setGamesOnly(false); setMode('discover'); }}>Pour vous</button>
         <button className={`chip ${mode === 'following' ? 'active' : ''}`} type="button" onClick={() => {
           if (!isAuthenticated()) {
             onRequireAuth?.();
             return;
           }
+          setGamesOnly(false);
           setMode('following');
         }}>Abonnements</button>
+        <button
+          className={`chip ${gamesOnly ? 'active' : ''}`}
+          type="button"
+          data-testid="wisdom-entry"
+          onClick={() => {
+            setMode('discover');
+            setGamesOnly((value) => !value);
+          }}
+        >
+          Jeux de sagesse
+        </button>
+        {wisdomScore ? <span className="chip" data-testid="wisdom-score">Sagesse {wisdomScore.correct} · série {wisdomScore.streak}</span> : null}
       </div>
       <div className="mobile-only">
         <Rail community={community} onOpenProfile={onOpenProfile} onFollowed={onFollowed} onRequireAuth={onRequireAuth} />
@@ -314,7 +359,7 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed 
               const poster = mediaUrl(post.posterUrl || post.imageUrl);
               const kind = post.videoUrl ? 'Vidéo' : post.audioUrl ? 'Chant' : 'Image';
               return (
-                <button key={post.id} className="reel-rail-card" type="button" onClick={() => openMedia(post)}>
+                <button key={post.id} className="reel-rail-card" type="button" data-testid="reel-card" onClick={() => openMedia(post)}>
                   {poster ? <img src={poster} alt="" /> : <span className="reel-rail-fallback" />}
                   <span className="reel-rail-kind">{kind}</span>
                 </button>
@@ -342,7 +387,9 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed 
           onDelete={(id) => setPosts((current) => current.filter((item) => item.id !== id))}
           onOpenProfile={onOpenProfile}
           onOpenReel={openMedia}
+          onOpenArticle={onOpenArticle}
           onRequireAuth={onRequireAuth}
+          onWisdomScore={onWisdomScore}
         />
       ))}
       {!loading && posts.length === 0 ? (
@@ -360,7 +407,7 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, community, onFollowed 
   );
 }
 
-function Explore({ onOpenProfile, onOpenReel, onRequireAuth }) {
+function Explore({ onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWisdomScore }) {
   const [q, setQ] = useState('');
   const [category, setCategory] = useState('');
   const [posts, setPosts] = useState([]);
@@ -406,14 +453,16 @@ function Explore({ onOpenProfile, onOpenReel, onRequireAuth }) {
           onDelete={(id) => setPosts((current) => current.filter((item) => item.id !== id))}
           onOpenProfile={onOpenProfile}
           onOpenReel={(post) => onOpenReel(post, posts)}
+          onOpenArticle={onOpenArticle}
           onRequireAuth={onRequireAuth}
+          onWisdomScore={onWisdomScore}
         />
       ))}
     </>
   );
 }
 
-function Profile({ username, onOpenProfile, onOpenReel, onMessage, onRequireAuth, onUpdated }) {
+function Profile({ username, onOpenProfile, onOpenReel, onOpenArticle, onMessage, onRequireAuth, onUpdated, onWisdomScore }) {
   const { user: me, isAuthenticated } = useAuth();
   const [data, setData] = useState(null);
   const [editing, setEditing] = useState(false);
@@ -514,7 +563,9 @@ function Profile({ username, onOpenProfile, onOpenReel, onMessage, onRequireAuth
           onDelete={(id) => setData((current) => ({ ...current, posts: current.posts.filter((item) => item.id !== id) }))}
           onOpenProfile={onOpenProfile}
           onOpenReel={(post) => onOpenReel(post, data.posts)}
+          onOpenArticle={onOpenArticle}
           onRequireAuth={onRequireAuth}
+          onWisdomScore={onWisdomScore}
         />
       ))}
     </>
@@ -637,7 +688,7 @@ function Messages({ initialUsername, onOpenProfile, onChange }) {
   );
 }
 
-function Saved({ onOpenProfile, onOpenReel, onRequireAuth }) {
+function Saved({ onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWisdomScore }) {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState('');
 
@@ -660,7 +711,9 @@ function Saved({ onOpenProfile, onOpenReel, onRequireAuth }) {
           onDelete={(id) => setPosts((current) => current.filter((item) => item.id !== id))}
           onOpenProfile={onOpenProfile}
           onOpenReel={(post) => onOpenReel(post, posts)}
+          onOpenArticle={onOpenArticle}
           onRequireAuth={onRequireAuth}
+          onWisdomScore={onWisdomScore}
         />
       ))}
     </>
