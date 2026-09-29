@@ -47,7 +47,7 @@
       "dest": "/frontend/static/$1"
     },
     {
-      "src": "/(favicon\\.ico|manifest\\.json|logo192\\.png|logo512\\.png|robots\\.txt|asset-manifest\\.json)",
+      "src": "/(favicon\\.ico|favicon\\.svg|manifest\\.json|logo192\\.png|logo512\\.png|robots\\.txt|asset-manifest\\.json)",
       "dest": "/frontend/$1"
     },
     {

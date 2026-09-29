@@ -110,6 +110,8 @@ export default function Museum({ onOpenArticle }) {
 
   useEffect(() => {
     loadCulturalContent();
+    // Chargement initial unique. loadCulturalContent est recréée à chaque rendu.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

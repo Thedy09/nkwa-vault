@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bell, 
@@ -232,7 +232,7 @@ export const NotificationProvider = ({ children }) => {
 
 // Container des notifications
 const NotificationContainer = () => {
-  const { notifications, unreadCount, removeNotification, markAsRead } = useNotifications();
+  const { notifications, unreadCount, removeNotification } = useNotifications();
   const [isOpen, setIsOpen] = useState(false);
 
   return (

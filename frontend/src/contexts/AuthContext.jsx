@@ -40,6 +40,8 @@ export const AuthProvider = ({ children }) => {
     };
     
     initializeAuth();
+    // Relance uniquement quand le jeton change. checkAuth met à jour user et checkingAuth.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const checkAuth = async () => {

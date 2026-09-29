@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
-import { useTranslation } from '../contexts/TranslationContext';
 import { 
   X, 
   LogIn, 
@@ -17,7 +16,6 @@ import {
 
 const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const { login, register } = useAuth();
-  const { t } = useTranslation();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

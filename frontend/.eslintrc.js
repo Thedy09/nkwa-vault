@@ -1,7 +1,6 @@
 module.exports = {
   extends: [
-    'react-app',
-    'react-app/jest'
+    'react-app'
   ],
   rules: {
     'no-unused-vars': 'warn',
@@ -11,6 +10,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
+    jest: true
   }
 };
