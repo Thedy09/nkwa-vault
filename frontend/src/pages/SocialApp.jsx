@@ -9,7 +9,6 @@ import {
   Library
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import Composer from '../components/social/Composer';
 import PostCard from '../components/social/PostCard';
 import ReelViewer from '../components/social/ReelViewer';
 import ArticleReader from '../components/social/ArticleReader';
@@ -41,7 +40,7 @@ import { collectReels } from '../social/reels';
 import '../social/social.css';
 
 const NAV = [
-  { id: 'feed', label: 'Fil', icon: Home },
+  { id: 'feed', label: 'Journal', icon: Home },
   { id: 'explore', label: 'Explorer', icon: Compass },
   { id: 'archives', label: 'Archives', icon: Library },
   { id: 'notifications', label: 'Alertes', icon: Bell },
@@ -49,21 +48,6 @@ const NAV = [
   { id: 'saved', label: 'Enregistrés', icon: Bookmark },
   { id: 'profile', label: 'Profil', icon: UserRound }
 ];
-
-function PeopleList({ users, onOpenProfile }) {
-  if (!users?.length) return <p className="muted">Aucun membre.</p>;
-  return users.map((person) => (
-    <button className="suggestion" key={person.id} type="button" onClick={() => onOpenProfile(person.username)}>
-      <span className="person">
-        <img className="avatar" src={mediaUrl(person.avatar)} alt="" />
-        <span>
-          <strong>{person.name}</strong>
-          <div className="muted">@{person.username} · {person.stats.followers} abonnés</div>
-        </span>
-      </span>
-    </button>
-  ));
-}
 
 export default function SocialApp({ onRequireAuth }) {
   const { user, isAuthenticated, updateUser } = useAuth();
@@ -232,37 +216,12 @@ export default function SocialApp({ onRequireAuth }) {
   );
 }
 
-function Rail({ community, onOpenProfile, onFollowed, onRequireAuth }) {
-  const { isAuthenticated } = useAuth();
-  const follow = async (username) => {
-    if (!isAuthenticated()) {
-      onRequireAuth?.();
-      return;
-    }
-    await followUser(username);
-    onFollowed?.();
-  };
-
+function Rail({ community }) {
   return (
     <>
       <div className="rail-block">
-        <h3>{community.members || 0} membres · {community.posts || 0} publications</h3>
-        <p className="muted">Un fil pour transmettre contes, proverbes, chants et nouvelles du quotidien.</p>
-      </div>
-      <div className="rail-block">
-        <h3>À suivre</h3>
-        {(community.suggestions || []).map((person) => (
-          <div className="suggestion" key={person.id}>
-            <button className="person-btn person" type="button" onClick={() => onOpenProfile(person.username)}>
-              <img className="avatar" src={mediaUrl(person.avatar)} alt="" />
-              <span>
-                <strong>{person.name}</strong>
-                <div className="muted">@{person.username}</div>
-              </span>
-            </button>
-            <button className="primary-btn" type="button" onClick={() => follow(person.username)}>Suivre</button>
-          </div>
-        ))}
+        <h3>Sources</h3>
+        <p className="muted">Contes, devinettes, chants et articles attribués à leur institution. Le texte d&apos;origine reste celui de la localité. La traduction suit la langue choisie.</p>
       </div>
       <div className="rail-block">
         <h3>En circulation</h3>
@@ -276,9 +235,9 @@ function Rail({ community, onOpenProfile, onFollowed, onRequireAuth }) {
   );
 }
 
-function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, community, onFollowed, wisdomScore, onWisdomScore }) {
+function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, community, wisdomScore, onWisdomScore }) {
   const { isAuthenticated, user } = useAuth();
-  const [mode, setMode] = useState(isAuthenticated() ? 'following' : 'discover');
+  const [mode, setMode] = useState('discover');
   const [gamesOnly, setGamesOnly] = useState(false);
   const [posts, setPosts] = useState([]);
   const [reels, setReels] = useState([]);
@@ -325,8 +284,13 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, communi
 
   return (
     <>
+      <header className="archive-masthead">
+        <p className="eyebrow">Archives culturelles</p>
+        <h1>Le journal</h1>
+        <p className="muted">Contes, devinettes, chants et articles, chacun relié à sa source.</p>
+      </header>
       <div className="chip-row">
-        <button className={`chip ${mode === 'discover' && !gamesOnly ? 'active' : ''}`} type="button" onClick={() => { setGamesOnly(false); setMode('discover'); }}>Pour vous</button>
+        <button className={`chip ${mode === 'discover' && !gamesOnly ? 'active' : ''}`} type="button" onClick={() => { setGamesOnly(false); setMode('discover'); }}>À la une</button>
         <button className={`chip ${mode === 'following' ? 'active' : ''}`} type="button" onClick={() => {
           if (!isAuthenticated()) {
             onRequireAuth?.();
@@ -349,11 +313,11 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, communi
         {wisdomScore ? <span className="chip" data-testid="wisdom-score">Sagesse {wisdomScore.correct} · série {wisdomScore.streak}</span> : null}
       </div>
       <div className="mobile-only">
-        <Rail community={community} onOpenProfile={onOpenProfile} onFollowed={onFollowed} onRequireAuth={onRequireAuth} />
+        <Rail community={community} />
       </div>
       {reels.length > 0 ? (
         <div className="reel-rail-wrap">
-          <div className="reel-rail-title">Reels</div>
+          <div className="reel-rail-title">Images et chants</div>
           <div className="reel-rail">
             {reels.map((post) => {
               const poster = mediaUrl(post.posterUrl || post.imageUrl);
@@ -368,16 +332,6 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, communi
           </div>
         </div>
       ) : null}
-      <Composer
-        onRequireAuth={onRequireAuth}
-        onCreated={(post) => {
-          setPosts((current) => [post, ...current]);
-          if (post.videoUrl || post.audioUrl || post.imageUrl) {
-            setReels((current) => [post, ...current.filter((item) => item.id !== post.id)]);
-          }
-          onFollowed?.();
-        }}
-      />
       {error ? <p className="error-text">{error}</p> : null}
       {posts.map((post) => (
         <PostCard
@@ -394,8 +348,8 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, communi
       ))}
       {!loading && posts.length === 0 ? (
         <div className="empty-card">
-          <h3>{mode === 'following' ? 'Votre fil d\'abonnements est vide' : 'Aucune publication'}</h3>
-          <p className="muted">Suivez des membres ou passez sur « Pour vous » pour lire la communauté.</p>
+          <h3>{mode === 'following' ? 'Aucune ressource dans les abonnements' : 'Aucune ressource vérifiée'}</h3>
+          <p className="muted">Le fil public ne montre que des ressources sourcées.</p>
         </div>
       ) : null}
       {posts.length >= 20 ? (
@@ -411,14 +365,12 @@ function Explore({ onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWi
   const [q, setQ] = useState('');
   const [category, setCategory] = useState('');
   const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
 
   const run = useCallback(async (query, selected) => {
     try {
       const data = await explore({ q: query, category: selected });
       setPosts(data.posts);
-      setUsers(data.users);
       setError('');
     } catch (err) {
       setError(errorMessage(err, 'Recherche indisponible'));
@@ -432,7 +384,7 @@ function Explore({ onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWi
   return (
     <>
       <form className="search-line" onSubmit={(event) => { event.preventDefault(); run(q, category); }}>
-        <input value={q} onChange={(event) => setQ(event.target.value)} placeholder="Chercher un membre, un conte, une ville…" />
+        <input value={q} onChange={(event) => setQ(event.target.value)} placeholder="Chercher un conte, une devinette, une langue…" />
         <button className="primary-btn" type="submit">Chercher</button>
       </form>
       <div className="chip-row">
@@ -444,7 +396,6 @@ function Explore({ onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWi
         ))}
       </div>
       {error ? <p className="error-text">{error}</p> : null}
-      {users.length > 0 ? <PeopleList users={users} onOpenProfile={onOpenProfile} /> : null}
       {posts.map((post) => (
         <PostCard
           key={post.id}
@@ -460,6 +411,21 @@ function Explore({ onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWi
       ))}
     </>
   );
+}
+
+function PeopleList({ users, onOpenProfile }) {
+  if (!users?.length) return <p className="muted">Aucun membre.</p>;
+  return users.map((person) => (
+    <button className="suggestion" key={person.id} type="button" onClick={() => onOpenProfile(person.username)}>
+      <span className="person">
+        <img className="avatar" src={mediaUrl(person.avatar)} alt="" />
+        <span>
+          <strong>{person.name}</strong>
+          <div className="muted">@{person.username}</div>
+        </span>
+      </span>
+    </button>
+  ));
 }
 
 function Profile({ username, onOpenProfile, onOpenReel, onOpenArticle, onMessage, onRequireAuth, onUpdated, onWisdomScore }) {

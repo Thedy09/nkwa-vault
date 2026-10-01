@@ -30,7 +30,9 @@ function archiveReel(item) {
     poster: item.posterUrl || item.imageUrl || item.image || '',
     body: item.description || item.content || item.title || '',
     origin: item.location || '',
-    author: item.author_name || item.artist || '',
+    language: item.language || '',
+    translations: item.translations || null,
+    author: item.sourceTitle || item.credit || item.location || 'Ressource vérifiée',
     username: '',
     credit: item.credit || ''
   };
@@ -81,8 +83,10 @@ export default function Museum({ onOpenArticle }) {
           content: post.body,
           category: mapArchiveCategory(post.category),
           location: post.origin,
-          author_name: post.author?.name || 'Membre',
-          source: post.author?.username ? `@${post.author.username}` : 'Nkwa',
+          author_name: post.sourceTitle || post.origin || 'Ressource vérifiée',
+          language: post.language || '',
+          translations: post.translations || null,
+          source: post.sourceTitle || 'Ressource vérifiée',
           imageUrl: post.imageUrl || null,
           videoUrl: post.videoUrl || null,
           audioUrl: post.audioUrl || null,
@@ -313,7 +317,7 @@ export default function Museum({ onOpenArticle }) {
                         </div>
                         <div className="meta-item">
                           <User size={14} />
-                          <span>{item.author_name || item.artist || 'Tradition orale'}</span>
+                          <span>{item.sourceTitle || item.author_name || 'Ressource vérifiée'}</span>
                         </div>
                         <div className="meta-item">
                           <Calendar size={14} />
@@ -371,10 +375,10 @@ export default function Museum({ onOpenArticle }) {
           display: flex;
           align-items: center;
           gap: var(--spacing-sm);
-          font-size: 2.2rem;
-          font-weight: 700;
+          font-size: 2.4rem;
+          font-weight: 560;
           margin-bottom: var(--spacing-sm);
-          color: var(--african-yellow);
+          color: var(--paper);
         }
 
         .museum-subtitle {
@@ -404,8 +408,8 @@ export default function Museum({ onOpenArticle }) {
           width: 100%;
           padding: 12px 14px 12px 40px;
           border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.06);
+          border-radius: var(--radius-sm);
+          background: rgba(255, 255, 255, 0.04);
           color: white;
           font-family: inherit;
           user-select: text;
@@ -426,8 +430,8 @@ export default function Museum({ onOpenArticle }) {
 
         .category-filter {
           padding: 8px 14px;
-          border-radius: 999px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: var(--radius-sm);
+          border: 1px solid var(--line);
           background: rgba(255, 255, 255, 0.06);
           color: white;
           cursor: pointer;
@@ -458,7 +462,7 @@ export default function Museum({ onOpenArticle }) {
           cursor: pointer;
           height: min(78vh, 760px);
           min-height: 520px;
-          border-radius: 18px;
+          border-radius: var(--radius-md);
           overflow: hidden;
           border: 1px solid rgba(255, 255, 255, 0.15);
           background: #131313;

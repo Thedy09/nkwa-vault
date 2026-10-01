@@ -106,6 +106,10 @@ describe('Réseau social', () => {
     expect(post.game.answer).toBeNull();
     expect(post.game.explanation).toBeNull();
     expect(post.game.prompt).toContain('bëñ');
+    expect(post.game.prompt.toLowerCase()).not.toContain('dents');
+    expect(post.game.language).toBe('Wolof');
+    expect(post.game.translations.fr.prompt).toMatch(/dents/i);
+    expect(post.game.translations.en.prompt).toMatch(/teeth/i);
     expect(post.game.choices.length).toBeGreaterThan(1);
     expect(post.body.toLowerCase()).not.toContain('peigne');
 
@@ -144,7 +148,8 @@ describe('Réseau social', () => {
     expect(right.status).toBe(200);
     expect(right.body.data.correct).toBe(true);
     expect(right.body.data.accepted).toBe(true);
-    expect(right.body.data.game.answer).toMatch(/peigne/i);
+    expect(right.body.data.game.answer).toMatch(/peñ/i);
+    expect(right.body.data.game.translations.fr.answer).toMatch(/peigne/i);
     expect(right.body.data.game.explanation).toBeTruthy();
     expect(right.body.data.score.correct).toBe(beforeCorrect + 1);
     expect(right.body.data.score.streak).toBeGreaterThan(0);
@@ -153,7 +158,41 @@ describe('Réseau social', () => {
     expect(after.body.data.correct).toBe(beforeCorrect + 1);
 
     const unlocked = await request(app).get(`/api/social/posts/${post.id}/game`).set(auth);
-    expect(unlocked.body.data.game.answer).toMatch(/peigne/i);
+    expect(unlocked.body.data.game.answer).toMatch(/peñ/i);
+  });
+
+  test('le fil public ne montre que des ressources vérifiées, sans noms de personnes', async () => {
+    const feed = await request(app).get('/api/social/feed');
+    expect(feed.status).toBe(200);
+    const posts = feed.body.data.posts;
+    expect(posts.length).toBeGreaterThan(0);
+    const blob = JSON.stringify(posts.map((post) => ({
+      body: post.body,
+      sourceTitle: post.sourceTitle,
+      origin: post.origin
+    })));
+    expect(blob).not.toMatch(/Amina Diallo|Fatou Ba|Kofi Mensah|Aïsha Diallo|Ama Koné/);
+    posts.forEach((post) => {
+      const verified = Boolean(post.sourceUrl) || Boolean(post.game);
+      expect(verified).toBe(true);
+    });
+
+    const twi = posts.find((post) => post.id === 'tale-ananse-twi');
+    expect(twi).toBeTruthy();
+    expect(twi.language).toBe('Twi');
+    expect(twi.body).toContain('Ananse');
+    expect(twi.translations.fr).toMatch(/sagesse/i);
+    expect(twi.translations.sw).toMatch(/hekima/i);
+
+    const ghomala = posts.find((post) => post.id === 'tale-tortue-ghomala');
+    expect(ghomala.language).toBe('Ghɔmálá\'');
+    expect(ghomala.body).toContain('Cwə́');
+    expect(ghomala.translations.fr).toMatch(/éléphant/i);
+
+    const bambara = posts.find((post) => post.game?.key === 'bambara-tambour');
+    expect(bambara.game.language).toBe('Bambara');
+    expect(bambara.game.prompt).toContain('kuma');
+    expect(bambara.game.translations.fr.prompt).toMatch(/oreilles/i);
   });
 
   test('sert les chants et les vidéos comme des reels', async () => {
@@ -163,6 +202,20 @@ describe('Réseau social', () => {
     expect(posts.some((post) => post.videoUrl && post.videoUrl.endsWith('.webm'))).toBe(true);
     expect(posts.some((post) => post.audioUrl && post.audioUrl.endsWith('.mp3'))).toBe(true);
     expect(posts.find((post) => post.id === 'reel-sabar').posterUrl).toBeTruthy();
+
+    const forbidden = /autre onglet|Ouvre le reel|sans quitter|s'ouvre dans|Appuie pour ouvrir|lecteur s'ouvre|ouvre-le pour|Lecture dans Nkwa|dans un autre onglet/i;
+    expect(JSON.stringify(posts)).not.toMatch(forbidden);
+
+    const feed = await request(app).get('/api/social/feed');
+    expect(JSON.stringify(feed.body)).not.toMatch(forbidden);
+    const sabar = posts.find((post) => post.id === 'reel-sabar');
+    expect(sabar.body).toBe('Sabar');
+    expect(sabar.translations.fr).toMatch(/tambour/i);
+    expect(sabar.translations.en).toMatch(/drum/i);
+    expect(sabar.translations.es).toMatch(/tambor/i);
+    expect(sabar.translations.pt).toMatch(/tambor/i);
+    expect(sabar.translations.sw).toMatch(/ngoma/i);
+    expect(sabar.translations.ar).toMatch(/الطبل/);
   });
 
   test('refuse une publication sans session', async () => {

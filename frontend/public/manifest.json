@@ -1,6 +1,6 @@
 {
-  "short_name": "Nkwa V",
-  "name": "Nkwa V - Patrimoine Culturel Africain",
+  "short_name": "Nkwa",
+  "name": "Nkwa — Archives du patrimoine",
   "icons": [
     {
       "src": "favicon.svg",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#1a1a1a",
-  "background_color": "#1a1a1a"
+  "theme_color": "#121614",
+  "background_color": "#121614"
 }

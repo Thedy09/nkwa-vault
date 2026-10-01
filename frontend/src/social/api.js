@@ -19,7 +19,11 @@ export function categoryLabel(id) {
 }
 
 export function isHeritageArticle(post) {
-  return Boolean(post?.sourceUrl) && !post.videoUrl && !post.audioUrl && HERITAGE.has(post.category);
+  return Boolean(post?.sourceUrl) && !post.videoUrl && !post.audioUrl && !post.game && HERITAGE.has(post.category);
+}
+
+export function resourceLabel(post) {
+  return post?.sourceTitle || post?.origin || 'Ressource vérifiée';
 }
 
 export function mediaUrl(url) {

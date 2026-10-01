@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from '../../contexts/TranslationContext';
 import { attemptWisdom, errorMessage } from '../../social/api';
 
 const KIND_LABEL = {
@@ -9,6 +10,7 @@ const KIND_LABEL = {
 
 export default function WisdomGame({ game, onRequireAuth, onScore }) {
   const { isAuthenticated } = useAuth();
+  const { language } = useTranslation();
   const [current, setCurrent] = useState(game);
   const [hintOn, setHintOn] = useState(false);
   const [draft, setDraft] = useState('');
@@ -19,6 +21,11 @@ export default function WisdomGame({ game, onRequireAuth, onScore }) {
 
   const unlocked = Boolean(current.answer);
   const kindLabel = KIND_LABEL[current.kind] || 'Jeu de sagesse';
+  const pack = current.translations?.[language] || current.translations?.fr || {};
+  const promptGloss = pack.prompt || current.gloss || '';
+  const hintText = pack.hint || current.hint || '';
+  const answerGloss = pack.answer || '';
+  const explanationText = pack.explanation || current.explanation || '';
 
   const apply = (data, notice) => {
     if (data?.game) setCurrent(data.game);
@@ -54,9 +61,11 @@ export default function WisdomGame({ game, onRequireAuth, onScore }) {
       <div className="chip-row">
         <span className="chip">Jeu de sagesse</span>
         <span className="chip">{kindLabel}</span>
+        {current.language ? <span className="chip">{current.language}</span> : null}
         {score ? <span className="chip">Sagesse {score.correct} · série {score.streak}</span> : null}
       </div>
-      <p className="wisdom-prompt">{current.prompt}</p>
+      <p className="wisdom-prompt" lang={current.language || undefined}>{current.prompt}</p>
+      {promptGloss ? <p className="wisdom-gloss">{promptGloss}</p> : null}
       {current.choices?.length ? (
         <div className="wisdom-choices">
           {current.choices.map((choice) => (
@@ -103,14 +112,15 @@ export default function WisdomGame({ game, onRequireAuth, onScore }) {
           </button>
         ) : null}
       </div>
-      {hintOn && current.hint ? <p className="wisdom-hint">{current.hint}</p> : null}
+      {hintOn && hintText ? <p className="wisdom-hint">{hintText}</p> : null}
       {error ? <p className="error-text" data-testid="wisdom-error">{error}</p> : null}
       {message ? <p className="wisdom-message" data-testid="wisdom-message">{message}</p> : null}
       {unlocked ? (
         <div className="wisdom-reveal" data-testid="wisdom-solved">
           <strong>{current.correct ? 'Tu as trouvé.' : 'Réponse révélée.'}</strong>
           <p>{current.answer}</p>
-          {current.explanation ? <p className="muted">{current.explanation}</p> : null}
+          {answerGloss ? <p className="wisdom-gloss">{answerGloss}</p> : null}
+          {explanationText ? <p className="muted">{explanationText}</p> : null}
         </div>
       ) : null}
     </section>

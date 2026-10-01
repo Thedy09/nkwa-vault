@@ -29,9 +29,11 @@ export function toReelItem(post) {
     poster: poster ? mediaUrl(poster) : '',
     body: post.body || '',
     origin: post.origin || '',
-    author: post.author?.name || '',
-    username: post.author?.username || '',
-    avatar: post.author?.avatar ? mediaUrl(post.author.avatar) : '',
+    language: post.language || '',
+    translations: post.translations || null,
+    author: post.sourceTitle || post.origin || 'Ressource vérifiée',
+    username: '',
+    avatar: '',
     credit: post.sourceTitle || ''
   };
 }
