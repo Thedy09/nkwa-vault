@@ -103,7 +103,8 @@ router.get('/feed', optionalAuth, asyncHandler(async (req, res) => {
     limit,
     offset,
     category: req.query.category || null,
-    games: String(req.query.games || '') === '1'
+    games: String(req.query.games || '') === '1',
+    verified: true
   });
   sendData(res, { posts, limit, offset });
 }));
@@ -135,10 +136,10 @@ router.get('/explore', optionalAuth, asyncHandler(async (req, res) => {
     offset,
     category: req.query.category || null,
     q,
-    heritage: String(req.query.heritage || '') === '1'
+    heritage: String(req.query.heritage || '') === '1',
+    verified: true
   });
-  const users = q ? social.searchUsers(q, req.user?.id || null, 8) : [];
-  sendData(res, { posts, users, limit, offset });
+  sendData(res, { posts, users: [], limit, offset });
 }));
 
 router.get('/community', optionalAuth, asyncHandler(async (req, res) => {
@@ -247,7 +248,8 @@ router.get('/users/:username', optionalAuth, asyncHandler(async (req, res) => {
       viewerId: req.user?.id || null,
       username: row.username,
       limit,
-      offset
+      offset,
+      verified: true
     })
   });
 }));

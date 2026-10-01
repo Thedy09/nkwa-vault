@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { reelLabel } from '../../social/reels';
+import LocalPassage from '../../social/LocalPassage';
 
-export default function ReelViewer({ items, index, onClose, onChangeIndex, onOpenAuthor }) {
+export default function ReelViewer({ items, index, onClose, onChangeIndex }) {
   const item = items[index];
   const mediaRef = useRef(null);
   const touchStart = useRef(null);
@@ -132,16 +133,13 @@ export default function ReelViewer({ items, index, onClose, onChangeIndex, onOpe
             <span className="chip">{reelLabel(item.kind)}</span>
             <span className="muted">{index + 1} / {items.length}</span>
           </div>
-          {item.username ? (
-            <button className="reel-author" type="button" onClick={() => onOpenAuthor?.(item.username)}>
-              {item.avatar ? <img src={item.avatar} alt="" /> : null}
-              {item.author}
-            </button>
-          ) : (
-            <strong>{item.author}</strong>
-          )}
+          <strong>{item.author}</strong>
           {item.origin ? <div className="muted">{item.origin}</div> : null}
-          <p>{item.body}</p>
+          {item.translations ? (
+            <LocalPassage text={item.body} translations={item.translations} languageName={item.language} />
+          ) : (
+            <p>{item.body}</p>
+          )}
           {item.credit ? <div className="muted">{item.credit}</div> : null}
         </div>
       </section>

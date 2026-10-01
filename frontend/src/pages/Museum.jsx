@@ -30,7 +30,9 @@ function archiveReel(item) {
     poster: item.posterUrl || item.imageUrl || item.image || '',
     body: item.description || item.content || item.title || '',
     origin: item.location || '',
-    author: item.author_name || item.artist || '',
+    language: item.language || '',
+    translations: item.translations || null,
+    author: item.sourceTitle || item.credit || item.location || 'Ressource vérifiée',
     username: '',
     credit: item.credit || ''
   };
@@ -81,8 +83,10 @@ export default function Museum({ onOpenArticle }) {
           content: post.body,
           category: mapArchiveCategory(post.category),
           location: post.origin,
-          author_name: post.author?.name || 'Membre',
-          source: post.author?.username ? `@${post.author.username}` : 'Nkwa',
+          author_name: post.sourceTitle || post.origin || 'Ressource vérifiée',
+          language: post.language || '',
+          translations: post.translations || null,
+          source: post.sourceTitle || 'Ressource vérifiée',
           imageUrl: post.imageUrl || null,
           videoUrl: post.videoUrl || null,
           audioUrl: post.audioUrl || null,
@@ -313,7 +317,7 @@ export default function Museum({ onOpenArticle }) {
                         </div>
                         <div className="meta-item">
                           <User size={14} />
-                          <span>{item.author_name || item.artist || 'Tradition orale'}</span>
+                          <span>{item.sourceTitle || item.author_name || 'Ressource vérifiée'}</span>
                         </div>
                         <div className="meta-item">
                           <Calendar size={14} />

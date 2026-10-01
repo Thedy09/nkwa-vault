@@ -681,11 +681,27 @@
   border: 1px solid rgba(255, 215, 0, 0.38);
 }
 
-.wisdom-prompt {
-  margin: 10px 0;
+.wisdom-prompt,
+.local-original {
+  margin: 10px 0 4px;
   font-size: 1.08rem;
   font-weight: 700;
   line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.wisdom-gloss,
+.local-gloss {
+  margin: 0 0 10px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.local-lang {
+  margin: 0;
+  color: rgba(255, 215, 0, 0.85);
+  font-size: 0.82rem;
 }
 
 .wisdom-choices,

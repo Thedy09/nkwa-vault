@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { categoryLabel } from '../../social/api';
+import { categoryLabel, resourceLabel } from '../../social/api';
+import LocalPassage from '../../social/LocalPassage';
 
 function articleTitle(article) {
   const explicit = String(article?.title || '').trim();
@@ -30,10 +31,12 @@ export default function ArticleReader({ article, onClose }) {
           {article.origin ? <span className="chip">{article.origin}</span> : null}
         </div>
         <h2>{title}</h2>
-        {article.authorName || article.author?.name ? (
-          <p className="muted">{article.authorName || article.author.name}</p>
-        ) : null}
-        <p className="article-summary">{body || article.body}</p>
+        <p className="muted">{resourceLabel(article)}</p>
+        {article.translations ? (
+          <LocalPassage text={body || article.body} translations={article.translations} languageName={article.language} />
+        ) : (
+          <p className="article-summary">{body || article.body}</p>
+        )}
         <p className="source-credit" data-testid="article-source">
           {article.sourceTitle || 'Source'}
           {article.sourceUrl ? <span> · {article.sourceUrl}</span> : null}

@@ -12,12 +12,14 @@ import {
   isHeritageArticle,
   likePost,
   mediaUrl,
+  resourceLabel,
   timeAgo,
   unbookmarkPost,
   unlikePost
 } from '../../social/api';
 import { reelKind, reelLabel } from '../../social/reels';
 import WisdomGame from './WisdomGame';
+import LocalPassage from '../../social/LocalPassage';
 
 function articlePreview(body) {
   const text = String(body || '');
@@ -25,7 +27,7 @@ function articlePreview(body) {
   return first.length > 180 ? `${first.slice(0, 170).trim()}…` : first;
 }
 
-export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOpenReel, onOpenArticle, onRequireAuth, onWisdomScore }) {
+export default function PostCard({ post, onChange, onDelete, onOpenReel, onOpenArticle, onRequireAuth, onWisdomScore }) {
   const { user, isAuthenticated } = useAuth();
   const [open, setOpen] = useState(false);
   const [comments, setComments] = useState([]);
@@ -123,17 +125,10 @@ export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOp
   return (
     <article className="post-card" data-testid={post.game ? 'wisdom-post' : article ? 'heritage-article' : 'post'}>
       <header className="post-top">
-        <button className="person-btn" onClick={() => onOpenProfile(post.author.username)} type="button">
-          <img className="avatar" src={mediaUrl(post.author.avatar)} alt="" />
-        </button>
         <div>
-          <button className="person-btn person-name" onClick={() => onOpenProfile(post.author.username)} type="button">
-            {post.author.name}
-          </button>
+          <strong className="person-name">{resourceLabel(post)}</strong>
           <div className="muted">
-            @{post.author.username}
-            {post.author.country ? ` · ${post.author.country}` : ''}
-            {' · '}
+            {post.language ? `${post.language} · ` : ''}
             {timeAgo(post.createdAt)}
           </div>
         </div>
@@ -144,7 +139,17 @@ export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOp
         {post.origin ? <span className="chip">{post.origin}</span> : null}
       </div>
 
-      <p className="post-body">{article ? articlePreview(post.body) : post.body}</p>
+      {post.game ? null : (
+        post.translations ? (
+          <LocalPassage
+            text={article ? articlePreview(post.body) : post.body}
+            translations={article ? null : post.translations}
+            languageName={post.language}
+          />
+        ) : (
+          <p className="post-body">{article ? articlePreview(post.body) : post.body}</p>
+        )
+      )}
       {article ? (
         <button
           className="article-open"
@@ -200,12 +205,8 @@ export default function PostCard({ post, onChange, onDelete, onOpenProfile, onOp
         <div className="comments">
           {comments.map((comment) => (
             <div className="comment" key={comment.id}>
-              <img className="avatar" src={mediaUrl(comment.author.avatar)} alt="" />
               <div>
-                <button className="person-btn person-name" type="button" onClick={() => onOpenProfile(comment.author.username)}>
-                  {comment.author.name}
-                </button>
-                <span className="muted"> · {timeAgo(comment.createdAt)}</span>
+                <span className="muted">{timeAgo(comment.createdAt)}</span>
                 <p>{comment.body}</p>
                 {user && (user.id === comment.author.id || user.role === 'ADMIN') ? (
                   <button className="text-btn muted" type="button" onClick={() => removeComment(comment.id)}>

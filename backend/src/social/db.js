@@ -172,7 +172,21 @@ function openDatabase() {
   if (!postColumns.includes('poster_url')) {
     db.exec('ALTER TABLE posts ADD COLUMN poster_url TEXT');
   }
+  if (!postColumns.includes('language')) {
+    db.exec('ALTER TABLE posts ADD COLUMN language TEXT');
+  }
+  if (!postColumns.includes('translations')) {
+    db.exec('ALTER TABLE posts ADD COLUMN translations TEXT');
+  }
   db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_posts_source_url ON posts(source_url) WHERE source_url IS NOT NULL');
+
+  const gameColumns = db.prepare('PRAGMA table_info(wisdom_games)').all().map((column) => column.name);
+  if (!gameColumns.includes('language')) {
+    db.exec('ALTER TABLE wisdom_games ADD COLUMN language TEXT');
+  }
+  if (!gameColumns.includes('translations')) {
+    db.exec('ALTER TABLE wisdom_games ADD COLUMN translations TEXT');
+  }
 
   return db;
 }

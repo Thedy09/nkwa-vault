@@ -2,6 +2,12 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { db } = require('./db');
+const {
+  wisdomGames: localWisdomGames,
+  tales: localTales,
+  localizedArticles,
+  reelLocales
+} = require('./localResources');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-here';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
@@ -157,7 +163,7 @@ function createNotification({ userId, actorId, type, postId = null, createdAt = 
 
 const POST_SELECT = `
   SELECT
-    p.id, p.body, p.category, p.origin, p.image_url, p.video_url, p.audio_url, p.poster_url,
+    p.id, p.body, p.category, p.origin, p.language, p.translations, p.image_url, p.video_url, p.audio_url, p.poster_url,
     p.source_url, p.source_title, p.created_at, p.author_id,
     u.username, u.name, u.avatar, u.country,
     (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id) AS like_count,
@@ -169,12 +175,25 @@ const POST_SELECT = `
   JOIN users u ON u.id = p.author_id
 `;
 
+function parseJsonObject(raw) {
+  if (!raw) return null;
+  if (typeof raw === 'object') return raw;
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' ? parsed : null;
+  } catch (_) {
+    return null;
+  }
+}
+
 function mapPost(row) {
   return {
     id: row.id,
     body: row.body,
     category: row.category,
     origin: row.origin || '',
+    language: row.language || '',
+    translations: parseJsonObject(row.translations),
     imageUrl: row.image_url || null,
     videoUrl: row.video_url || null,
     audioUrl: row.audio_url || null,
@@ -232,25 +251,49 @@ function parseChoices(raw) {
   }
 }
 
+function publicGameTranslations(raw, unlocked) {
+  const parsed = parseJsonObject(raw);
+  if (!parsed) return null;
+  const out = {};
+  Object.entries(parsed).forEach(([code, value]) => {
+    if (!value || typeof value !== 'object') return;
+    const entry = {
+      prompt: value.prompt || '',
+      hint: value.hint || ''
+    };
+    if (unlocked) {
+      entry.answer = value.answer || '';
+      entry.explanation = value.explanation || '';
+    }
+    out[code] = entry;
+  });
+  return out;
+}
+
 function toPublicGame(row, viewerId) {
   if (!row) return null;
   const attempt = viewerId
     ? db.prepare('SELECT correct, revealed FROM wisdom_attempts WHERE user_id = ? AND game_id = ?').get(viewerId, row.id)
     : null;
   const unlocked = Boolean(attempt && (Number(attempt.correct) === 1 || Number(attempt.revealed) === 1));
+  const translations = publicGameTranslations(row.translations, unlocked);
+  const french = translations?.fr || {};
   return {
     id: row.id,
     postId: row.post_id,
     key: row.game_key,
     kind: row.kind,
+    language: row.language || '',
     prompt: row.prompt,
-    hint: row.hint || '',
+    gloss: french.prompt || '',
+    translations,
+    hint: row.hint || french.hint || '',
     choices: parseChoices(row.choices),
     attempted: Boolean(attempt),
     correct: Boolean(attempt && Number(attempt.correct) === 1),
     revealed: Boolean(attempt && Number(attempt.revealed) === 1),
     answer: unlocked ? displayAnswer(row.answer) : null,
-    explanation: unlocked ? (row.explanation || '') : null
+    explanation: unlocked ? (french.explanation || row.explanation || '') : null
   };
 }
 
@@ -274,7 +317,12 @@ function getPostById(postId, viewerId = null) {
   return row ? attachGames([mapPost(row)], viewerId)[0] : null;
 }
 
-function listPosts({ viewerId = null, mode = 'discover', limit = 20, offset = 0, category = null, q = null, username = null, bookmarkedBy = null, heritage = false, games = false }) {
+const VERIFIED_SQL = `(
+  (p.source_url IS NOT NULL AND p.source_url != '')
+  OR EXISTS (SELECT 1 FROM wisdom_games wg WHERE wg.post_id = p.id)
+)`;
+
+function listPosts({ viewerId = null, mode = 'discover', limit = 20, offset = 0, category = null, q = null, username = null, bookmarkedBy = null, heritage = false, games = false, verified = false }) {
   const where = [];
   const params = [viewerId, viewerId, viewerId, viewerId, viewerId, viewerId];
 
@@ -296,6 +344,10 @@ function listPosts({ viewerId = null, mode = 'discover', limit = 20, offset = 0,
 
   if (games) {
     where.push('EXISTS (SELECT 1 FROM wisdom_games wg WHERE wg.post_id = p.id)');
+  }
+
+  if (verified) {
+    where.push(VERIFIED_SQL);
   }
 
   if (username) {
@@ -453,7 +505,8 @@ function createPost(authorId, payload) {
 function listReels({ viewerId = null, limit = 18 } = {}) {
   const rows = db.prepare(`
     ${POST_SELECT}
-    WHERE p.video_url IS NOT NULL OR p.audio_url IS NOT NULL OR p.image_url IS NOT NULL
+    WHERE (p.video_url IS NOT NULL OR p.audio_url IS NOT NULL)
+      AND p.source_url IS NOT NULL AND p.source_url != ''
     ORDER BY
       CASE WHEN p.video_url IS NOT NULL OR p.audio_url IS NOT NULL THEN 0 ELSE 1 END,
       p.created_at DESC
@@ -1203,23 +1256,39 @@ function ensureReels() {
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
+  const updateReelLocale = db.prepare(`
+    UPDATE posts
+    SET body = ?, language = ?, translations = ?
+    WHERE id = ?
+  `);
   reels.forEach((reel) => {
+    const locale = reelLocales[reel.id];
     const author = findUser.get(reel.author);
-    if (!author || findReel.get(reel.id, reel.sourceUrl)) return;
-    insert.run(
-      reel.id,
-      author.id,
-      reel.body,
-      reel.category,
-      reel.origin,
-      reel.posterUrl,
-      reel.videoUrl || null,
-      reel.audioUrl || null,
-      reel.posterUrl,
-      reel.sourceUrl,
-      reel.sourceTitle,
-      hoursAgo(reel.hours)
-    );
+    if (!author) return;
+    if (!findReel.get(reel.id, reel.sourceUrl)) {
+      insert.run(
+        reel.id,
+        author.id,
+        locale?.body || reel.body,
+        reel.category,
+        reel.origin,
+        reel.posterUrl,
+        reel.videoUrl || null,
+        reel.audioUrl || null,
+        reel.posterUrl,
+        reel.sourceUrl,
+        reel.sourceTitle,
+        hoursAgo(reel.hours)
+      );
+    }
+    if (locale) {
+      updateReelLocale.run(
+        locale.body,
+        locale.language,
+        JSON.stringify(locale.translations),
+        reel.id
+      );
+    }
   });
 }
 
@@ -1227,15 +1296,18 @@ function ensureCulturalPost(post) {
   const author = db.prepare('SELECT id FROM users WHERE username = ?').get(post.author);
   if (!author) return null;
   const existing = db.prepare('SELECT id FROM posts WHERE id = ?').get(post.id);
+  const translations = post.translations ? JSON.stringify(post.translations) : null;
   if (existing) {
     db.prepare(`
       UPDATE posts
-      SET body = ?, category = ?, origin = ?, source_url = ?, source_title = ?, author_id = ?
+      SET body = ?, category = ?, origin = ?, language = ?, translations = ?, source_url = ?, source_title = ?, author_id = ?
       WHERE id = ?
     `).run(
       post.body,
       post.category,
       post.origin,
+      post.language || null,
+      translations,
       post.sourceUrl || null,
       post.sourceTitle || null,
       author.id,
@@ -1249,15 +1321,17 @@ function ensureCulturalPost(post) {
   }
   db.prepare(`
     INSERT INTO posts (
-      id, author_id, body, category, origin, image_url, video_url, audio_url, poster_url,
+      id, author_id, body, category, origin, language, translations, image_url, video_url, audio_url, poster_url,
       source_url, source_title, created_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     post.id,
     author.id,
     post.body,
     post.category,
     post.origin,
+    post.language || null,
+    translations,
     null,
     null,
     null,
@@ -1270,136 +1344,17 @@ function ensureCulturalPost(post) {
 }
 
 function ensureWisdomGames() {
-  const games = [
-    {
-      id: 'game-wolof-peigne',
-      key: 'wolof-peigne',
-      kind: 'riddle',
-      prompt: 'Lan la am bëñ, waaye du màtt ?',
-      answer: 'Un peigne|peigne',
-      hint: 'On le passe dans les cheveux, le matin.',
-      explanation: 'Dans les devinettes wolof, les dents qui ne mordent pas désignent le peigne. La formule se dit souvent au marché comme à la maison.',
-      choices: ['Un peigne', 'Un crocodile', 'Le mil', 'La lune'],
-      post: {
-        id: 'wisdom-wolof-peigne',
-        author: 'amina',
-        category: 'devinette',
-        origin: 'Sénégal · Wolof',
-        hours: 1.25,
-        body: 'Devinette wolof à jouer dans le fil. Lis l\'énigme, choisis une réponse, demande l\'indice, ou révèle l\'explication. La solution reste cachée tant que tu n\'as pas trouvé.'
-      }
-    },
-    {
-      id: 'game-akan-table',
-      key: 'akan-table',
-      kind: 'riddle',
-      prompt: 'Mewɔ nan nnan, nanso mintumi nnante. J\'ai quatre jambes, et pourtant je ne marche pas.',
-      answer: 'Une table|table',
-      hint: 'Elle reste à la maison et porte ce qu\'on pose dessus.',
-      explanation: 'Devinette akan courante : les jambes ne suffisent pas à faire un marcheur. La réponse attendue est la table.',
-      choices: ['Une table', 'Un cheval', 'Anansi', 'Le pagne'],
-      post: {
-        id: 'wisdom-akan-table',
-        author: 'kofi',
-        category: 'devinette',
-        origin: 'Ghana · Akan',
-        hours: 1.4,
-        body: 'Une devinette akan que ma mère posait avant le repas. Joue-la ici : quatre appuis, aucun pas.'
-      }
-    },
-    {
-      id: 'game-bambara-tambour',
-      key: 'bambara-tambour',
-      kind: 'riddle',
-      prompt: 'Mun ye min ye, a bɛ kuma nka a tɛ tulo ye ? Qu\'est-ce qui parle sans avoir d\'oreilles ?',
-      answer: 'Le djembé|djembe|djembé|tambour',
-      hint: 'On le frappe pour appeler la danse.',
-      explanation: 'Dans les devinettes mandingues, le tambour parle : il appelle, répond et raconte, sans oreilles pour entendre.',
-      choices: ['Le djembé', 'Le vent', 'Le baobab', 'La calebasse'],
-      post: {
-        id: 'wisdom-bambara-tambour',
-        author: 'fatou',
-        category: 'devinette',
-        origin: 'Mali · Bambara',
-        hours: 1.55,
-        body: 'Devinette bambara de la cour des griots. La réponse ne s\'écrit pas sous l\'énigme : il faut la proposer.'
-      }
-    },
-    {
-      id: 'game-wolof-souplesse',
-      key: 'wolof-souplesse',
-      kind: 'proverb',
-      prompt: 'Garab guy lem du damm. Quel sens choisis-tu ?',
-      answer: 'Qui sait plier ne se brise pas',
-      hint: 'On le dit à quelqu\'un qui refuse de céder un peu.',
-      explanation: 'Proverbe wolof : la souplesse évite la rupture. Il circule au marché autant que dans les conseils de famille.',
-      choices: [
-        'Qui sait plier ne se brise pas',
-        'L\'arbre trop droit tombe toujours le premier jour',
-        'Le vent ne casse que les jeunes pousses',
-        'Il faut couper avant la saison des pluies'
-      ],
-      post: {
-        id: 'wisdom-wolof-souplesse',
-        author: 'aisha',
-        category: 'proverbe',
-        origin: 'Sénégal · Wolof',
-        hours: 1.7,
-        body: 'Un proverbe wolof entendu au marché, à jouer plutôt qu\'à seulement lire. Choisis le sens, puis ouvre l\'explication.'
-      }
-    },
-    {
-      id: 'game-akan-enseigner',
-      key: 'akan-enseigner',
-      kind: 'proverb',
-      prompt: 'Obi nnim a, obi kyere. Quel conseil ce proverbe donne-t-il ?',
-      answer: 'Si l\'un ignore, un autre enseigne',
-      hint: 'Deux personnes, un savoir qui doit circuler.',
-      explanation: 'Proverbe akan : personne n\'est tenu de tout savoir si la communauté peut enseigner. La sagesse se passe de main en main.',
-      choices: [
-        'Si l\'un ignore, un autre enseigne',
-        'Chacun garde son secret',
-        'Le silence vaut mieux que la parole',
-        'Le chef décide seul'
-      ],
-      post: {
-        id: 'wisdom-akan-enseigner',
-        author: 'kofi',
-        category: 'proverbe',
-        origin: 'Ghana · Akan',
-        hours: 1.85,
-        body: 'Proverbe akan à résoudre ensemble. Le texte est public, le sens juste se gagne en jouant.'
-      }
-    },
-    {
-      id: 'game-yoruba-caractere',
-      key: 'yoruba-caractere',
-      kind: 'proverb',
-      prompt: 'Ìwà l\'ẹwà. Que place ce proverbe au-dessus du reste ?',
-      answer: 'Le caractère|caractère|caractere',
-      hint: 'Ce n\'est ni l\'or ni l\'apparence.',
-      explanation: '« Ìwà l\'ẹwà » se traduit souvent par « le caractère est la beauté ». Le proverbe yoruba juge une personne à sa conduite.',
-      choices: ['Le caractère', 'L\'or', 'La vitesse', 'Le pagne'],
-      post: {
-        id: 'wisdom-yoruba-caractere',
-        author: 'chinedu',
-        category: 'proverbe',
-        origin: 'Nigeria · Yoruba',
-        hours: 2.05,
-        body: 'Proverbe yoruba que je donne à mes élèves avant de corriger un devoir. Joue-le : une seule des quatre réponses tient.'
-      }
-    }
-  ];
+  const games = localWisdomGames;
 
   const findGame = db.prepare('SELECT id FROM wisdom_games WHERE id = ? OR game_key = ? OR post_id = ?');
   const insertGame = db.prepare(`
     INSERT INTO wisdom_games (
-      id, post_id, game_key, kind, prompt, answer, hint, explanation, choices, created_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      id, post_id, game_key, kind, language, prompt, answer, hint, explanation, choices, translations, created_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   const updateGame = db.prepare(`
     UPDATE wisdom_games
-    SET post_id = ?, game_key = ?, kind = ?, prompt = ?, answer = ?, hint = ?, explanation = ?, choices = ?
+    SET post_id = ?, game_key = ?, kind = ?, language = ?, prompt = ?, answer = ?, hint = ?, explanation = ?, choices = ?, translations = ?
     WHERE id = ?
   `);
 
@@ -1407,17 +1362,23 @@ function ensureWisdomGames() {
     const postId = ensureCulturalPost(game.post);
     if (!postId) return;
     const choices = JSON.stringify(game.choices);
+    const french = game.translations?.fr || {};
+    const hint = game.hint || french.hint || '';
+    const explanation = game.explanation || french.explanation || '';
+    const translations = game.translations ? JSON.stringify(game.translations) : null;
     const existing = findGame.get(game.id, game.key, postId);
     if (existing) {
       updateGame.run(
         postId,
         game.key,
         game.kind,
+        game.language || null,
         game.prompt,
         game.answer,
-        game.hint,
-        game.explanation,
+        hint,
+        explanation,
         choices,
+        translations,
         existing.id
       );
       return;
@@ -1427,11 +1388,13 @@ function ensureWisdomGames() {
       postId,
       game.key,
       game.kind,
+      game.language || null,
       game.prompt,
       game.answer,
-      game.hint,
-      game.explanation,
+      hint,
+      explanation,
       choices,
+      translations,
       hoursAgo(game.post.hours)
     );
   });
@@ -1441,27 +1404,27 @@ function ensureHeritageArticles() {
   const articles = [
     {
       id: 'article-kankurang',
-      author: 'amina',
+      author: 'admin',
       category: 'conte',
       origin: 'Sénégal et Gambie · Mandingue',
       hours: 2.4,
       sourceUrl: 'https://ich.unesco.org/en/RL/kankurang-manding-initiatory-rite-00143',
       sourceTitle: 'UNESCO · Rite initiatique du Kankurang',
-      body: 'Le Kankurang, rite des fibres et de la parole\n\nEn Casamance et en Gambie, le Kankurang accompagne l\'initiation mandingue. Le masque de feuilles et d\'écorces sort avec les circoncis, rappelle l\'ordre du village et écarte ce qui menace la transmission. Danse, fouet et chant font partie du même récit. L\'UNESCO inscrit ce rite au patrimoine culturel immatériel.'
+      ...localizedArticles['article-kankurang']
     },
     {
       id: 'article-ifa',
-      author: 'chinedu',
+      author: 'admin',
       category: 'conte',
       origin: 'Nigeria · Yoruba',
       hours: 2.6,
       sourceUrl: 'https://ich.unesco.org/en/RL/ifa-divination-system-00146',
       sourceTitle: 'UNESCO · Système divinatoire Ifa',
-      body: 'Ifa, une bibliothèque dite à voix haute\n\nIfa est un système de divination yoruba porté par les babalawo. Les signes, les odu, organisent un vaste corpus de poèmes qui conseillent, soignent et racontent l\'origine des choses. On n\'y cherche pas une réponse unique : on relie une personne à une mémoire commune. Le système est reconnu par l\'UNESCO.'
+      ...localizedArticles['article-ifa']
     },
     {
       id: 'article-gelede',
-      author: 'aisha',
+      author: 'admin',
       category: 'art',
       origin: 'Bénin, Nigeria, Togo · Yoruba',
       hours: 2.8,
@@ -1471,7 +1434,7 @@ function ensureHeritageArticles() {
     },
     {
       id: 'article-sosso-bala',
-      author: 'fatou',
+      author: 'admin',
       category: 'musique',
       origin: 'Guinée · Mandingue',
       hours: 3.05,
@@ -1481,7 +1444,7 @@ function ensureHeritageArticles() {
     },
     {
       id: 'article-manden',
-      author: 'kofi',
+      author: 'admin',
       category: 'proverbe',
       origin: 'Mali · Mandingue',
       hours: 3.25,
@@ -1491,7 +1454,7 @@ function ensureHeritageArticles() {
     },
     {
       id: 'article-aka',
-      author: 'zola',
+      author: 'admin',
       category: 'musique',
       origin: 'Centrafrique · Aka',
       hours: 3.45,
@@ -1502,6 +1465,7 @@ function ensureHeritageArticles() {
   ];
 
   articles.forEach((article) => ensureCulturalPost(article));
+  localTales.forEach((tale) => ensureCulturalPost(tale));
 }
 
 ensureSeeded();
