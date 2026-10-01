@@ -4,9 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Web3](https://img.shields.io/badge/Web3-Enabled-blue)](https://web3.foundation/)
 
-> **Préservez, partagez et certifiez le patrimoine culturel africain sur la blockchain**
+> **Le réseau social du patrimoine culturel africain : publier, suivre, commenter, écrire.**
 
-Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour préserver, partager et certifier le patrimoine culturel africain. Accessible à tous, avec ou sans wallet crypto.
+Nkwa est un réseau social. Les membres publient des contes, proverbes, chants, images et nouvelles du quotidien, se suivent, commentent et s'écrivent. Les données vivent dans une base SQLite locale, sans PostgreSQL obligatoire.
 
 ## ✨ **Fonctionnalités Principales**
 
@@ -57,34 +57,36 @@ Nkwa V est une plateforme révolutionnaire qui utilise la technologie Web3 pour 
 ## 📦 **Installation**
 
 ### **Prérequis**
-- Node.js 18+
-- PostgreSQL 13+
-- Redis (optionnel)
-- RPC EVM + clé relayer (pour Web3)
-- Provider IPFS (endpoint RPC ou credentials Infura)
+- Node.js 22+
+
+Redis, PostgreSQL, un wallet et IPFS restent optionnels. Le réseau social fonctionne avec SQLite.
 
 ### **Installation Locale**
 
 ```bash
-# Cloner le repository
 git clone https://github.com/Thedy09/nkwa-vault.git
 cd nkwa-vault
-
-# Installer les dépendances
 npm install
-
-# Configuration de la base de données
-cd backend
-npx prisma generate
-npx prisma migrate deploy
-
-# Configuration des variables d'environnement
-cp .env.example .env
-# Éditer .env avec vos clés
-
-# Démarrer l'application
 npm run dev
 ```
+
+Le frontend écoute sur http://localhost:3000 et l'API sur http://localhost:4000.
+
+Comptes déjà présents dans le réseau :
+
+- `demo@nkwa.africa` / `demo123`
+- `admin@acv.africa` / `admin123`
+- les autres membres de départ utilisent `nkwa2026`
+
+### **Ce que le réseau permet**
+- Inscription et connexion par email
+- Fil « Pour vous » et fil des abonnements
+- Publications avec catégorie, origine, image, chant ou vidéo
+- Reels : les chants, vidéos et images s'ouvrent dans l'application
+- J'aime, commentaires, enregistrements
+- Profils, abonnements, recherche
+- Messages privés et alertes
+- Archives alimentées par les publications culturelles des membres
 
 ### **Déploiement Vercel**
 

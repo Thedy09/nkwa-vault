@@ -103,14 +103,11 @@ const translations = {
     musicDesc: 'Listen to traditional and modern melodies',
     artCategory: 'Art & Crafts',
     artDesc: 'Admire exceptional artistic creations',
-    traditions: 'Traditions',
     traditionsDesc: 'Explore ancestral customs and practices',
     
     // Features
     digitalPreservation: 'Digital Preservation',
     digitalPreservationDesc: 'Permanent backup on an EVM-compatible blockchain',
-    community: 'Community',
-    communityDesc: 'Share and discover with other enthusiasts',
     authenticity: 'Authenticity',
     authenticityDesc: 'Verified and authentic content',
     
@@ -351,14 +348,11 @@ const translations = {
     musicDesc: 'Écoutez les mélodies traditionnelles et modernes',
     artCategory: 'Art & Artisanat',
     artDesc: 'Admirez les créations artistiques exceptionnelles',
-    traditions: 'Traditions',
     traditionsDesc: 'Explorez les coutumes et pratiques ancestrales',
     
     // Features
     digitalPreservation: 'Préservation Digitale',
     digitalPreservationDesc: 'Sauvegarde permanente sur une blockchain compatible EVM',
-    community: 'Communauté',
-    communityDesc: 'Partagez et découvrez avec d\'autres passionnés',
     authenticity: 'Authenticité',
     authenticityDesc: 'Contenu vérifié et authentique',
     

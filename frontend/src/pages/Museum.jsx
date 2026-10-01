@@ -1,11 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../contexts/TranslationContext';
-import { Search, Music, MapPin, User, Calendar } from 'lucide-react';
-import { staticCulturalContent } from '../data/staticContent';
+import { Search, Music, MapPin, User, Calendar, Play } from 'lucide-react';
 import { API_BASE_URL } from '../config/api';
+import ReelViewer from '../components/social/ReelViewer';
 
-export default function Museum() {
+function archiveKind(item) {
+  if (item.videoUrl || item.video) return 'video';
+  if (item.audioUrl || item.audio || item.ipfs_cid) return 'audio';
+  const url = String(item.imageUrl || item.image || item.videoUrl || '').toLowerCase();
+  if (/\.pdf($|\?)/.test(url)) return 'page';
+  if (item.imageUrl || item.image) return 'image';
+  return 'text';
+}
+
+function archiveReel(item) {
+  const kind = archiveKind(item);
+  const src = kind === 'video'
+    ? (item.videoUrl || item.video)
+    : kind === 'audio'
+      ? (item.audioUrl || item.audio || (item.ipfs_cid ? `https://ipfs.io/ipfs/${item.ipfs_cid}` : ''))
+      : kind === 'page'
+        ? (item.imageUrl || item.image)
+        : (item.imageUrl || item.image || '');
+  return {
+    id: item.id,
+    kind,
+    src: src || '',
+    poster: item.posterUrl || item.imageUrl || item.image || '',
+    body: item.description || item.content || item.title || '',
+    origin: item.location || '',
+    author: item.author_name || item.artist || '',
+    username: '',
+    credit: item.credit || ''
+  };
+}
+
+export default function Museum({ onOpenArticle }) {
   const { t } = useTranslation();
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -13,6 +44,7 @@ export default function Museum() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeReel, setActiveReel] = useState(-1);
 
   const categories = [
     { value: 'all', label: t('all'), color: 'var(--african-yellow)' },
@@ -20,149 +52,57 @@ export default function Museum() {
     { value: 'proverbe', label: t('proverbs'), color: 'var(--african-red)' },
     { value: 'devinette', label: 'Devinettes', color: 'var(--african-gold)' },
     { value: 'chant', label: t('songs'), color: 'var(--african-gold)' },
-    { value: 'danse', label: 'Danses', color: 'var(--african-earth)' },
     { value: 'artisanat', label: t('artFilter'), color: 'var(--african-yellow)' }
   ];
+
+  const mapArchiveCategory = (category) => {
+    if (category === 'musique') return 'chant';
+    if (category === 'art') return 'artisanat';
+    return category;
+  };
 
   const loadCulturalContent = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const [talesRes, proverbsRes, riddlesRes, musicRes, dancesRes, artRes] = await Promise.all([
-        fetch(`${API_BASE_URL}/cultural-content/tales`),
-        fetch(`${API_BASE_URL}/cultural-content/proverbs`),
-        fetch(`${API_BASE_URL}/cultural-content/cultural-riddles`),
-        fetch(`${API_BASE_URL}/cultural-content/music`),
-        fetch(`${API_BASE_URL}/cultural-content/dances`),
-        fetch(`${API_BASE_URL}/cultural-content/art`)
-      ]);
+      const response = await fetch(`${API_BASE_URL}/api/social/explore?heritage=1&limit=50`);
+      const payload = await response.json();
+      if (!response.ok || !payload.success) {
+        throw new Error(payload.message || 'Archives indisponibles');
+      }
 
-      const [talesData, proverbsData, riddlesData, musicData, dancesData, artData] = await Promise.all([
-        talesRes.json(),
-        proverbsRes.json(),
-        riddlesRes.json(),
-        musicRes.json(),
-        dancesRes.json(),
-        artRes.json()
-      ]);
-
-      const allItems = [
-        ...(talesData.data?.tales || []).map((tale) => ({
-          id: `tale-${tale.id || tale.title}`,
-          title: tale.title,
-          description: tale.content,
-          content: tale.content,
-          category: 'conte',
-          location: tale.region || tale.culture || tale.origin,
-          author_name: tale.culture || 'Tradition orale',
-          source: tale.source,
-          sourceUrl: tale.sourceUrl,
-          createdAt: tale.createdAt,
-          timestamp: new Date().toISOString()
-        })),
-        ...(proverbsData.data?.proverbs || []).map((proverb) => ({
-          id: `proverb-${proverb.id || proverb.text}`,
-          title: proverb.text,
-          description: proverb.meaning,
-          content: proverb.text,
-          category: 'proverbe',
-          location: proverb.region || proverb.culture || proverb.origin,
-          author_name: proverb.culture || 'Sagesse traditionnelle',
-          source: proverb.source,
-          sourceUrl: proverb.sourceUrl,
-          createdAt: proverb.createdAt,
-          timestamp: new Date().toISOString()
-        })),
-        ...(riddlesData.data?.riddles || []).map((riddle) => ({
-          id: `riddle-${riddle.id || riddle.question}`,
-          title: riddle.question,
-          description: riddle.answer,
-          content: `${riddle.question} - ${riddle.answer}`,
-          category: 'devinette',
-          location: riddle.region || riddle.culture || riddle.origin,
-          author_name: riddle.culture || 'Tradition orale',
-          source: riddle.source,
-          sourceUrl: riddle.sourceUrl,
-          createdAt: riddle.createdAt,
-          timestamp: new Date().toISOString()
-        })),
-        ...(musicData.data?.music || []).map((music) => ({
-          id: `music-${music.id || music.title}`,
-          title: music.title,
-          description: music.description,
-          content: music.description,
-          category: 'chant',
-          location: music.origin,
-          author_name: music.artist || 'Communauté traditionnelle',
-          source: music.source,
-          sourceUrl: music.sourceUrl,
-          imageUrl: music.imageUrl || null,
-          videoUrl: music.videoUrl || null,
-          audioUrl: music.audioUrl || null,
-          ipfs_cid: music.ipfs_cid || null,
-          createdAt: music.createdAt,
-          timestamp: new Date().toISOString()
-        })),
-        ...(dancesData.data?.dances || []).map((dance) => ({
-          id: `dance-${dance.id || dance.title}`,
-          title: dance.title,
-          description: dance.description,
-          content: dance.description,
-          category: 'danse',
-          location: dance.origin,
-          author_name: dance.artist || 'Troupe traditionnelle',
-          source: dance.source,
-          sourceUrl: dance.sourceUrl,
-          imageUrl: dance.imageUrl || null,
-          videoUrl: dance.videoUrl || null,
-          audioUrl: dance.audioUrl || null,
-          createdAt: dance.createdAt,
-          timestamp: new Date().toISOString()
-        })),
-        ...(artData.data?.art || []).map((art) => ({
-          id: `art-${art.id || art.title}`,
-          title: art.title,
-          description: art.description,
-          content: art.description,
-          category: 'artisanat',
-          location: art.origin,
-          author_name: art.artist || 'Artisans traditionnels',
-          source: art.source,
-          sourceUrl: art.sourceUrl,
-          imageUrl: art.imageUrl || null,
-          videoUrl: art.videoUrl || null,
-          audioUrl: art.audioUrl || null,
-          createdAt: art.createdAt,
-          timestamp: new Date().toISOString()
-        }))
-      ];
+      const allItems = (payload.data?.posts || []).map((post) => {
+        const title = String(post.body || '').split('\n')[0].slice(0, 90);
+        return {
+          id: post.id,
+          title,
+          description: post.body,
+          content: post.body,
+          category: mapArchiveCategory(post.category),
+          location: post.origin,
+          author_name: post.author?.name || 'Membre',
+          source: post.author?.username ? `@${post.author.username}` : 'Nkwa',
+          imageUrl: post.imageUrl || null,
+          videoUrl: post.videoUrl || null,
+          audioUrl: post.audioUrl || null,
+          posterUrl: post.posterUrl || post.imageUrl || null,
+          sourceUrl: post.sourceUrl || null,
+          sourceTitle: post.sourceTitle || '',
+          categoryRaw: post.category,
+          credit: post.sourceTitle || '',
+          createdAt: post.createdAt,
+          timestamp: post.createdAt
+        };
+      });
 
       setItems(allItems);
       setFilteredItems(allItems);
     } catch (err) {
-      console.error('Erreur lors du chargement du contenu culturel:', err);
-
-      const fallbackItems = staticCulturalContent.map((item) => ({
-        id: item.id,
-        title: item.title,
-        category: item.category,
-        description: item.description,
-        content: item.content,
-        location: item.origin,
-        author_name: item.artist || item.author || 'Tradition orale',
-        source: item.source,
-        sourceUrl: item.sourceUrl,
-        imageUrl: item.image || null,
-        videoUrl: item.video || null,
-        audioUrl: item.audio || null,
-        createdAt: item.createdAt,
-        timestamp: item.createdAt
-      }));
-
-      setItems(fallbackItems);
-      setFilteredItems(fallbackItems);
-      setError(null);
+      console.error('Erreur lors du chargement des archives:', err);
+      setItems([]);
+      setFilteredItems([]);
+      setError('Les archives sont momentanément indisponibles.');
     } finally {
       setLoading(false);
     }
@@ -170,7 +110,13 @@ export default function Museum() {
 
   useEffect(() => {
     loadCulturalContent();
+    // Chargement initial unique. loadCulturalContent est recréée à chaque rendu.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setActiveReel(-1);
+  }, [searchTerm, selectedCategory]);
 
   useEffect(() => {
     let filtered = items;
@@ -192,26 +138,6 @@ export default function Museum() {
   }, [items, searchTerm, selectedCategory]);
 
   const formatDate = (timestamp) => new Date(timestamp).toLocaleDateString('fr-FR');
-
-  const getItemMediaUrl = (item) => {
-    if (item.videoUrl || item.video) return item.videoUrl || item.video;
-    if (item.imageUrl || item.image) return item.imageUrl || item.image;
-    if (item.audioUrl || item.audio) return item.audioUrl || item.audio;
-    if (item.ipfs_cid) return `https://ipfs.io/ipfs/${item.ipfs_cid}`;
-    return null;
-  };
-
-  const getMediaType = (item) => {
-    const mediaUrl = getItemMediaUrl(item);
-    if (!mediaUrl) return 'text';
-
-    const normalizedUrl = mediaUrl.toLowerCase();
-    if (item.videoUrl || item.video || /\.(mp4|webm|ogg|mov|m3u8)($|\?)/.test(normalizedUrl)) return 'video';
-    if (item.imageUrl || item.image || /\.(png|jpe?g|webp|gif|svg)($|\?)/.test(normalizedUrl)) return 'image';
-    if (item.audioUrl || item.audio || item.ipfs_cid || /\.(mp3|wav|ogg|aac|m4a|flac)($|\?)/.test(normalizedUrl)) return 'audio';
-    if (/\.pdf($|\?)/.test(normalizedUrl)) return 'pdf';
-    return 'text';
-  };
 
   return (
     <div className="museum">
@@ -288,8 +214,8 @@ export default function Museum() {
           {!loading && !error && (
             <div className="items-feed">
               {filteredItems.map((item, index) => {
-                const mediaType = getMediaType(item);
-                const mediaUrl = getItemMediaUrl(item);
+                const mediaType = archiveKind(item);
+                const poster = item.posterUrl || item.imageUrl;
                 const categoryLabel = categories.find((c) => c.value === item.category)?.label || item.category;
                 const categoryColor = categories.find((c) => c.value === item.category)?.color || 'var(--african-yellow)';
 
@@ -301,23 +227,50 @@ export default function Museum() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: Math.min(index * 0.05, 0.35), duration: 0.4 }}
                     layout
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => {
+                      const isArticle = item.sourceUrl && !item.videoUrl && !item.audioUrl;
+                      if (isArticle && onOpenArticle) {
+                        onOpenArticle({
+                          id: item.id,
+                          title: item.title,
+                          body: item.description,
+                          origin: item.location,
+                          category: item.categoryRaw || item.category,
+                          sourceTitle: item.sourceTitle,
+                          sourceUrl: item.sourceUrl,
+                          authorName: item.author_name
+                        });
+                        return;
+                      }
+                      setActiveReel(index);
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        const isArticle = item.sourceUrl && !item.videoUrl && !item.audioUrl;
+                        if (isArticle && onOpenArticle) {
+                          onOpenArticle({
+                            id: item.id,
+                            title: item.title,
+                            body: item.description,
+                            origin: item.location,
+                            category: item.categoryRaw || item.category,
+                            sourceTitle: item.sourceTitle,
+                            sourceUrl: item.sourceUrl,
+                            authorName: item.author_name
+                          });
+                          return;
+                        }
+                        setActiveReel(index);
+                      }
+                    }}
                   >
                     <div className="reel-media-layer">
-                      {mediaType === 'video' && mediaUrl && (
-                        <video
-                          src={mediaUrl}
-                          className="reel-video"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          controls
-                        />
-                      )}
-
-                      {mediaType === 'image' && mediaUrl && (
+                      {(mediaType === 'video' || mediaType === 'image' || mediaType === 'page') && poster && (
                         <img
-                          src={mediaUrl}
+                          src={poster}
                           alt={item.title}
                           className="reel-image"
                           onError={(event) => {
@@ -326,23 +279,16 @@ export default function Museum() {
                         />
                       )}
 
-                      {mediaType === 'audio' && mediaUrl && (
+                      {mediaType === 'audio' && (
                         <div className="reel-audio-stage">
-                          {item.imageUrl ? (
-                            <img src={item.imageUrl} alt={item.title} className="reel-image dimmed" />
+                          {poster ? (
+                            <img src={poster} alt={item.title} className="reel-image" />
                           ) : (
                             <div className="audio-gradient">
                               <Music size={48} />
                             </div>
                           )}
-                          <div className="audio-controls">
-                            <audio controls preload="none" src={mediaUrl} />
-                          </div>
                         </div>
-                      )}
-
-                      {mediaType === 'pdf' && mediaUrl && (
-                        <iframe title={item.title} src={mediaUrl} className="reel-pdf" />
                       )}
 
                       {mediaType === 'text' && (
@@ -351,6 +297,7 @@ export default function Museum() {
                           <p>{item.content || item.description || item.title}</p>
                         </div>
                       )}
+                      <span className="reel-open-badge" aria-hidden="true"><Play size={18} /></span>
                     </div>
 
                     <div className="reel-overlay">
@@ -390,6 +337,15 @@ export default function Museum() {
           )}
         </div>
       </motion.div>
+
+      {activeReel >= 0 ? (
+        <ReelViewer
+          items={filteredItems.map(archiveReel)}
+          index={activeReel}
+          onClose={() => setActiveReel(-1)}
+          onChangeIndex={setActiveReel}
+        />
+      ) : null}
 
       <style jsx>{`
         .museum {
@@ -499,6 +455,7 @@ export default function Museum() {
 
         .reel-card {
           position: relative;
+          cursor: pointer;
           height: min(78vh, 760px);
           min-height: 520px;
           border-radius: 18px;
@@ -580,6 +537,21 @@ export default function Museum() {
           font-size: 1.2rem;
           line-height: 1.6;
           max-width: 90%;
+        }
+
+        .reel-open-badge {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          z-index: 4;
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          background: rgba(0, 0, 0, 0.5);
+          color: white;
+          border: 2px solid rgba(255, 255, 255, 0.85);
         }
 
         .reel-overlay {

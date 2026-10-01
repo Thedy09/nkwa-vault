@@ -55,7 +55,9 @@ const app = express();
 app.use(compression());
 
 // Middleware de sécurité
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
 const configuredOrigins = new Set([
   process.env.FRONTEND_URL,
   ...(process.env.CORS_ORIGIN || '')
@@ -106,8 +108,8 @@ app.use(cors({
 
 // Rate limiting global
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requêtes par IP
+  windowMs: 15 * 60 * 1000,
+  max: 2000,
   message: {
     success: false,
     message: 'Trop de requêtes. Réessayez plus tard.'
@@ -135,6 +137,7 @@ app.use(['/cultural-content', '/api/cultural-content'], culturalContentRoute);
 app.use('/api/content', contentManagerRoute);
 app.use('/api/web3', web3CoreRoute);
 app.use('/api/museum', museumRoute);
+app.use('/api/social', require('./routes/social'));
 app.use('/api/collector', require('./routes/contentCollector'));
 app.use('/api/metrics', metricsRoute);
 app.use('/api/cache', cacheRoute);
