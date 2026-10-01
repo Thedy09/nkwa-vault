@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const metricsCollector = require('../utils/metrics');
 const { logInfo } = require('../utils/logger');
+const { authenticateToken, authorize } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -229,7 +230,7 @@ router.get('/detailed', (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/reset', (req, res) => {
+router.post('/reset', authenticateToken, authorize('ADMIN'), (req, res) => {
   try {
     metricsCollector.reset();
     

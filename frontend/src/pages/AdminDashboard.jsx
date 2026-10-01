@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   Plus, 
   Edit, 
@@ -19,6 +20,7 @@ import {
 } from 'lucide-react';
 
 const AdminDashboard = () => {
+  const { token, user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [content, setContent] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,19 +31,38 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     loadDashboardData();
-  }, []);
+  }, [token, user]);
+
+  const getAuthHeaders = () => {
+    if (!token) {
+      return {};
+    }
+
+    return {
+      Authorization: `Bearer ${token}`
+    };
+  };
 
   const loadDashboardData = async () => {
+    if (!token || user?.role !== 'ADMIN') {
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       
       // Charger les statistiques
-      const statsResponse = await fetch('/api/content/stats/overview');
+      const statsResponse = await fetch('/api/content/stats/overview', {
+        headers: getAuthHeaders()
+      });
       const statsData = await statsResponse.json();
       setStats(statsData);
 
       // Charger le contenu
-      const contentResponse = await fetch('/api/content?limit=50');
+      const contentResponse = await fetch('/api/content?limit=50', {
+        headers: getAuthHeaders()
+      });
       const contentData = await contentResponse.json();
       setContent(contentData.items || []);
 
@@ -57,9 +78,7 @@ const AdminDashboard = () => {
       try {
         const response = await fetch(`/api/content/${id}`, {
           method: 'DELETE',
-          headers: {
-            'Authorization': 'Bearer admin-token'
-          }
+          headers: getAuthHeaders()
         });
 
         if (response.ok) {
@@ -80,9 +99,7 @@ const AdminDashboard = () => {
           selectedItems.map(id => 
             fetch(`/api/content/${id}`, {
               method: 'DELETE',
-              headers: {
-                'Authorization': 'Bearer admin-token'
-              }
+              headers: getAuthHeaders()
             })
           )
         );

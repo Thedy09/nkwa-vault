@@ -28,6 +28,7 @@
     "build": "CI=false react-scripts build",
     "vercel-build": "CI=false npm run build",
     "test": "react-scripts test",
+    "test:ci": "CI=true react-scripts test --watchAll=false",
     "test:coverage": "CI=true react-scripts test --coverage --watchAll=false",
     "lint": "eslint src/**/*.js src/**/*.jsx"
   },

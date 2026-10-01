@@ -92,7 +92,7 @@ Comptes déjà présents dans le réseau :
 
 ```bash
 # Déploiement automatique
-./deploy-vercel.sh
+./deploy.sh
 
 # Ou manuellement
 vercel --prod

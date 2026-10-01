@@ -1,18 +1,34 @@
 const request = require('supertest');
 const express = require('express');
-const museumRoute = require('../../routes/museum');
 
-// Mock Prisma
-const mockPrisma = {
-  culturalContent: {
-    findMany: jest.fn(),
-    count: jest.fn()
+const mockCollection = [
+  {
+    id: '1',
+    name: 'Test Art',
+    description: 'Test description',
+    type: 'art',
+    culture: 'Yoruba',
+    country: 'Nigeria',
+    tags: ['art']
   }
+];
+
+const mockMuseumCollectionService = {
+  getCollection: jest.fn(),
+  getCollectionStats: jest.fn(),
+  searchCollection: jest.fn()
 };
 
-jest.mock('../../config/database', () => ({
-  prisma: mockPrisma
+jest.mock('../../services/museumCollectionService', () => mockMuseumCollectionService);
+jest.mock('../../middleware/cache', () => ({
+  museumCacheMiddleware: () => (req, res, next) => next(),
+  statsCacheMiddleware: () => (req, res, next) => next(),
+  searchCacheMiddleware: () => (req, res, next) => next(),
+  cacheInvalidationMiddleware: () => (req, res, next) => next(),
+  invalidateMuseumCache: jest.fn()
 }));
+
+const museumRoute = require('../../routes/museum');
 
 const app = express();
 app.use(express.json());
@@ -25,17 +41,7 @@ describe('Museum Routes', () => {
 
   describe('GET /api/museum/collection', () => {
     it('should return collection successfully', async () => {
-      const mockCollection = [
-        {
-          id: '1',
-          title: 'Test Art',
-          type: 'ART',
-          culture: 'Yoruba',
-          country: 'Nigeria'
-        }
-      ];
-
-      mockPrisma.culturalContent.findMany.mockResolvedValue(mockCollection);
+      mockMuseumCollectionService.getCollection.mockResolvedValue(mockCollection);
 
       const response = await request(app)
         .get('/api/museum/collection')
@@ -45,33 +51,27 @@ describe('Museum Routes', () => {
       expect(response.body.data.collection).toEqual(mockCollection);
     });
 
-    it('should handle database errors', async () => {
-      mockPrisma.culturalContent.findMany.mockRejectedValue(new Error('Database error'));
+    it('should handle service errors', async () => {
+      mockMuseumCollectionService.getCollection.mockRejectedValue(new Error('Service error'));
 
       const response = await request(app)
         .get('/api/museum/collection')
         .expect(500);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.message).toContain('Erreur');
+      expect(response.body.error).toContain('Erreur');
     });
   });
 
   describe('GET /api/museum/stats', () => {
     it('should return museum statistics', async () => {
-      const mockStats = {
-        total: 10,
-        nfts: 2,
-        freeArts: 8,
-        cultures: ['Yoruba', 'Zulu'],
-        countries: ['Nigeria', 'South Africa']
-      };
-
-      mockPrisma.culturalContent.count.mockResolvedValue(10);
-      mockPrisma.culturalContent.findMany.mockResolvedValue([
-        { culture: 'Yoruba', country: 'Nigeria', type: 'NFT' },
-        { culture: 'Zulu', country: 'South Africa', type: 'ART' }
-      ]);
+      mockMuseumCollectionService.getCollectionStats.mockResolvedValue({
+        total: 1,
+        nfts: 0,
+        freeArts: 1,
+        cultures: ['Yoruba'],
+        countries: ['Nigeria']
+      });
 
       const response = await request(app)
         .get('/api/museum/stats')
@@ -87,12 +87,12 @@ describe('Museum Routes', () => {
       const mockResults = [
         {
           id: '1',
-          title: 'Test Search Result',
-          type: 'ART'
+          name: 'Test Search Result',
+          type: 'art'
         }
       ];
 
-      mockPrisma.culturalContent.findMany.mockResolvedValue(mockResults);
+      mockMuseumCollectionService.searchCollection.mockResolvedValue(mockResults);
 
       const response = await request(app)
         .get('/api/museum/search')
@@ -109,7 +109,7 @@ describe('Museum Routes', () => {
         .expect(400);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.message).toContain('requis');
+      expect(response.body.error).toContain('requis');
     });
   });
 });

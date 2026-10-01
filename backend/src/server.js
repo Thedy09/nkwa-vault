@@ -6,9 +6,10 @@ const rateLimit = require('express-rate-limit');
 const compression = require('compression');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./config/swagger');
+const { assertProductionSecurity } = require('./config/security');
 
 // Database
-const { prisma, testConnection } = require('./config/database');
+const { prisma, testConnection, closeConnection } = require('./config/database');
 
 // Web3 Configuration - PILIER CENTRAL
 const web3Config = require('./config/web3');
@@ -87,6 +88,14 @@ function isVercelOrigin(origin) {
   }
 }
 
+function isVercelPreviewOrigin(origin) {
+  if (process.env.NODE_ENV === 'production' && !process.env.ALLOW_VERCEL_PREVIEWS) {
+    return false;
+  }
+
+  return isVercelOrigin(origin);
+}
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) {
@@ -94,7 +103,7 @@ app.use(cors({
       return;
     }
 
-    if (configuredOrigins.has(origin) || isLocalDevOrigin(origin) || isVercelOrigin(origin)) {
+    if (configuredOrigins.has(origin) || isLocalDevOrigin(origin) || isVercelPreviewOrigin(origin)) {
       callback(null, true);
       return;
     }
@@ -142,21 +151,86 @@ app.use('/api/collector', require('./routes/contentCollector'));
 app.use('/api/metrics', metricsRoute);
 app.use('/api/cache', cacheRoute);
 
-// Documentation API Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
-  customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: 'Nkwa V API Documentation'
-}));
+// Documentation API Swagger (désactivée en production par défaut)
+if (process.env.NODE_ENV !== 'production' || process.env.ENABLE_SWAGGER === 'true') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'Nkwa V API Documentation'
+  }));
+}
 
-// Route de santé
-app.get(['/health', '/api/health'], (req, res) => {
+async function collectReadinessChecks() {
+  const checks = {
+    database: { status: 'unknown' },
+    redis: { status: 'skipped' },
+    web3: { status: 'unknown' }
+  };
+
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    checks.database = { status: 'ok' };
+  } catch (error) {
+    checks.database = { status: 'error', message: error.message };
+  }
+
+  if (redisService.enabled) {
+    try {
+      const redisReady = await redisService.isReady();
+      checks.redis = redisReady
+        ? { status: 'ok' }
+        : { status: 'error', message: 'Redis ping failed' };
+    } catch (error) {
+      checks.redis = { status: 'error', message: error.message };
+    }
+  }
+
+  try {
+    const web3Status = web3Core.getStatus?.();
+    checks.web3 = web3Status?.ready
+      ? { status: 'ok' }
+      : { status: 'degraded', message: 'Web3 services not fully initialized' };
+  } catch (error) {
+    checks.web3 = { status: 'error', message: error.message };
+  }
+
+  const ready = checks.database.status === 'ok';
+  return { ready, checks };
+}
+
+// Probes de santé
+app.get(['/health/live', '/api/health/live'], (req, res) => {
   res.json({
     success: true,
-    message: 'Nkwa V Backend is running',
+    status: 'alive',
     timestamp: new Date().toISOString(),
     version: '1.0.0'
   });
 });
+
+app.get(['/health/ready', '/api/health/ready'], asyncErrorHandler(async (req, res) => {
+  const { ready, checks } = await collectReadinessChecks();
+
+  res.status(ready ? 200 : 503).json({
+    success: ready,
+    status: ready ? 'ready' : 'not_ready',
+    checks,
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+}));
+
+// Route de santé (rétrocompatibilité)
+app.get(['/health', '/api/health'], asyncErrorHandler(async (req, res) => {
+  const { ready, checks } = await collectReadinessChecks();
+
+  res.status(ready ? 200 : 503).json({
+    success: ready,
+    message: ready ? 'Nkwa V Backend is running' : 'Nkwa V Backend is degraded',
+    checks,
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+}));
 
 // Route 404
 app.use(notFoundHandler);
@@ -175,6 +249,8 @@ const initializeServices = async () => {
 
   servicesInitializationPromise = (async () => {
     try {
+      assertProductionSecurity();
+
       // Connexion à la base de données
       await testConnection();
       
@@ -213,7 +289,7 @@ const initializeServices = async () => {
 
 if (!process.env.VERCEL) {
   // Configurer les gestionnaires d'erreurs globaux uniquement en mode serveur long-lived
-  setupErrorHandlers();
+  setupErrorHandlers(gracefulShutdown);
 }
 
 // Initialiser les services au démarrage
@@ -221,10 +297,46 @@ initializeServices().catch((error) => {
   console.error('❌ Initialisation partielle:', error.message);
 });
 
+let httpServer = null;
+let isShuttingDown = false;
+
+async function gracefulShutdown(signal) {
+  if (isShuttingDown) {
+    return;
+  }
+
+  isShuttingDown = true;
+  console.log(`📡 Arrêt gracieux déclenché (${signal})`);
+
+  const forceExitTimer = setTimeout(() => {
+    console.error('⏱️ Arrêt forcé après timeout');
+    process.exit(1);
+  }, 10000);
+  forceExitTimer.unref();
+
+  try {
+    if (httpServer) {
+      await new Promise((resolve, reject) => {
+        httpServer.close((error) => (error ? reject(error) : resolve()));
+      });
+    }
+
+    metricsCollector.stop?.();
+    await redisService.close?.();
+    await closeConnection();
+    clearTimeout(forceExitTimer);
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Erreur pendant l\'arrêt gracieux:', error.message);
+    clearTimeout(forceExitTimer);
+    process.exit(1);
+  }
+}
+
 const shouldListen = !process.env.VERCEL && process.env.NODE_ENV !== 'test';
 if (shouldListen) {
   const PORT = process.env.PORT || 4000;
-  app.listen(PORT, () => {
+  httpServer = app.listen(PORT, () => {
     console.log('Nkwa V Backend running on port', PORT);
     console.log('Authentication system ready');
     console.log('Database connection ready');

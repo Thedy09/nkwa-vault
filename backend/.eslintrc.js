@@ -1,0 +1,16 @@
+module.exports = {
+  env: {
+    node: true,
+    es2021: true,
+    jest: true
+  },
+  extends: ['eslint:recommended', 'prettier'],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'script'
+  },
+  rules: {
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+  },
+  ignorePatterns: ['node_modules/', 'coverage/']
+};

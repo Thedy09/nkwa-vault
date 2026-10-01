@@ -1,3 +1,5 @@
+jest.unmock('../../services/blockchainProvider');
+
 const blockchainProvider = require('../../services/blockchainProvider');
 
 describe('BlockchainProvider', () => {

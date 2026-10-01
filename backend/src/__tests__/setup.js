@@ -1,11 +1,18 @@
+const { PrismaClient } = require('@prisma/client');
+const { getJwtSecret } = require('../config/security');
+
 // Configuration globale pour les tests
 process.env.NODE_ENV = 'test';
 process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgresql://test:test@localhost:5432/nkwa_vault_test';
-process.env.JWT_SECRET = 'test-jwt-secret';
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-jwt-secret';
 process.env.EVM_NETWORK = 'testnet';
 process.env.EVM_CHAIN_ID = '84532';
+process.env.REDIS_ENABLED = 'false';
+process.env.AUTH_DEMO_MODE = 'true';
 
-// Mock des services Web3 pour les tests
+getJwtSecret();
+
+// Mock des services Web3 pour les tests d'intégration route
 jest.mock('../services/blockchainProvider', () => ({
   initialize: jest.fn().mockResolvedValue(true),
   isAvailable: jest.fn().mockReturnValue(true),
@@ -32,15 +39,15 @@ jest.mock('../services/blockchainProvider', () => ({
     balanceEth: '0',
     totalCertifications: 0
   }),
-  hashContent: jest.fn().mockReturnValue('0xtest'),
+  hashContent: jest.fn().mockReturnValue('0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'),
   toBytes32: jest.fn((value) => value)
 }));
 
 jest.mock('../services/ipfsService', () => ({
   initialize: jest.fn().mockResolvedValue(true),
-  uploadFile: jest.fn().mockResolvedValue({ success: true, cid: 'test-cid' }),
+  uploadFile: jest.fn().mockResolvedValue({ success: true, cid: 'test-cid', url: 'ipfs://test-cid' }),
   uploadJSON: jest.fn().mockResolvedValue({ success: true, cid: 'test-cid' }),
-  uploadImage: jest.fn().mockResolvedValue({ success: true, cid: 'test-cid' })
+  uploadImage: jest.fn().mockResolvedValue({ success: true, cid: 'test-cid', gatewayUrl: 'https://ipfs.io/ipfs/test-cid' })
 }));
 
 // Mock de Prisma
@@ -72,5 +79,4 @@ jest.mock('@prisma/client', () => ({
   }))
 }));
 
-// Configuration des timeouts
 jest.setTimeout(30000);
