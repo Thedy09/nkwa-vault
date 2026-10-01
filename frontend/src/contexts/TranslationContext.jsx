@@ -164,7 +164,7 @@ const translations = {
     submit: 'Submit Content',
     
     // Footer
-    footerDesc: 'Preserve and share the rich African cultural heritage',
+    footerDesc: 'Verified sources from African cultural heritage. Original texts, with a translation for the language you choose.',
     allRightsReserved: 'All rights reserved',
     
     // Feedback
@@ -367,8 +367,8 @@ const translations = {
     discover: 'Découvrir',
     
     // Museum
-    museumTitle: 'Musée Culturel Africain',
-    museumSubtitle: 'Explorez notre collection de trésors culturels africains',
+    museumTitle: 'Archives',
+    museumSubtitle: 'Pièces attribuées à leur institution. Le texte d’origine reste visible.',
     searchPlaceholder: 'Rechercher dans la collection...',
     all: 'Toutes',
     tales: 'Contes',
@@ -409,7 +409,7 @@ const translations = {
     submit: 'Soumettre le Contenu',
     
     // Footer
-    footerDesc: 'Préserver et partager le riche patrimoine culturel africain',
+    footerDesc: 'Archives du patrimoine culturel africain. Sources vérifiées, texte d’origine, traduction selon la langue choisie.',
     allRightsReserved: 'Tous droits réservés',
     
     // Feedback

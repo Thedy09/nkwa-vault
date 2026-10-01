@@ -140,7 +140,7 @@ export default function ReelViewer({ items, index, onClose, onChangeIndex }) {
           ) : (
             <p>{item.body}</p>
           )}
-          {item.credit ? <div className="muted">{item.credit}</div> : null}
+          {item.credit && item.credit !== item.author ? <div className="muted">{item.credit}</div> : null}
         </div>
       </section>
     </div>,

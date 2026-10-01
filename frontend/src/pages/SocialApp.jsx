@@ -40,7 +40,7 @@ import { collectReels } from '../social/reels';
 import '../social/social.css';
 
 const NAV = [
-  { id: 'feed', label: 'Fil', icon: Home },
+  { id: 'feed', label: 'Journal', icon: Home },
   { id: 'explore', label: 'Explorer', icon: Compass },
   { id: 'archives', label: 'Archives', icon: Library },
   { id: 'notifications', label: 'Alertes', icon: Bell },
@@ -220,8 +220,8 @@ function Rail({ community }) {
   return (
     <>
       <div className="rail-block">
-        <h3>Ressources vérifiées</h3>
-        <p className="muted">Contes, devinettes, chants et articles attribués à leur institution. Le texte d&apos;origine est celui de la localité ; la traduction suit la langue choisie.</p>
+        <h3>Sources</h3>
+        <p className="muted">Contes, devinettes, chants et articles attribués à leur institution. Le texte d&apos;origine reste celui de la localité. La traduction suit la langue choisie.</p>
       </div>
       <div className="rail-block">
         <h3>En circulation</h3>
@@ -284,8 +284,13 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, communi
 
   return (
     <>
+      <header className="archive-masthead">
+        <p className="eyebrow">Archives culturelles</p>
+        <h1>Le journal</h1>
+        <p className="muted">Contes, devinettes, chants et articles, chacun relié à sa source.</p>
+      </header>
       <div className="chip-row">
-        <button className={`chip ${mode === 'discover' && !gamesOnly ? 'active' : ''}`} type="button" onClick={() => { setGamesOnly(false); setMode('discover'); }}>Pour vous</button>
+        <button className={`chip ${mode === 'discover' && !gamesOnly ? 'active' : ''}`} type="button" onClick={() => { setGamesOnly(false); setMode('discover'); }}>À la une</button>
         <button className={`chip ${mode === 'following' ? 'active' : ''}`} type="button" onClick={() => {
           if (!isAuthenticated()) {
             onRequireAuth?.();
@@ -312,7 +317,7 @@ function Feed({ onOpenProfile, onRequireAuth, onOpenReel, onOpenArticle, communi
       </div>
       {reels.length > 0 ? (
         <div className="reel-rail-wrap">
-          <div className="reel-rail-title">Reels</div>
+          <div className="reel-rail-title">Images et chants</div>
           <div className="reel-rail">
             {reels.map((post) => {
               const poster = mediaUrl(post.posterUrl || post.imageUrl);

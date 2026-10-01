@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <circle cx="100" cy="100" r="95" fill="#1a1a1a" stroke="#FFD700" stroke-width="4"/>
-  <circle cx="100" cy="100" r="50" fill="#32CD32"/>
-  <rect x="90" y="120" width="20" height="60" fill="#FFD700" rx="10"/>
-  <circle cx="100" cy="100" r="15" fill="#FFD700" stroke="#fff" stroke-width="2"/>
-  <text x="100" y="107" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1a1a1a">N</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="30" fill="#C6A15B"/>
+  <circle cx="32" cy="32" r="24.5" fill="#141816"/>
+  <path d="M22 42.5c1.2-13.5 6.2-21 10-21s8.8 7.5 10 21" fill="none" stroke="#C6A15B" stroke-width="2.1" stroke-linecap="round"/>
+  <path d="M32 16.5v17" stroke="#E7D3A1" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="32" cy="38.5" r="2.1" fill="#C6A15B"/>
 </svg>

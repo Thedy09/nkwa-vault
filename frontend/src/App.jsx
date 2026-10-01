@@ -49,8 +49,8 @@ const AppContent = () => {
       >
         <div className="container">
           <div className="nav-brand">
-            <Logo size={40} animated={true} />
-            <span>Nkwa V</span>
+            <Logo size={36} animated={false} />
+            <span className="wordmark">Nkwa</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -115,7 +115,7 @@ const AppContent = () => {
         <div className="sidebar-content">
           <div className="sidebar-header">
             <Logo size={32} animated={false} />
-            <span>Nkwa V</span>
+            <span className="wordmark">Nkwa</span>
           </div>
           <div className="sidebar-language">
             <label htmlFor="mobile-language-select">{t('languages')}</label>
@@ -189,14 +189,14 @@ const AppContent = () => {
           <div className="footer-content">
             <div className="footer-brand">
               <Logo size={28} animated={false} />
-              <span>Nkwa V</span>
+              <span className="wordmark">Nkwa</span>
             </div>
             <p className="footer-description">
               {t('footerDesc')}
             </p>
           </div>
           <div className="footer-bottom">
-            <p>&copy; 2024 Nkwa V. {t('allRightsReserved')}.</p>
+            <p>&copy; 2026 Nkwa. {t('allRightsReserved')}.</p>
           </div>
         </div>
       </motion.footer>
@@ -219,10 +219,10 @@ const AppContent = () => {
           left: 0;
           right: 0;
           z-index: 1000;
-          background: rgba(26, 26, 26, 0.95);
-          backdrop-filter: blur(10px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding: var(--spacing-sm) 0;
+          background: rgba(18, 22, 20, 0.94);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid rgba(198, 161, 91, 0.28);
+          padding: 10px 0;
         }
 
         .navbar .container {
@@ -234,10 +234,14 @@ const AppContent = () => {
         .nav-brand {
           display: flex;
           align-items: center;
-          gap: var(--spacing-sm);
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: var(--african-yellow);
+          gap: 10px;
+          color: var(--paper);
+        }
+
+        .wordmark {
+          font-size: 1.55rem;
+          line-height: 1;
+          color: var(--paper);
         }
 
         .nav-links {
@@ -260,8 +264,8 @@ const AppContent = () => {
           display: flex;
           align-items: center;
           gap: 8px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.16);
+          background: transparent;
+          border: 1px solid var(--line);
           border-radius: var(--radius-sm);
           padding: 6px 10px;
         }
@@ -299,7 +303,7 @@ const AppContent = () => {
           align-items: center;
           gap: var(--spacing-xs);
           padding: var(--spacing-sm) var(--spacing-md);
-          border: 2px solid var(--african-yellow);
+          border: 1px solid var(--gold);
           border-radius: var(--radius-sm);
           background: transparent;
           color: var(--african-yellow);
@@ -310,8 +314,8 @@ const AppContent = () => {
         }
 
         .auth-button:hover {
-          background: var(--african-yellow);
-          color: var(--african-black);
+          background: var(--gold);
+          color: #1a1610;
         }
 
         .user-info {
@@ -387,9 +391,7 @@ const AppContent = () => {
           align-items: center;
           gap: var(--spacing-sm);
           margin-bottom: var(--spacing-xl);
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: var(--african-yellow);
+          color: var(--paper);
         }
 
         .sidebar-links {
@@ -438,7 +440,7 @@ const AppContent = () => {
           align-items: center;
           gap: var(--spacing-sm);
           padding: var(--spacing-md);
-          border: 2px solid var(--african-yellow);
+          border: 1px solid var(--gold);
           border-radius: var(--radius-sm);
           background: transparent;
           color: var(--african-yellow);
@@ -450,8 +452,8 @@ const AppContent = () => {
         }
 
         .sidebar-auth-button:hover {
-          background: var(--african-yellow);
-          color: var(--african-black);
+          background: var(--gold);
+          color: #1a1610;
         }
 
         .sidebar-link {
@@ -511,9 +513,7 @@ const AppContent = () => {
           align-items: center;
           justify-content: center;
           gap: var(--spacing-sm);
-          font-size: 1.1rem;
-          font-weight: 600;
-          color: var(--african-yellow);
+          color: var(--paper);
           margin-bottom: var(--spacing-sm);
         }
 
