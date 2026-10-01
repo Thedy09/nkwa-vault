@@ -54,7 +54,7 @@ export default function ReelViewer({ items, index, onClose, onChangeIndex }) {
   };
 
   return createPortal(
-    <div className="reel-viewer" role="dialog" aria-modal="true" aria-label="Lecture dans l'application">
+    <div className="reel-viewer" role="dialog" aria-modal="true" aria-label="Reel">
       <button className="reel-viewer-backdrop" type="button" aria-label="Fermer" onClick={onClose} />
       <section
         className="reel-stage"

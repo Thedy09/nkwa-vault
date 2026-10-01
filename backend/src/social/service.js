@@ -1195,7 +1195,7 @@ function ensureReels() {
       posterUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Senegalese_Dance.webm/960px--Senegalese_Dance.webm.jpg',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Senegalese_Dance.webm',
       sourceTitle: 'Danse sénégalaise · Wikimedia Commons',
-      body: 'Danse sénégalaise : sabar, épaules et pieds qui répondent au tambour. Ouvre le reel pour la regarder ici.'
+      body: 'Danse sénégalaise : sabar. Les épaules et les pieds répondent au tambour, et chaque pas relance le rythme que le sabar vient de poser.'
     },
     {
       id: 'reel-kumpo',
@@ -1207,7 +1207,7 @@ function ensureReels() {
       posterUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Dans_van_de_Kumpo_in_Bagaya.webm/250px--Dans_van_de_Kumpo_in_Bagaya.webm.jpg',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Dans_van_de_Kumpo_in_Bagaya.webm',
       sourceTitle: 'Danse du Kumpo à Bagaya · Wikimedia Commons',
-      body: 'Le Kumpo sort à Bagaya. Le masque danse, le village répond. Le film s\'ouvre dans l\'application.'
+      body: 'Le Kumpo sort à Bagaya. Le masque de fibres danse, le village répond par les chants.'
     },
     {
       id: 'reel-femmes-bagaya',
@@ -1219,7 +1219,7 @@ function ensureReels() {
       posterUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Dans_van_de_vrouwen_in_Bagaya.webm/250px--Dans_van_de_vrouwen_in_Bagaya.webm.jpg',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Dans_van_de_vrouwen_in_Bagaya.webm',
       sourceTitle: 'Danse des femmes de Bagaya · Wikimedia Commons',
-      body: 'Danse des femmes à Bagaya. Les pas racontent autant que les chants. Lecture dans Nkwa, pas dans un autre onglet.'
+      body: 'Danse des femmes à Bagaya, en pays diola. Les pas racontent autant que les chants : le cercle avance, les pieds marquent le sol, et les voix portent le village.'
     },
     {
       id: 'reel-laamb',
@@ -1231,19 +1231,19 @@ function ensureReels() {
       posterUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Laamb_Fever.webm/960px--Laamb_Fever.webm.jpg',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Laamb_Fever.webm',
       sourceTitle: 'Laamb · Wikimedia Commons',
-      body: 'Laamb, la lutte sénégalaise : le sable, l\'entrée, la clameur. Appuie pour ouvrir la vidéo ici.'
+      body: 'Laamb, la lutte sénégalaise : le sable, l\'entrée, la clameur. Le lutteur danse son bàkk, les tam-tams ouvrent l\'arène, et le nom crié précède la prise.'
     },
     {
       id: 'reel-accralate',
       author: 'ama',
       category: 'musique',
-      origin: 'Ghana · Accra',
+      origin: 'Percussions · inspiration africaine',
       hours: 1.1,
       audioUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Accralate_%28ISRC_USUAN1100341%29.mp3',
       posterUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Madou_Jemb%C3%A9%2C_musicien_de_rue.jpg/960px-Madou_Jemb%C3%A9%2C_musicien_de_rue.jpg',
       sourceUrl: 'https://commons.wikimedia.org/wiki/File:Accralate_(ISRC_USUAN1100341).mp3',
       sourceTitle: 'Accralate · Wikimedia Commons',
-      body: 'Accralate, un air d\'Accra. Le chant se lit comme un reel : ouvre-le pour l\'écouter sans quitter la page.'
+      body: 'Accralate : percussions et marimba en polyrythmie lente, batu, conga, agogo et clave. Pièce instrumentale de Kevin MacLeod, déposée sur Wikimedia Commons.'
     }
   ];
 
@@ -1258,14 +1258,20 @@ function ensureReels() {
 
   const updateReelLocale = db.prepare(`
     UPDATE posts
-    SET body = ?, language = ?, translations = ?
-    WHERE id = ?
+    SET body = ?, language = ?, translations = ?, origin = ?
+    WHERE id = ? OR source_url = ?
+  `);
+  const updatePlainBody = db.prepare(`
+    UPDATE posts
+    SET body = ?, origin = ?
+    WHERE id = ? OR source_url = ?
   `);
   reels.forEach((reel) => {
     const locale = reelLocales[reel.id];
     const author = findUser.get(reel.author);
     if (!author) return;
-    if (!findReel.get(reel.id, reel.sourceUrl)) {
+    const existing = findReel.get(reel.id, reel.sourceUrl);
+    if (!existing) {
       insert.run(
         reel.id,
         author.id,
@@ -1286,8 +1292,12 @@ function ensureReels() {
         locale.body,
         locale.language,
         JSON.stringify(locale.translations),
-        reel.id
+        reel.origin,
+        reel.id,
+        reel.sourceUrl
       );
+    } else if (existing) {
+      updatePlainBody.run(reel.body, reel.origin, existing.id, reel.sourceUrl);
     }
   });
 }

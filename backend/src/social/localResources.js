@@ -497,12 +497,60 @@ const reelLocales = {
     language: 'Diola',
     body: 'Kumpo',
     translations: pack({
-      fr: 'Le Kumpo sort à Bagaya. Le masque danse, le village répond.',
-      en: 'The Kumpo comes out at Bagaya. The mask dances, the village answers.',
-      es: 'El Kumpo sale en Bagaya. La máscara danza, el pueblo responde.',
-      pt: 'O Kumpo sai em Bagaya. A máscara dança, a aldeia responde.',
-      sw: 'Kumpo hutoka Bagaya. Barakoa hucheza, kijiji hujibu.',
-      ar: 'يخرج الكومبو في باغاي. القناع يرقص، والقرية تجيب.'
+      fr: 'Le Kumpo sort à Bagaya. Le masque de fibres danse, le village répond par les chants.',
+      en: 'The Kumpo comes out at Bagaya. The fibre mask dances, and the village answers in song.',
+      es: 'El Kumpo sale en Bagaya. La máscara de fibras danza, y el pueblo responde con cantos.',
+      pt: 'O Kumpo sai em Bagaya. A máscara de fibras dança, e a aldeia responde com cantos.',
+      sw: 'Kumpo hutoka Bagaya. Barakoa ya nyuzi hucheza, kijiji hujibu kwa nyimbo.',
+      ar: 'يخرج الكومبو في باغاي. قناع الألياف يرقص، والقرية تجيب بالغناء.'
+    })
+  },
+  'reel-sabar': {
+    language: 'Wolof',
+    body: 'Sabar',
+    translations: pack({
+      fr: 'Danse sénégalaise : sabar. Les épaules et les pieds répondent au tambour, et chaque pas relance le rythme que le sabar vient de poser.',
+      en: 'Senegalese dance: sabar. Shoulders and feet answer the drum, and each step picks up the rhythm the sabar has just set.',
+      es: 'Danza senegalesa: sabar. Los hombros y los pies responden al tambor, y cada paso retoma el ritmo que el sabar acaba de marcar.',
+      pt: 'Dança senegalesa: sabar. Os ombros e os pés respondem ao tambor, e cada passo retoma o ritmo que o sabar acabou de lançar.',
+      sw: 'Ngoma ya Kisenegali: sabar. Mabega na miguu hujibu ngoma, na kila hatua huchukua mdundo ambao sabar imeweka.',
+      ar: 'رقصة سنغالية: الصبار. الكتفان والقدمان تجيبان الطبل، وكل خطوة تستأنف الإيقاع الذي وضعه الصبار.'
+    })
+  },
+  'reel-femmes-bagaya': {
+    language: 'Diola',
+    body: 'Bagaya',
+    translations: pack({
+      fr: 'Danse des femmes à Bagaya, en pays diola. Les pas racontent autant que les chants : le cercle avance, les pieds marquent le sol, et les voix portent le village.',
+      en: 'Women\'s dance at Bagaya, in Diola country. The steps tell as much as the songs: the circle moves forward, the feet mark the ground, and the voices carry the village.',
+      es: 'Danza de las mujeres en Bagaya, en país diola. Los pasos cuentan tanto como los cantos: el círculo avanza, los pies marcan el suelo y las voces llevan el pueblo.',
+      pt: 'Dança das mulheres em Bagaya, em terra diola. Os passos contam tanto quanto os cantos: o círculo avança, os pés marcam o chão e as vozes levam a aldeia.',
+      sw: 'Ngoma ya wanawake Bagaya, katika nchi ya Diola. Hatua zinasimulia kama nyimbo: duara linasonga, miguu inadonoa ardhi, na sauti zinabeba kijiji.',
+      ar: 'رقصة النساء في باغاي، في بلاد الديولا. الخطوات تحكي بقدر الأغاني: الدائرة تتقدم، والأقدام تضرب الأرض، والأصوات تحمل القرية.'
+    })
+  },
+  'reel-laamb': {
+    language: 'Wolof',
+    body: 'Laamb',
+    translations: pack({
+      fr: 'Laamb, la lutte sénégalaise : le sable, l\'entrée, la clameur. Le lutteur danse son bàkk, les tam-tams ouvrent l\'arène, et le nom crié précède la prise.',
+      en: 'Laamb, Senegalese wrestling: the sand, the entrance, the roar. The wrestler dances his bàkk, the drums open the arena, and the shouted name comes before the hold.',
+      es: 'Laamb, la lucha senegalesa: la arena, la entrada, el clamor. El luchador baila su bàkk, los tambores abren la arena y el nombre gritado precede a la presa.',
+      pt: 'Laamb, a luta senegalesa: a areia, a entrada, o clamor. O lutador dança o seu bàkk, os tambores abrem a arena e o nome gritado precede a pegada.',
+      sw: 'Laamb, mieleka ya Kisenegali: mchanga, kuingia, kelele. Mshindani hucheza bàkk wake, ngoma hufungua uwanja, na jina linalopigwa kelele hutangulia mshiko.',
+      ar: 'لامب، المصارعة السنغالية: الرمل، الدخول، الجلبة. المصارع يرقص الباك، والطبول تفتح الحلبة، والاسم المنادى يسبق المسكة.'
+    })
+  },
+  'reel-accralate': {
+    language: '',
+    body: 'Accralate',
+    translations: pack({
+      fr: 'Accralate : percussions et marimba en polyrythmie lente, batu, conga, agogo et clave. Pièce instrumentale de Kevin MacLeod, déposée sur Wikimedia Commons.',
+      en: 'Accralate: percussion and marimba in a slow polyrhythm, batu, conga, agogo and clave. An instrumental piece by Kevin MacLeod, filed on Wikimedia Commons.',
+      es: 'Accralate: percusión y marimba en polirritmia lenta, batu, conga, agogo y clave. Pieza instrumental de Kevin MacLeod, depositada en Wikimedia Commons.',
+      pt: 'Accralate: percussão e marimba em polirritmia lenta, batu, conga, agogo e clave. Peça instrumental de Kevin MacLeod, depositada no Wikimedia Commons.',
+      sw: 'Accralate: ngoma na marimba kwa polyrhythm ya polepole, batu, conga, agogo na clave. Kipande cha ala cha Kevin MacLeod, kilichowekwa Wikimedia Commons.',
+      ar: 'أكراليت: إيقاع وماريمبا بتعدد إيقاعي بطيء، باتو وكونغا وأغوغو وكلافي. قطعة آلية لكيفن ماكلاود، مودعة في ويكيميديا كومنز.'
     })
   }
 };

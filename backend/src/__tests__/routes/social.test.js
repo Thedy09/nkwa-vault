@@ -202,6 +202,20 @@ describe('Réseau social', () => {
     expect(posts.some((post) => post.videoUrl && post.videoUrl.endsWith('.webm'))).toBe(true);
     expect(posts.some((post) => post.audioUrl && post.audioUrl.endsWith('.mp3'))).toBe(true);
     expect(posts.find((post) => post.id === 'reel-sabar').posterUrl).toBeTruthy();
+
+    const forbidden = /autre onglet|Ouvre le reel|sans quitter|s'ouvre dans|Appuie pour ouvrir|lecteur s'ouvre|ouvre-le pour|Lecture dans Nkwa|dans un autre onglet/i;
+    expect(JSON.stringify(posts)).not.toMatch(forbidden);
+
+    const feed = await request(app).get('/api/social/feed');
+    expect(JSON.stringify(feed.body)).not.toMatch(forbidden);
+    const sabar = posts.find((post) => post.id === 'reel-sabar');
+    expect(sabar.body).toBe('Sabar');
+    expect(sabar.translations.fr).toMatch(/tambour/i);
+    expect(sabar.translations.en).toMatch(/drum/i);
+    expect(sabar.translations.es).toMatch(/tambor/i);
+    expect(sabar.translations.pt).toMatch(/tambor/i);
+    expect(sabar.translations.sw).toMatch(/ngoma/i);
+    expect(sabar.translations.ar).toMatch(/الطبل/);
   });
 
   test('refuse une publication sans session', async () => {
