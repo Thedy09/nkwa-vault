@@ -1,0 +1,46 @@
+---
+description: Nkwa V project context — tech stack, conventions, and boundaries for AI agents
+alwaysApply: true
+---
+
+# Nkwa V Project Context
+
+## Mission
+
+Preserve, share, and certify African cultural heritage using Web3 (EVM blockchain + IPFS) with accessible Web2 UX.
+
+## Architecture
+
+```
+frontend/          React 18 SPA (Create React App)
+backend/           Node.js + Express 5 + Prisma + PostgreSQL
+contracts/         Vyper smart contracts (cultural registry)
+```
+
+## Key Directories
+
+- `backend/src/routes/` — API endpoints
+- `backend/src/services/` — Business logic (Web3, IPFS, content)
+- `backend/prisma/` — Database schema and migrations
+- `frontend/src/pages/` — Route pages
+- `frontend/src/components/` — UI components
+- `frontend/src/contexts/` — React context providers
+
+## Conventions
+
+- JavaScript (not TypeScript) across frontend and backend
+- Functional React components with hooks
+- Express route handlers delegate to services
+- Environment variables via `.env` (never committed)
+- Tests in `__tests__/` directories
+
+## Web3-Specific
+
+- Gasless UX via backend relayer (`EVM_RELAYER_PRIVATE_KEY`)
+- IPFS for decentralized content storage
+- Contract interactions go through `backend/src/services/` — do not call chain directly from frontend
+- See `WEB3_SETUP_GUIDE.md` and `DEPLOYMENT_GUIDE.md` for setup
+
+## Agent Skills
+
+Skills from [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) are in `.agents/skills/`. See `AGENTS.md` for lifecycle mapping. Apply relevant skills for each task — especially `security-and-hardening` for Web3 work.
